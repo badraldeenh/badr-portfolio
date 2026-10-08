@@ -1,0 +1,3 @@
+Upload index.html and the assets folder to the root of the GitHub repository badraldeenh/badr-portfolio.
+If GitHub asks about replacing index.html, confirm the replacement.
+Commit the changes. Vercel should redeploy automatically.
