@@ -1,0 +1,80 @@
+name: Add HATAN campaign video
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-hatan-video.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Add HATAN campaign video to portfolio
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          video_path = 'assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4'
+          if video_path in s:
+              print('HATAN video is already present in index.html')
+              raise SystemExit(0)
+
+          old_css = '.caseStudy{background:linear-gradient(180deg,rgba(201,165,90,.055),transparent 45%)}.caseHero{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--panel);margin-bottom:18px}.caseHero img{width:100%;height:auto}'
+          new_css = '.caseStudy{background:linear-gradient(180deg,rgba(201,165,90,.055),transparent 45%)}.caseVideoFeature{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:34px;align-items:center;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,#171719,#111113);padding:28px;margin-bottom:18px;overflow:hidden}.caseVideoFrame{background:#050506;border:1px solid #29292e;border-radius:18px;padding:10px;box-shadow:0 26px 70px rgba(0,0,0,.28)}.caseVideoFrame video{width:100%;aspect-ratio:9/16;object-fit:cover;max-height:720px;margin:auto;border-radius:12px;background:#000}.caseVideoCopy h4{font-size:30px;line-height:1.08;margin:0 0 12px;letter-spacing:-.025em}.caseVideoCopy p{margin:0 0 18px;color:#b9b8b4;max-width:620px}.caseVideoMeta{display:flex;gap:8px;flex-wrap:wrap}.caseVideoMeta span{font-size:11px;color:#d7d5ce;padding:6px 9px;border:1px solid #323238;border-radius:999px;background:#101012}.caseVideoSound{margin-top:14px;color:#8d8c87;font-size:12px}.caseHero{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--panel);margin-bottom:18px}.caseHero img{width:100%;height:auto}'
+          if old_css not in s:
+              raise SystemExit('CSS anchor not found')
+          s = s.replace(old_css, new_css, 1)
+
+          old_media = '@media(max-width:900px){.heroGrid,.showreelInner,.two{grid-template-columns:1fr}.caseIntro{grid-template-columns:1fr}.caseGrid{columns:2}'
+          new_media = '@media(max-width:900px){.heroGrid,.showreelInner,.two,.caseVideoFeature{grid-template-columns:1fr}.caseVideoFrame{max-width:390px;width:100%;margin:auto}.caseIntro{grid-template-columns:1fr}.caseGrid{columns:2}'
+          if old_media not in s:
+              raise SystemExit('Responsive CSS anchor not found')
+          s = s.replace(old_media, new_media, 1)
+
+          anchor = '''        <div class="caseIntro">
+          <div><div class="eyebrow">HATAN — Fine Foods & Confections</div><h3>Premium Food Brand Identity</h3><p>A self-initiated brand identity case study built from logo system and typography through packaging, retail, uniforms, takeaway applications and in-store experience.</p></div>
+          <span class="caseTag">Branding • Packaging • Retail</span>
+        </div>
+'''
+          feature = anchor + '''        <div class="caseVideoFeature">
+          <div class="caseVideoFrame">
+            <video src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4" autoplay muted loop playsinline controls preload="metadata" aria-label="HATAN Stadium Delivery Campaign"></video>
+          </div>
+          <div class="caseVideoCopy">
+            <div class="eyebrow">Featured Campaign Film</div>
+            <h4>HATAN — Stadium Delivery Campaign</h4>
+            <p>A 15-second fictional stadium-delivery concept combining AI-assisted visual production, cinematic direction, brand continuity and sound design for a social-first food campaign.</p>
+            <div class="caseVideoMeta"><span>Spec Concept</span><span>AI Video</span><span>Art Direction</span><span>9:16 Social Film</span><span>15 Seconds</span></div>
+            <div class="caseVideoSound">Autoplay starts muted. Use the video controls to hear the full stadium sound mix.</div>
+          </div>
+        </div>
+'''
+          if anchor not in s:
+              raise SystemExit('HATAN section anchor not found')
+          s = s.replace(anchor, feature, 1)
+          p.write_text(s, encoding='utf-8')
+          print('index.html patched successfully')
+          PY
+      - name: Commit portfolio update
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No index.html changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Feature HATAN stadium campaign video"
+          git push
