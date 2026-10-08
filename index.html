@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Badr Eldin Mohamed Alamin — AI Video Creator, Graphic & Multimedia Designer and Video Editor based in the UAE, open to relocation across Europe." />
+  <meta name="theme-color" content="#0d0d0f" />
+  <meta property="og:title" content="Badr Eldin Mohamed Alamin — Creative Portfolio" />
+  <meta property="og:description" content="AI Video Creator • Graphic & Multimedia Designer • Video Editor" />
+  <title>Badr Eldin Mohamed Alamin — AI Video Creator & Multimedia Designer</title>
+  <style>
+    :root{--bg:#0d0d0f;--panel:#151518;--panel2:#1b1b1f;--text:#f5f4f0;--muted:#a8a7a3;--accent:#c9a55a;--line:#2b2b30;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:auto}.nav{position:sticky;top:0;z-index:30;background:rgba(13,13,15,.86);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}.navin{height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:900;letter-spacing:.09em}.brand span{color:var(--accent)}.links{display:flex;gap:22px;color:#d8d7d2;font-size:14px}.links a:hover{color:white}.cta{border:1px solid var(--accent);padding:10px 15px;border-radius:999px;color:#f7e3b2;font-weight:800}
+    .hero{padding:82px 0 58px}.heroGrid{display:grid;grid-template-columns:1.18fr .82fr;gap:58px;align-items:center}.eyebrow{color:var(--accent);font-size:13px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px}.hero h1{font-size:clamp(44px,7vw,80px);line-height:.97;margin:0 0 22px;letter-spacing:-.058em}.hero h1 em{font-style:normal;color:var(--accent)}.lead{font-size:20px;color:#cfcec9;max-width:720px;margin:0 0 28px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{padding:13px 18px;border-radius:10px;font-weight:850;border:1px solid var(--line);background:var(--panel);display:inline-flex;align-items:center;gap:8px;transition:.18s ease}.btn:hover{transform:translateY(-1px);border-color:#46464c}.btn.primary{background:var(--accent);color:#141414;border-color:var(--accent)}.micro{margin-top:24px;color:var(--muted);font-size:14px}.portrait{border-radius:28px;overflow:hidden;background:var(--panel);border:1px solid var(--line);aspect-ratio:4/5;box-shadow:0 28px 80px rgba(0,0,0,.35)}.portrait img{width:100%;height:100%;object-fit:cover}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:34px;max-width:770px}.stat{padding:14px 14px;border:1px solid var(--line);border-radius:12px;background:#111114}.stat b{display:block;font-size:13px;color:#f1f0eb}.stat span{font-size:12px;color:var(--muted)}
+    section{padding:62px 0}.sectionHead{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:26px}.sectionHead h2{margin:0;font-size:36px;letter-spacing:-.035em}.sectionHead p{margin:0;color:var(--muted);max-width:620px}.showreelBox{border:1px solid var(--line);background:var(--panel);border-radius:24px;overflow:hidden}.showreelInner{display:grid;grid-template-columns:minmax(280px,430px) 1fr}.showreelVideo{background:#000}.showreelVideo video{width:100%;aspect-ratio:9/16;object-fit:cover;max-height:720px;margin:auto}.showreelCopy{padding:46px;display:flex;flex-direction:column;justify-content:center}.showreelCopy h3{font-size:34px;margin:0 0 14px;letter-spacing:-.02em}.showreelCopy p{color:#b9b8b4;margin:0 0 20px}.chips,.miniChips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:#111114;padding:8px 10px;border-radius:999px;font-size:12px;color:#ddd}.miniChips{margin-top:14px}.miniChips span{font-size:11px;color:#c8c7c3;padding:5px 8px;border:1px solid #2d2d32;border-radius:999px;background:#101012}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s ease}.card:hover{transform:translateY(-3px);border-color:#444}.media{aspect-ratio:9/16;background:#090909;position:relative;overflow:hidden}.media video{width:100%;height:100%;object-fit:cover}.rank{position:absolute;top:12px;left:12px;background:rgba(10,10,11,.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:900;padding:6px 9px;border-radius:999px}.cardBody{padding:18px}.kicker{font-size:11px;color:var(--accent);font-weight:900;letter-spacing:.12em;text-transform:uppercase}.card h3{margin:6px 0 8px;font-size:20px}.card p{margin:0;color:var(--muted);font-size:14px}
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step{padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:16px}.num{font-size:12px;font-weight:900;color:var(--accent);letter-spacing:.12em}.step h3{margin:8px 0 8px;font-size:18px}.step p{margin:0;color:var(--muted);font-size:14px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px}.panel h3{margin:0 0 16px;font-size:24px}.skillList{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;color:#d0cfca}.skillList div{padding:10px 0;border-bottom:1px solid #242429}.about p{color:#c2c1bc}.highlight{color:var(--accent);font-weight:850}
+    .contact{background:linear-gradient(135deg,#171719,#111113);border:1px solid var(--line);border-radius:24px;padding:38px;display:flex;justify-content:space-between;gap:30px;align-items:center}.contact h2{margin:0 0 8px;font-size:34px}.contact p{margin:0;color:var(--muted)}.contactActions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.footer{padding:34px 0 46px;color:#777;font-size:13px;display:flex;justify-content:space-between;gap:16px;border-top:1px solid #1f1f22;margin-top:56px}
+    @media(max-width:900px){.heroGrid,.showreelInner,.two{grid-template-columns:1fr}.hero{padding-top:46px}.portrait{max-width:520px}.grid{grid-template-columns:1fr 1fr}.showreelVideo video{max-height:680px}.showreelCopy{padding:30px}.links{display:none}.contact{align-items:flex-start;flex-direction:column}.contactActions{justify-content:flex-start}.process{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.wrap{width:min(var(--max),calc(100% - 24px))}.grid,.process{grid-template-columns:1fr}.hero h1{font-size:48px}.lead{font-size:18px}.sectionHead{align-items:flex-start;flex-direction:column}.sectionHead h2{font-size:30px}.skillList{grid-template-columns:1fr}.navin{height:62px}.cta{font-size:13px}.contact{padding:26px}.footer{flex-direction:column}.stats{grid-template-columns:1fr 1fr}.hero{padding-bottom:36px}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap navin">
+      <a class="brand" href="#top">BADR<span>.</span></a>
+      <div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="#process">Process</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+      <a class="cta" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap heroGrid">
+        <div>
+          <div class="eyebrow">AI Video • Design • Editing • Advertising</div>
+          <h1>Badr Eldin<br><em>Mohamed Alamin</em></h1>
+          <p class="lead">AI Video Creator, Graphic & Multimedia Designer and Video Editor turning ideas into cinematic product advertising, social content and visual stories.</p>
+          <div class="actions">
+            <a class="btn primary" href="#work">View selected work</a>
+            <a class="btn" href="mailto:badrlooka90@gmail.com">Email me</a>
+          </div>
+          <div class="micro">Based in the United Arab Emirates • Open to relocation across Europe • Seeking visa sponsorship / work permit support</div>
+          <div class="stats" aria-label="Professional focus">
+            <div class="stat"><b>AI Video</b><span>Generative creative production</span></div>
+            <div class="stat"><b>Design</b><span>Photoshop & Illustrator</span></div>
+            <div class="stat"><b>Editing</b><span>Premiere Pro workflows</span></div>
+            <div class="stat"><b>Marketing</b><span>Social-first advertising</span></div>
+          </div>
+        </div>
+        <figure class="portrait"><img src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" /></figure>
+      </div>
+    </header>
+
+    <section id="reel">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Showreel</h2><p>A compact overview of AI-assisted product advertising, food visuals, cinematic motion and character storytelling.</p></div>
+        <div class="showreelBox">
+          <div class="showreelInner">
+            <div class="showreelVideo"><video src="assets/video/showreel.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div>
+            <div class="showreelCopy">
+              <div class="eyebrow">Selected visual work</div>
+              <h3>From concept to finished video.</h3>
+              <p>I combine generative AI, design thinking and video editing to develop advertising visuals from the first idea through the final social-ready cut.</p>
+              <div class="chips"><span class="chip">Generative AI</span><span class="chip">Product Advertising</span><span class="chip">Video Editing</span><span class="chip">Visual Storytelling</span><span class="chip">Social Content</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Selected work</h2><p>A curated selection of product advertising, food visuals, generative motion and narrative experimentation.</p></div>
+        <div class="grid">
+          <article class="card"><div class="media"><span class="rank">01 • Featured</span><video poster="assets/img/project-01.jpg" src="assets/video/project-01.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Product Commercial</div><h3>Chocolate Craft Film</h3><p>Cinematic chocolate-making visuals built around pouring, texture, break-apart reveals and premium product detail.</p><div class="miniChips"><span>AI Visuals</span><span>Product Detail</span><span>Editing</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">02</span><video poster="assets/img/project-02.jpg" src="assets/video/project-02.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Food & Beverage</div><h3>Mango Beverage Commercial</h3><p>A bright vertical beverage concept combining fruit motion, macro product shots and a clean social-ad finish.</p><div class="miniChips"><span>Generative AI</span><span>Beverage</span><span>9:16</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">03</span><video poster="assets/img/project-03.jpg" src="assets/video/project-03.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Product Storytelling</div><h3>Chocolate Dessert Process</h3><p>Process-led food storytelling moving from preparation and pouring to texture-focused finishing shots.</p><div class="miniChips"><span>Food Visuals</span><span>Editing</span><span>Social Content</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">04</span><video poster="assets/img/project-04.jpg" src="assets/video/project-04.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Short-form Food Advertising</div><h3>Filled Chocolate Reveal</h3><p>Fast macro cuts reveal multiple fillings and textures, designed to hold attention in vertical social advertising.</p><div class="miniChips"><span>Macro</span><span>Food Detail</span><span>Reels</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">05</span><video poster="assets/img/project-05.jpg" src="assets/video/project-05.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Process-led Commercial</div><h3>Handcrafted Chocolate Process</h3><p>A tactile sequence showing shaping, coating and glossy chocolate detail with a premium handmade feel.</p><div class="miniChips"><span>Craft</span><span>Product Detail</span><span>Vertical Video</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">06</span><video poster="assets/img/project-06.jpg" src="assets/video/project-06.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Food Macro</div><h3>Croissant Detail Story</h3><p>A compact macro sequence focused on pastry texture, filling and preparation — built as a strong social hook.</p><div class="miniChips"><span>Macro</span><span>Food Visuals</span><span>Short-form</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">07</span><video poster="assets/img/project-07.jpg" src="assets/video/project-07.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Generative AI Motion</div><h3>Chocolate Box Hero Shot</h3><p>A high-impact motion concept using floating chocolate elements and rapid camera movement to create an advertising hook.</p><div class="miniChips"><span>AI Motion</span><span>Hero Shot</span><span>Commercial Hook</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">08</span><video poster="assets/img/project-08.jpg" src="assets/video/project-08.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Storytelling</div><h3>Character Narrative</h3><p>Character-focused generative visuals exploring expression, continuity and short-form narrative direction.</p><div class="miniChips"><span>Characters</span><span>Continuity</span><span>Storytelling</span></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Creative process</h2><p>My value is the ability to move across the whole creative chain rather than work on only one isolated stage.</p></div>
+        <div class="process">
+          <div class="step"><div class="num">01</div><h3>Idea</h3><p>Translate a marketing goal into a clear visual concept and short-form direction.</p></div>
+          <div class="step"><div class="num">02</div><h3>AI Creation</h3><p>Generate and refine images, shots and visual elements for the concept.</p></div>
+          <div class="step"><div class="num">03</div><h3>Edit</h3><p>Build pace, continuity, sound and visual rhythm in the final video edit.</p></div>
+          <div class="step"><div class="num">04</div><h3>Deliver</h3><p>Prepare social-ready creative for vertical advertising, campaigns and brand content.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="wrap two">
+        <div class="panel">
+          <div class="eyebrow">About</div>
+          <h3>Creative production across AI, design and video.</h3>
+          <p>I work across graphic design, video editing, photography, digital marketing content and generative AI. My strongest value is being able to take an advertising idea and develop it into a complete visual piece rather than working on only one stage of production.</p>
+          <p><span class="highlight">Languages:</span> Arabic — Native • English — Excellent written communication, basic spoken communication.</p>
+        </div>
+        <div class="panel">
+          <div class="eyebrow">Core toolkit</div>
+          <h3>Software & capabilities</h3>
+          <div class="skillList"><div>Adobe Photoshop</div><div>Adobe Illustrator</div><div>Adobe Premiere Pro</div><div>Adobe After Effects — Basic</div><div>DaVinci Resolve — Basic</div><div>Generative AI workflows</div><div>Photography</div><div>Digital Marketing Content</div><div>Concept Development</div><div>Short-form Advertising</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact">
+          <div><div class="eyebrow">Available for opportunities</div><h2>Open to creative roles across Europe.</h2><p>AI video, multimedia, video editing and creative advertising roles with visa sponsorship, work permit or relocation support.</p></div>
+          <div class="contactActions"><a class="btn primary" href="mailto:badrlooka90@gmail.com">Email</a><a class="btn" href="https://wa.me/971581372145" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">CV PDF</a></div>
+        </div>
+        <div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>AI Video Creator • Graphic & Multimedia Designer • Video Editor</span></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
