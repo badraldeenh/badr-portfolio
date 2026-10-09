@@ -12,7 +12,7 @@
   <script>
     (async () => {
       try {
-        const response = await fetch('/index.html', {cache: 'no-store'});
+        const response = await fetch('/index.html?v=avena-2', {cache: 'no-store'});
         if (!response.ok) throw new Error('Could not load portfolio');
         const html = await response.text();
         const parsed = new DOMParser().parseFromString(html, 'text/html');
@@ -22,9 +22,11 @@
           const sectionCopy = parsed.querySelector('#design .sectionHead p');
           if (sectionCopy) sectionCopy.textContent = 'Selected identity systems across healthcare, food, packaging, retail and branded environments.';
 
+          const sectionHead = parsed.querySelector('#design .sectionHead');
           const entry = parsed.createElement('div');
+          entry.id = 'avena-feature';
           entry.innerHTML = `
-            <div class="caseIntro" style="margin-top:46px">
+            <div class="caseIntro" style="margin-top:0">
               <div>
                 <div class="eyebrow">AVENA — Medical Center</div>
                 <h3>Healthcare Brand Identity</h3>
@@ -33,17 +35,35 @@
               <span class="caseTag">Healthcare • Identity • Digital</span>
             </div>
             <a class="caseHero" href="avena.html" aria-label="View AVENA Medical Center case study">
-              <img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="lazy">
+              <img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
             </a>
-            <div class="panel" style="margin-bottom:18px">
-              <div class="eyebrow">Full Case Study</div>
+            <div class="panel" style="margin-bottom:34px">
+              <div class="eyebrow">Featured Case Study</div>
               <h3>AVENA Medical Center</h3>
               <p>Explore the full visual identity from the core brand system through environmental, uniform, vehicle, digital and social-media applications.</p>
               <div class="actions" style="margin-top:18px"><a class="btn primary" href="avena.html">View AVENA Case Study</a></div>
-            </div>
-            <p class="caseNote">Self-initiated healthcare branding concept created for portfolio presentation.</p>`;
-          while (entry.firstChild) designWrap.appendChild(entry.firstChild);
+            </div>`;
+
+          if (sectionHead && sectionHead.nextSibling) {
+            designWrap.insertBefore(entry, sectionHead.nextSibling);
+          } else {
+            designWrap.prepend(entry);
+          }
         }
+
+        const navLinks = parsed.querySelector('.links');
+        if (navLinks && !navLinks.querySelector('a[href="#avena-feature"]')) {
+          const designLink = navLinks.querySelector('a[href="#design"]');
+          const avenaLink = parsed.createElement('a');
+          avenaLink.href = '#avena-feature';
+          avenaLink.textContent = 'AVENA';
+          if (designLink && designLink.nextSibling) navLinks.insertBefore(avenaLink, designLink.nextSibling);
+          else navLinks.appendChild(avenaLink);
+        }
+
+        const extraStyle = parsed.createElement('style');
+        extraStyle.textContent = '#avena-feature{scroll-margin-top:90px}';
+        parsed.head.appendChild(extraStyle);
 
         document.open();
         document.write('<!DOCTYPE html>' + parsed.documentElement.outerHTML);
