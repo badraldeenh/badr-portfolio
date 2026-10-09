@@ -12,17 +12,14 @@
   <script>
     (async () => {
       try {
-        const response = await fetch('/index.html?v=avena-2', {cache: 'no-store'});
+        const response = await fetch('/index.html?v=avena-3', {cache: 'no-store'});
         if (!response.ok) throw new Error('Could not load portfolio');
         const html = await response.text();
         const parsed = new DOMParser().parseFromString(html, 'text/html');
 
-        const designWrap = parsed.querySelector('#design .wrap');
-        if (designWrap && !parsed.body.textContent.includes('AVENA — Medical Center')) {
-          const sectionCopy = parsed.querySelector('#design .sectionHead p');
-          if (sectionCopy) sectionCopy.textContent = 'Selected identity systems across healthcare, food, packaging, retail and branded environments.';
-
-          const sectionHead = parsed.querySelector('#design .sectionHead');
+        const workWrap = parsed.querySelector('#work .wrap');
+        if (workWrap && !parsed.body.textContent.includes('AVENA — Medical Center')) {
+          const sectionHead = parsed.querySelector('#work .sectionHead');
           const entry = parsed.createElement('div');
           entry.id = 'avena-feature';
           entry.innerHTML = `
@@ -45,19 +42,19 @@
             </div>`;
 
           if (sectionHead && sectionHead.nextSibling) {
-            designWrap.insertBefore(entry, sectionHead.nextSibling);
+            workWrap.insertBefore(entry, sectionHead.nextSibling);
           } else {
-            designWrap.prepend(entry);
+            workWrap.prepend(entry);
           }
         }
 
         const navLinks = parsed.querySelector('.links');
         if (navLinks && !navLinks.querySelector('a[href="#avena-feature"]')) {
-          const designLink = navLinks.querySelector('a[href="#design"]');
+          const workLink = navLinks.querySelector('a[href="#work"]');
           const avenaLink = parsed.createElement('a');
           avenaLink.href = '#avena-feature';
           avenaLink.textContent = 'AVENA';
-          if (designLink && designLink.nextSibling) navLinks.insertBefore(avenaLink, designLink.nextSibling);
+          if (workLink && workLink.nextSibling) navLinks.insertBefore(avenaLink, workLink.nextSibling);
           else navLinks.appendChild(avenaLink);
         }
 
