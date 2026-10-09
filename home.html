@@ -12,49 +12,89 @@
   <script>
     (async () => {
       try {
-        const response = await fetch('/index.html?v=vareno-hq-1', {cache: 'no-store'});
+        const response = await fetch('/index.html?v=vareno-home-3', {cache:'no-store'});
         if (!response.ok) throw new Error('Could not load portfolio');
         const html = await response.text();
-        const parsed = new DOMParser().parseFromString(html, 'text/html');
+        const parsed = new DOMParser().parseFromString(html,'text/html');
 
         const originalScripts = [...parsed.querySelectorAll('script')]
           .filter(s => !s.textContent.includes('varenoAssets') && !s.textContent.includes('assets/vareno-data/'))
-          .map(s => ({src:s.src, text:s.textContent, type:s.type}));
+          .map(s => ({src:s.src,text:s.textContent,type:s.type}));
         parsed.querySelectorAll('script').forEach(s => s.remove());
 
         document.head.innerHTML = parsed.head.innerHTML;
         document.body.innerHTML = parsed.body.innerHTML;
 
+        const qualityStyle = document.createElement('style');
+        qualityStyle.textContent = `
+          .varenoQualityHero,.varenoQualityShot{
+            display:block!important;
+            padding:0!important;
+            overflow:hidden!important;
+            background:#0b0b0d!important;
+            border:1px solid #2b2b30!important;
+          }
+          .varenoQualityHero{
+            border-radius:24px!important;
+            box-shadow:0 28px 80px rgba(0,0,0,.34)!important;
+          }
+          .varenoQualityShot{border-radius:16px!important}
+          .varenoQualityHero img,.varenoQualityShot img,
+          [data-vareno-image]{
+            display:block!important;
+            width:100%!important;
+            max-width:none!important;
+            height:auto!important;
+            object-fit:cover!important;
+            margin:0!important;
+            border-radius:0!important;
+            box-shadow:none!important;
+            filter:none!important;
+            image-rendering:auto!important;
+          }
+          .varenoQualityHero .caseCaption,.varenoQualityShot .caseCaption{
+            width:100%!important;
+            margin:0!important;
+            padding:14px 16px!important;
+            background:#111113!important;
+          }
+          #vareno-case + .caseHero{margin-bottom:18px!important}
+          #vareno-case ~ .caseGrid{
+            columns:initial!important;
+            display:grid!important;
+            grid-template-columns:repeat(2,minmax(0,1fr))!important;
+            gap:18px!important;
+          }
+          #vareno-case ~ .caseGrid .caseShot{margin:0!important}
+          .vareno-home-cta{margin:18px 0 34px!important}
+          @media(max-width:760px){
+            #vareno-case ~ .caseGrid{grid-template-columns:1fr!important}
+          }
+        `;
+        document.head.appendChild(qualityStyle);
+
         const varenoAssets = {
-          hero: '/assets/img/vareno/vareno-hero.webp',
-          identity: '/assets/img/vareno/vareno-identity.webp',
-          applications: '/assets/img/vareno/vareno-final-showcase.webp',
-          final: '/assets/img/vareno/vareno-final-showcase.webp'
+          hero:'/assets/img/vareno/vareno-hero.webp',
+          identity:'/assets/img/vareno/vareno-identity.webp',
+          applications:'/assets/img/vareno/vareno-final-showcase.webp',
+          final:'/assets/img/vareno/vareno-final-showcase.webp'
         };
         Object.entries(varenoAssets).forEach(([key,src]) => {
           document.querySelectorAll(`[data-vareno-image="${key}"]`).forEach(img => {
             img.src = src;
             img.removeAttribute('srcset');
+            img.removeAttribute('width');
+            img.removeAttribute('height');
           });
         });
 
         const varenoCase = document.getElementById('vareno-case');
-        if (varenoCase) {
+        if (varenoCase && !document.querySelector('.vareno-home-cta')) {
           const hero = varenoCase.nextElementSibling;
-          if (hero && hero.classList.contains('caseHero')) {
-            hero.classList.remove('varenoQualityHero');
-            hero.style.padding = '0';
-          }
-          document.querySelectorAll('.varenoQualityShot').forEach(el => {
-            el.classList.remove('varenoQualityShot');
-            el.style.padding = '0';
-          });
-          const linkWrap = document.createElement('div');
-          linkWrap.className = 'actions';
-          linkWrap.style.margin = '18px 0 34px';
-          linkWrap.innerHTML = '<a class="btn primary" href="/vareno/">View Full VARENO Case Study</a>';
-          const overview = hero ? hero.nextElementSibling : null;
-          if (overview) overview.insertAdjacentElement('afterend', linkWrap);
+          const cta = document.createElement('div');
+          cta.className = 'actions vareno-home-cta';
+          cta.innerHTML = '<a class="btn primary" href="/vareno/">View Full VARENO Case Study →</a>';
+          if (hero) hero.insertAdjacentElement('afterend',cta);
         }
 
         const workWrap = document.querySelector('#work .wrap');
@@ -81,8 +121,7 @@
               <p>Explore the full visual identity from the core brand system through environmental, uniform, vehicle, digital and social-media applications.</p>
               <div class="actions" style="margin-top:18px"><a class="btn primary" href="/avena.html">View AVENA Case Study</a></div>
             </div>`;
-
-          if (sectionHead) sectionHead.insertAdjacentElement('afterend', entry);
+          if (sectionHead) sectionHead.insertAdjacentElement('afterend',entry);
           else workWrap.prepend(entry);
         }
 
@@ -92,7 +131,7 @@
           const avenaLink = document.createElement('a');
           avenaLink.href = '#avena-feature';
           avenaLink.textContent = 'AVENA';
-          if (workLink) workLink.insertAdjacentElement('afterend', avenaLink);
+          if (workLink) workLink.insertAdjacentElement('afterend',avenaLink);
           else navLinks.appendChild(avenaLink);
         }
 
