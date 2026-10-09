@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0d0f">
+  <title>BADR Magic — Creative Portfolio</title>
+  <style>html,body{margin:0;background:#0d0d0f;color:#f5f4f0;font-family:system-ui,sans-serif}#loading{min-height:100vh;display:grid;place-items:center;color:#a8a7a3}</style>
+</head>
+<body>
+  <div id="loading">Loading portfolio…</div>
+  <script>
+    (async () => {
+      try {
+        const response = await fetch('/index.html', {cache: 'no-store'});
+        if (!response.ok) throw new Error('Could not load portfolio');
+        const html = await response.text();
+        const parsed = new DOMParser().parseFromString(html, 'text/html');
+
+        const designWrap = parsed.querySelector('#design .wrap');
+        if (designWrap && !parsed.body.textContent.includes('AVENA — Medical Center')) {
+          const sectionCopy = parsed.querySelector('#design .sectionHead p');
+          if (sectionCopy) sectionCopy.textContent = 'Selected identity systems across healthcare, food, packaging, retail and branded environments.';
+
+          const entry = parsed.createElement('div');
+          entry.innerHTML = `
+            <div class="caseIntro" style="margin-top:46px">
+              <div>
+                <div class="eyebrow">AVENA — Medical Center</div>
+                <h3>Healthcare Brand Identity</h3>
+                <p>A complete medical-center identity system covering logo presentation, typography, stationery, uniforms, interior and exterior branding, digital booking UI, vehicle branding and campaign applications.</p>
+              </div>
+              <span class="caseTag">Healthcare • Identity • Digital</span>
+            </div>
+            <a class="caseHero" href="avena.html" aria-label="View AVENA Medical Center case study">
+              <img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="lazy">
+            </a>
+            <div class="panel" style="margin-bottom:18px">
+              <div class="eyebrow">Full Case Study</div>
+              <h3>AVENA Medical Center</h3>
+              <p>Explore the full visual identity from the core brand system through environmental, uniform, vehicle, digital and social-media applications.</p>
+              <div class="actions" style="margin-top:18px"><a class="btn primary" href="avena.html">View AVENA Case Study</a></div>
+            </div>
+            <p class="caseNote">Self-initiated healthcare branding concept created for portfolio presentation.</p>`;
+          while (entry.firstChild) designWrap.appendChild(entry.firstChild);
+        }
+
+        document.open();
+        document.write('<!DOCTYPE html>' + parsed.documentElement.outerHTML);
+        document.close();
+      } catch (error) {
+        location.replace('/index.html');
+      }
+    })();
+  </script>
+</body>
+</html>
