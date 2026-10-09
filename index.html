@@ -36,6 +36,12 @@
     @media(max-width:620px){.caseStages{grid-template-columns:1fr}.caseVideoFeature{padding:18px}.caseVideoCopy h4{font-size:26px}.caseCaption{flex-wrap:wrap}.hero h1{font-size:clamp(36px,10vw,48px)}.portrait{margin:0}.caseVideoFeature{grid-template-columns:minmax(0,1fr)}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.card,.caseShot{transition:none}.btn:hover,.card:hover,.caseShot:hover{transform:none}}
       #character-scenes .media{max-height:600px}#character-scenes .media video{object-fit:contain}
+      .varenoQualityHero,.varenoQualityShot{background:radial-gradient(circle at 50% 35%,#211d17 0,#111113 58%,#0b0b0d 100%);display:grid;grid-template-columns:1fr;place-items:center;padding:clamp(20px,4vw,48px);overflow:hidden}
+      .varenoQualityHero img,.varenoQualityShot img{width:auto!important;height:auto!important;max-width:100%;object-fit:contain;image-rendering:auto;filter:contrast(1.04) saturate(1.03);box-shadow:0 18px 48px rgba(0,0,0,.34);border-radius:12px}
+      .varenoQualityHero img{max-width:420px}
+      .varenoQualityShot img{max-width:320px}
+      .varenoQualityHero .caseCaption,.varenoQualityShot .caseCaption{width:100%;justify-self:stretch;margin-top:18px;padding-left:0;padding-right:0}
+      @media(max-width:620px){.varenoQualityHero,.varenoQualityShot{padding:18px}.varenoQualityHero img,.varenoQualityShot img{max-width:100%}}
   </style>
 </head>
 <body>
@@ -162,7 +168,7 @@
           <div><div class="eyebrow">VARENO — Barber Club</div><h3>Luxury Grooming Brand Identity</h3><p>A self-initiated identity system for a premium barber club, developed from strategy and logo architecture through environmental branding, uniforms, grooming products, stationery and digital touchpoints.</p></div>
           <span class="caseTag">Branding • Art Direction • Digital</span>
         </div>
-        <figure class="caseHero"><img data-vareno-image="hero" alt="VARENO Barber Club hero identity showcase" loading="lazy"><div class="caseCaption"><b>VARENO Barber Club</b><span class="caseMeta">Hero Brand Experience</span></div></figure>
+        <figure class="caseHero varenoQualityHero"><img data-vareno-image="hero" alt="VARENO Barber Club hero identity showcase" loading="lazy"><div class="caseCaption"><b>VARENO Barber Club</b><span class="caseMeta">Hero Brand Experience</span></div></figure>
         <div class="panel campaignCase" aria-labelledby="vareno-overview-title">
           <div class="eyebrow">Brand Overview • Self-initiated concept</div>
           <h3 id="vareno-overview-title">Crafted for the modern gentleman.</h3>
@@ -170,8 +176,8 @@
           <dl class="projectFacts"><div><dt>Role</dt><dd>Brand Strategy • Visual Identity • Art Direction</dd></div><div><dt>Scope</dt><dd>Logo system • Environment • Packaging • Digital</dd></div><div><dt>Positioning</dt><dd>Premium grooming • Modern heritage</dd></div><div><dt>Audience</dt><dd>Style-conscious men • 25–45</dd></div></dl>
         </div>
         <div class="caseGrid">
-          <figure class="caseShot"><img data-vareno-image="identity" alt="VARENO logo system, color palette, typography, pattern and brand guidelines" loading="lazy"><div class="caseCaption"><b>Identity System</b><span class="caseMeta">Logo • Color • Type • Pattern</span></div></figure>
-          <figure class="caseShot"><img data-vareno-image="applications" alt="VARENO environmental, uniform, packaging, stationery and digital brand applications" loading="lazy"><div class="caseCaption"><b>Brand Applications</b><span class="caseMeta">Environment • Uniform • Packaging • Digital</span></div></figure>
+          <figure class="caseShot varenoQualityShot"><img data-vareno-image="identity" alt="VARENO logo system, color palette, typography, pattern and brand guidelines" loading="lazy"><div class="caseCaption"><b>Identity System</b><span class="caseMeta">Logo • Color • Type • Pattern</span></div></figure>
+          <figure class="caseShot varenoQualityShot"><img data-vareno-image="applications" alt="VARENO environmental, uniform, packaging, stationery and digital brand applications" loading="lazy"><div class="caseCaption"><b>Brand Applications</b><span class="caseMeta">Environment • Uniform • Packaging • Digital</span></div></figure>
         </div>
         <div class="panel campaignCase">
           <div class="eyebrow">Brand Promise</div>
@@ -179,7 +185,7 @@
           <p>The identity extends from the storefront and interior to staff uniforms, stationery, grooming products, retail accessories and digital booking—creating one cohesive premium experience across every customer touchpoint.</p>
           <div class="chips"><span class="chip">Exterior Branding</span><span class="chip">Interior Branding</span><span class="chip">Staff Uniform</span><span class="chip">Business & Appointment Cards</span><span class="chip">Pomade & Beard Oil</span><span class="chip">Towels & Shopping Bag</span><span class="chip">Instagram • Booking • Website</span></div>
         </div>
-        <figure class="caseHero"><img data-vareno-image="final" alt="VARENO Barber Club final brand showcase across physical and digital touchpoints" loading="lazy"><div class="caseCaption"><b>Final Brand Showcase</b><span class="caseMeta">Crafted for the Modern Gentleman</span></div></figure>
+        <figure class="caseHero varenoQualityHero"><img data-vareno-image="final" alt="VARENO Barber Club final brand showcase across physical and digital touchpoints" loading="lazy"><div class="caseCaption"><b>Final Brand Showcase</b><span class="caseMeta">Crafted for the Modern Gentleman</span></div></figure>
         <p class="caseNote">Self-initiated portfolio concept. All business names, environments and applications were created to demonstrate a complete premium grooming identity system.</p>
         <div style="height:1px;background:var(--line);margin:56px 0"></div>
 
