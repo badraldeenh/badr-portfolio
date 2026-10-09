@@ -1,21 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
+<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="AURA Athletics — fictional performance sportswear case study by Badr Eldin Mohamed Alamin.">
 <title>AURA Athletics — Case Study | BADR Magic</title>
 <style>
-:root{--bg:#090a0c;--panel:#101216;--text:#f6f7f5;--muted:#a2a7af;--volt:#b7ff3c;--line:#262a31;--max:1180px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% 0,#15200f 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}.nav{position:sticky;top:0;z-index:20;background:rgba(9,10,12,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.navin{max-width:var(--max);margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;letter-spacing:.08em}.brand span{color:#c9a55a}.back{border:1px solid #343942;border-radius:999px;padding:9px 14px;font-size:13px}.back:hover{border-color:var(--volt);color:var(--volt)}.wrap{max-width:var(--max);margin:auto;padding:0 20px}.hero{padding:72px 0 38px}.eyebrow{color:var(--volt);font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase}.hero h1{font-size:clamp(48px,9vw,96px);line-height:.88;margin:12px 0 22px;letter-spacing:-.06em}.hero h1 span{color:var(--volt)}.hero p{max-width:760px;color:var(--muted);font-size:18px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.chip{border:1px solid #31353d;background:#111318;border-radius:999px;padding:7px 10px;font-size:12px;color:#d6d9dd}.section{padding:52px 0 24px}.sectionHead{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:22px}.sectionHead h2{font-size:clamp(30px,5vw,52px);margin:4px 0 0;letter-spacing:-.04em}.sectionHead p{max-width:520px;color:var(--muted);margin:0}.board{display:block;width:min(100%,980px);margin:0 auto;border:1px solid var(--line);border-radius:26px;background:#0e1013;box-shadow:0 24px 70px rgba(0,0,0,.32);overflow:hidden}.board img{display:block;width:100%;height:auto}.board.commerce{margin-top:18px}.caption{padding:14px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;background:#0f1115}.caption b{font-size:14px}.caption span{font-size:12px;color:var(--muted)}.note{max-width:980px;margin:26px auto 60px;padding:20px;border:1px solid #273124;border-radius:18px;background:#0f140d;color:#9fa79b;font-size:13px}.note b{color:var(--volt)}.footer{border-top:1px solid var(--line);padding:26px 20px 40px;text-align:center;color:#6f747c;font-size:12px}@media(max-width:760px){.hero{padding-top:45px}.hero p{font-size:16px}.section{padding-top:38px}.sectionHead{display:block}.sectionHead p{margin-top:10px}.wrap{padding:0 12px}.board{border-radius:16px}.caption{display:block}.caption span{display:block;margin-top:4px}}
+:root{--bg:#080a0c;--panel:#0f1215;--text:#f6f7f5;--muted:#98a0aa;--volt:#b7ff3c;--line:#262b31;--max:1240px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:radial-gradient(circle at 78% 2%,rgba(183,255,60,.11),transparent 25%),linear-gradient(180deg,#080a0c 0%,#0b0d10 55%,#080a0c 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:30;background:rgba(8,10,12,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
+.navin{max-width:var(--max);margin:auto;padding:15px 22px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;letter-spacing:.08em}.brand span{color:#c9a55a}
+.back{border:1px solid #343a42;border-radius:999px;padding:9px 14px;font-size:13px;transition:.2s}
+.back:hover{border-color:var(--volt);color:var(--volt)}
+.wrap{max-width:var(--max);margin:auto;padding:0 22px}
+.hero{min-height:calc(100vh - 60px);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.75fr);gap:56px;align-items:center;padding:64px 0}
+.kicker{color:var(--volt);font-size:12px;font-weight:850;letter-spacing:.18em;text-transform:uppercase}
+h1{font-size:clamp(64px,9vw,118px);line-height:.82;letter-spacing:-.07em;margin:14px 0 28px}
+h1 span{color:var(--volt)}
+.lede{max-width:700px;color:var(--muted);font-size:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 34px}
+.chip{border:1px solid #313740;background:#0d1013;border-radius:999px;padding:8px 11px;font-size:12px;color:#d8dce1}
+.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:640px}
+.meta div{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.meta small{display:block;color:#6f7680;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.meta b{display:block;margin-top:5px;font-size:13px}
+.heroMedia{position:relative}
+.heroMedia:before{content:"";position:absolute;inset:-16px;border:1px solid rgba(183,255,60,.16);border-radius:32px;z-index:-1}
+.heroMedia img{display:block;width:100%;max-height:calc(100vh - 130px);object-fit:cover;object-position:center 38%;border-radius:26px;border:1px solid #272d33;box-shadow:0 36px 90px rgba(0,0,0,.42)}
+.section{padding:90px 0 110px}
+.sectionHead{display:grid;grid-template-columns:.9fr 1.1fr;gap:46px;align-items:end;margin-bottom:32px}
+.sectionHead h2{font-size:clamp(36px,5.8vw,72px);line-height:.94;letter-spacing:-.05em;margin:8px 0 0}
+.sectionHead p{color:var(--muted);margin:0;max-width:650px}
+.board{display:block;width:100%;border:1px solid var(--line);border-radius:28px;background:#0e1013;box-shadow:0 30px 90px rgba(0,0,0,.35);overflow:hidden}
+.board img{display:block;width:100%;height:auto}
+.cap{display:flex;justify-content:space-between;gap:20px;padding:16px 18px;border-top:1px solid var(--line);background:#0c0f12}
+.cap b{font-size:13px}.cap span{font-size:12px;color:#78808a}
+.note{margin-top:28px;padding:20px;border:1px solid #273124;border-radius:18px;background:#0f140d;color:#8f998d;font-size:13px}
+.note b{color:var(--volt)}
+.footer{border-top:1px solid var(--line);padding:28px 22px 42px;text-align:center;color:#6d747d;font-size:12px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding:46px 0 70px;min-height:auto}.heroMedia{max-width:620px}.heroMedia img{max-height:none}.sectionHead{grid-template-columns:1fr}.section{padding-top:60px}}
+@media(max-width:600px){.wrap{padding:0 14px}.navin{padding:12px 14px}.hero{gap:34px}h1{font-size:clamp(54px,20vw,82px)}.lede{font-size:16px}.meta{grid-template-columns:1fr}.board{border-radius:18px}.cap{display:block}.cap span{display:block;margin-top:5px}}
 </style>
 </head>
-<body>
+<body class="notranslate">
 <nav class="nav"><div class="navin"><a class="brand" href="/">BADR<span> Magic</span></a><a class="back" href="/">← Back to Portfolio</a></div></nav>
 <main>
-<section class="hero"><div class="wrap"><div class="eyebrow">Spec Concept • Performance Sportswear • AI Art Direction</div><h1>AURA<br><span>ATHLETICS</span></h1><p>A complete fictional performance-sportswear case study built around one consistent visual system: Matte Black, Volt Green, technical apparel, footwear, cinematic football imagery and a complete e-commerce presentation.</p><div class="chips"><span class="chip">Brand Identity</span><span class="chip">Sportswear</span><span class="chip">Footwear</span><span class="chip">Campaign Direction</span><span class="chip">AI Visuals</span><span class="chip">E-commerce</span></div></div></section>
-<section class="section"><div class="wrap"><div class="sectionHead"><div><div class="eyebrow">01 — Visual Direction</div><h2>Campaign + Product System</h2></div><p>The images are grouped as one coordinated story instead of being shown as disconnected files. Campaign frames, product details and performance apparel stay inside the same black-and-Volt visual world.</p></div><a class="board visual" href="../assets/img/aura/visual-board.webp" target="_blank" rel="noopener"><img src="../assets/img/aura/visual-board.webp" alt="AURA Athletics campaign and product visual system"><div class="caption"><b>Performance Collection 01</b><span>Campaign • Apparel • Footwear • Material details</span></div></a></div></section>
-<section class="section"><div class="wrap"><div class="sectionHead"><div><div class="eyebrow">02 — Commercial System</div><h2>From Brand to Commerce</h2></div><p>The commercial assets follow the same identity and are presented together so the case study reads clearly from product presentation to store operations.</p></div><a class="board commerce" href="../assets/img/aura/commerce-board.webp" target="_blank" rel="noopener"><img src="../assets/img/aura/commerce-board.webp" alt="AURA Athletics e-commerce and operations system"><div class="caption"><b>Commerce Toolkit</b><span>Product Catalogue • Size Guide • Dashboard • Shipping Invoice</span></div></a><div class="note"><b>SPEC CONCEPT — NOT AN OFFICIAL COLLABORATION.</b> This self-initiated project demonstrates branding, AI-assisted visual development, art direction and e-commerce presentation.</div></div></section>
+<section><div class="wrap hero">
+<div>
+<div class="kicker">Spec Concept / Performance Sportswear / AI Art Direction</div>
+<h1>AURA<br><span>ATHLETICS</span></h1>
+<p class="lede">A complete fictional performance-sportswear system built around a single visual rule: matte black structure, Volt Green energy and high-intensity football imagery. The identity scales from campaign direction to product design and e-commerce operations.</p>
+<div class="chips"><span class="chip">Brand Identity</span><span class="chip">Sportswear</span><span class="chip">Footwear</span><span class="chip">Campaign Direction</span><span class="chip">AI Visuals</span><span class="chip">E-commerce</span></div>
+<div class="meta"><div><small>Role</small><b>Brand / Art Direction</b></div><div><small>Visual System</small><b>Matte Black + Volt</b></div><div><small>Project</small><b>Self-initiated concept</b></div></div>
+</div>
+<div class="heroMedia"><img src="/assets/img/aura/hero-footballer.webp" alt="AURA Athletics football campaign in a rain-soaked stadium" width="720" height="1279" fetchpriority="high"></div>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="sectionHead"><div><div class="kicker">01 — Integrated Case Study</div><h2>Engineered for motion. Built as one visual system.</h2></div><p>Campaign frames, performance apparel, footwear, product catalogue, sizing and commerce operations all stay inside the same black-and-Volt language. The result reads as one complete brand system instead of disconnected mockups.</p></div>
+<a class="board" href="/assets/img/aura/case-study-board.webp" target="_blank" rel="noopener"><img src="/assets/img/aura/case-study-board.webp" alt="AURA Athletics performance collection, product catalogue, e-commerce dashboard and size guide" width="1472" height="3332" loading="lazy"><div class="cap"><b>AURA Performance System / Collection 01</b><span>Campaign • Apparel • Footwear • Catalogue • Commerce • Size Guide</span></div></a>
+<div class="note"><b>SPEC CONCEPT — NOT AN OFFICIAL COLLABORATION.</b> A self-initiated case study demonstrating brand identity, AI-assisted visual development, sportswear direction, campaign art direction and e-commerce presentation.</div>
+</div></section>
 </main>
 <div class="footer">AURA ATHLETICS — CASE STUDY / BADR MAGIC</div>
 </body>
