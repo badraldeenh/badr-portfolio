@@ -1,7 +1,8 @@
 const fs = require('fs');
+const path = require('path');
 
-const path = 'index.html';
-let html = fs.readFileSync(path, 'utf8');
+const sourcePath = 'index.html';
+let html = fs.readFileSync(sourcePath, 'utf8');
 
 const marker = '/* VARENO WIDE CASE STUDY */';
 if (!html.includes(marker)) {
@@ -55,5 +56,13 @@ if (lastHero !== -1) {
 
 segment = segment.replace('<div style="height:1px;background:var(--line);margin:56px 0"></div>', '<div class="varenoDivider"></div>');
 html = html.slice(0, start) + segment + html.slice(end);
-fs.writeFileSync(path, html, 'utf8');
-console.log('VARENO case study presentation polished.');
+
+const out = 'dist';
+fs.rmSync(out, { recursive: true, force: true });
+fs.mkdirSync(out, { recursive: true });
+for (const entry of fs.readdirSync('.')) {
+  if (['dist', '.git', '.github', 'scripts'].includes(entry)) continue;
+  fs.cpSync(entry, path.join(out, entry), { recursive: true });
+}
+fs.writeFileSync(path.join(out, 'index.html'), html, 'utf8');
+console.log('Built polished VARENO case study to dist/.');
