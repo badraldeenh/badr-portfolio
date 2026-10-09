@@ -1,1 +1,1 @@
-Trigger Vercel deployment after connecting the GitHub repository.
+AURA assets publish marker 2026-10-10
