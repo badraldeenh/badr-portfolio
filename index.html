@@ -23,13 +23,25 @@
     .contact{background:linear-gradient(135deg,#171719,#111113);border:1px solid var(--line);border-radius:24px;padding:38px;display:flex;justify-content:space-between;gap:30px;align-items:center}.contact h2{margin:0 0 8px;font-size:34px}.contact p{margin:0;color:var(--muted)}.contactActions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.footer{padding:34px 0 46px;color:#777;font-size:13px;display:flex;justify-content:space-between;gap:16px;border-top:1px solid #1f1f22;margin-top:56px}
     @media(max-width:900px){.heroGrid,.showreelInner,.two,.caseVideoFeature{grid-template-columns:1fr}.caseVideoFrame{max-width:390px;width:100%;margin:auto}.caseIntro{grid-template-columns:1fr}.caseGrid{columns:2}.hero{padding-top:46px}.portrait{max-width:520px}.grid{grid-template-columns:1fr 1fr}.showreelVideo video{max-height:680px}.showreelCopy{padding:30px}.links{display:none}.contact{align-items:flex-start;flex-direction:column}.contactActions{justify-content:flex-start}.process{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}
     @media(max-width:620px){.caseGrid{columns:1}.wrap{width:min(var(--max),calc(100% - 24px))}.grid,.process{grid-template-columns:1fr}.hero h1{font-size:48px}.lead{font-size:18px}.sectionHead{align-items:flex-start;flex-direction:column}.sectionHead h2{font-size:30px}.skillList{grid-template-columns:1fr}.navin{height:62px}.cta{font-size:13px}.contact{padding:26px}.footer{flex-direction:column}.stats{grid-template-columns:1fr 1fr}.hero{padding-bottom:36px}}
+      section, [id="hatan-film"]{scroll-margin-top:90px}
+    a:focus-visible,video:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+    .caseHero{display:block}.panel p{color:var(--muted)}
+    .projectFacts{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:13px}
+    .projectFacts div{display:grid;grid-template-columns:82px 1fr;gap:10px;margin:7px 0}
+    .projectFacts dt{color:var(--accent);font-weight:700}.projectFacts dd{margin:0;color:#cfcec9}
+    .campaignCase{margin-bottom:24px}.caseSummary{max-width:850px}
+    .caseStages{list-style:none;padding:0;margin:24px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+    .caseStages h4{margin:8px 0;font-size:17px}.caseStages p{margin:0;font-size:13px}
+    @media(max-width:900px){.caseStages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:620px){.caseStages{grid-template-columns:1fr}.caseVideoFeature{padding:18px}.caseVideoCopy h4{font-size:26px}.caseCaption{flex-wrap:wrap}.hero h1{font-size:clamp(36px,10vw,48px)}.portrait{margin:0}.caseVideoFeature{grid-template-columns:minmax(0,1fr)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.card,.caseShot{transition:none}.btn:hover,.card:hover,.caseShot:hover{transform:none}}
   </style>
 </head>
 <body>
   <nav class="nav">
     <div class="wrap navin">
       <a class="brand" href="#top">BADR<span>.</span></a>
-      <div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="#design">Design</a><a href="#process">Workflow</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+      <div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="#design">Design</a><a href="#process">Workflow</a><a href="#editing">Editing</a><a href="#about">About</a><a href="#contact">Contact</a></div>
       <a class="cta" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a>
     </div>
   </nav>
@@ -78,14 +90,14 @@
       <div class="wrap">
         <div class="sectionHead"><h2>Selected work</h2><p>A curated selection of product advertising, food visuals, generative motion and narrative experimentation.</p></div>
         <div class="grid">
-          <article class="card"><div class="media"><span class="rank">01 • Featured</span><video poster="assets/img/project-01.png" src="assets/video/project-01.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Product Commercial</div><h3>Chocolate Craft Film</h3><p>Cinematic chocolate-making visuals built around pouring, texture, break-apart reveals and premium product detail.</p><div class="miniChips"><span>AI Visuals</span><span>Product Detail</span><span>Editing</span></div></div></article>
-          <article class="card"><div class="media"><span class="rank">02</span><video poster="assets/img/project-02.png" src="assets/video/project-02.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Food & Beverage</div><h3>Mango Beverage Commercial</h3><p>A bright vertical beverage concept combining fruit motion, macro product shots and a clean social-ad finish.</p><div class="miniChips"><span>Generative AI</span><span>Beverage</span><span>9:16</span></div></div></article>
-          <article class="card"><div class="media"><span class="rank">03</span><video poster="assets/img/project-03.png" src="assets/video/project-03.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Product Storytelling</div><h3>Chocolate Dessert Process</h3><p>Process-led food storytelling moving from preparation and pouring to texture-focused finishing shots.</p><div class="miniChips"><span>Food Visuals</span><span>Editing</span><span>Social Content</span></div></div></article>
-          <article class="card"><div class="media"><span class="rank">04</span><video poster="assets/img/project-04.png" src="assets/video/project-04.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Short-form Food Advertising</div><h3>Filled Chocolate Reveal</h3><p>Fast macro cuts reveal multiple fillings and textures, designed to hold attention in vertical social advertising.</p><div class="miniChips"><span>Macro</span><span>Food Detail</span><span>Reels</span></div></div></article>
-          <article class="card"><div class="media"><span class="rank">05</span><video poster="assets/img/project-05.png" src="assets/video/project-05.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Process-led Commercial</div><h3>Handcrafted Chocolate Process</h3><p>A tactile sequence showing shaping, coating and glossy chocolate detail with a premium handmade feel.</p><div class="miniChips"><span>Craft</span><span>Product Detail</span><span>Vertical Video</span></div></div></article>
-          <article class="card"><div class="media"><span class="rank">06</span><video poster="assets/img/project-06.png" src="assets/video/project-06.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Food Macro</div><h3>Croissant Detail Story</h3><p>A compact macro sequence focused on pastry texture, filling and preparation — built as a strong social hook.</p><div class="miniChips"><span>Macro</span><span>Food Visuals</span><span>Short-form</span></div></div></article>
-          <article class="card"><div class="media"><span class="rank">07</span><video poster="assets/img/project-07.png" src="assets/video/project-07.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Generative AI Motion</div><h3>Chocolate Box Hero Shot</h3><p>A high-impact motion concept using floating chocolate elements and rapid camera movement to create an advertising hook.</p><div class="miniChips"><span>AI Motion</span><span>Hero Shot</span><span>Commercial Hook</span></div></div></article>
-          <article class="card"><div class="media"><span class="rank">08</span><video poster="assets/img/project-08.png" src="assets/video/project-08.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Storytelling</div><h3>Character Narrative</h3><p>Character-focused generative visuals exploring expression, continuity and short-form narrative direction.</p><div class="miniChips"><span>Characters</span><span>Continuity</span><span>Storytelling</span></div></div></article>
+          <article class="card"><div class="media"><span class="rank">01 • Featured</span><video poster="assets/img/project-01.jpg" src="assets/video/project-01.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Product Commercial</div><h3>Chocolate Craft Film</h3><p>Cinematic chocolate-making visuals built around pouring, texture, break-apart reveals and premium product detail.</p><div class="miniChips"><span>AI Visuals</span><span>Product Detail</span><span>Editing</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>AI visual production & video editing</dd></div><div><dt>Deliverable</dt><dd>Chocolate product film</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">02</span><video poster="assets/img/project-02.jpg" src="assets/video/project-02.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Food & Beverage</div><h3>Mango Beverage Commercial</h3><p>A bright vertical beverage concept combining fruit motion, macro product shots and a clean social-ad finish.</p><div class="miniChips"><span>Generative AI</span><span>Beverage</span><span>9:16</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>Generative visual production</dd></div><div><dt>Deliverable</dt><dd>Vertical beverage commercial (9:16)</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">03</span><video poster="assets/img/project-03.jpg" src="assets/video/project-03.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Product Storytelling</div><h3>Chocolate Dessert Process</h3><p>Process-led food storytelling moving from preparation and pouring to texture-focused finishing shots.</p><div class="miniChips"><span>Food Visuals</span><span>Editing</span><span>Social Content</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>Video editing & product storytelling</dd></div><div><dt>Deliverable</dt><dd>Food process video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">04</span><video poster="assets/img/project-04.jpg" src="assets/video/project-04.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Short-form Food Advertising</div><h3>Filled Chocolate Reveal</h3><p>Fast macro cuts reveal multiple fillings and textures, designed to hold attention in vertical social advertising.</p><div class="miniChips"><span>Macro</span><span>Food Detail</span><span>Reels</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>Short-form editing</dd></div><div><dt>Deliverable</dt><dd>Vertical chocolate reveal video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">05</span><video poster="assets/img/project-05.jpg" src="assets/video/project-05.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Process-led Commercial</div><h3>Handcrafted Chocolate Process</h3><p>A tactile sequence showing shaping, coating and glossy chocolate detail with a premium handmade feel.</p><div class="miniChips"><span>Craft</span><span>Product Detail</span><span>Vertical Video</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>Product storytelling</dd></div><div><dt>Deliverable</dt><dd>Vertical craft video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">06</span><video poster="assets/img/project-06.jpg" src="assets/video/project-06.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Food Macro</div><h3>Croissant Detail Story</h3><p>A compact macro sequence focused on pastry texture, filling and preparation — built as a strong social hook.</p><div class="miniChips"><span>Macro</span><span>Food Visuals</span><span>Short-form</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>Short-form storytelling</dd></div><div><dt>Deliverable</dt><dd>Short-form pastry video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">07</span><video poster="assets/img/project-07.jpg" src="assets/video/project-07.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Generative AI Motion</div><h3>Chocolate Box Hero Shot</h3><p>A high-impact motion concept using floating chocolate elements and rapid camera movement to create an advertising hook.</p><div class="miniChips"><span>AI Motion</span><span>Hero Shot</span><span>Commercial Hook</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>Generative motion</dd></div><div><dt>Deliverable</dt><dd>Chocolate box motion concept</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">08</span><video poster="assets/img/project-08.jpg" src="assets/video/project-08.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Storytelling</div><h3>Character Narrative</h3><p>Character-focused generative visuals exploring expression, continuity and short-form narrative direction.</p><div class="miniChips"><span>Characters</span><span>Continuity</span><span>Storytelling</span></div><dl class="projectFacts"><div><dt>Role</dt><dd>Generative character storytelling</dd></div><div><dt>Deliverable</dt><dd>Character narrative video</dd></div></dl></div></article>
         </div>
       </div>
     </section>
@@ -97,7 +109,7 @@
           <div><div class="eyebrow">HATAN — Fine Foods & Confections</div><h3>Premium Food Brand Identity</h3><p>A self-initiated brand identity case study built from logo system and typography through packaging, retail, uniforms, takeaway applications and in-store experience.</p></div>
           <span class="caseTag">Branding • Packaging • Retail</span>
         </div>
-        <div class="caseVideoFeature">
+        <div class="caseVideoFeature" id="hatan-film">
           <div class="caseVideoFrame">
             <video src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4" autoplay muted loop playsinline controls preload="metadata" aria-label="HATAN Stadium Delivery Campaign"></video>
           </div>
@@ -108,6 +120,20 @@
             <div class="caseVideoMeta"><span>Spec Concept</span><span>AI Video</span><span>Art Direction</span><span>9:16 Social Film</span><span>15 Seconds</span></div>
             <div class="caseVideoSound">Autoplay starts muted. Use the video controls to hear the full stadium sound mix.</div>
           </div>
+        </div>
+        <div class="panel campaignCase" aria-labelledby="campaign-case-title">
+          <div class="eyebrow">Campaign case study • Self-initiated concept</div>
+          <h3 id="campaign-case-title">From brand identity to a final social ad.</h3>
+          <p class="caseSummary">HATAN extends a premium food identity into a fictional stadium-delivery campaign. The finished film brings AI-assisted visuals, cinematic direction, brand continuity and a stadium sound mix into a 15-second vertical format.</p>
+          <dl class="projectFacts"><div><dt>Role</dt><dd>AI-assisted visual production, cinematic direction & sound design</dd></div><div><dt>Deliverable</dt><dd>15-second social film • 1080 × 1920 • 9:16</dd></div></dl>
+          <ol class="caseStages">
+            <li><span class="num">01</span><h4>Concept</h4><p>A fictional stadium-delivery idea for HATAN, connecting the food brand with a social-first campaign setting.</p></li>
+            <li><span class="num">02</span><h4>Generation</h4><p>AI-assisted visual production forms the campaign imagery, guided by cinematic direction.</p></li>
+            <li><span class="num">03</span><h4>Refinement</h4><p>Brand continuity is the visual focus: connecting the campaign film with HATAN’s wider identity system.</p></li>
+            <li><span class="num">04</span><h4>Editing</h4><p>The final sequence combines campaign visuals with sound design and a stadium sound mix.</p></li>
+            <li><span class="num">05</span><h4>Final Ad</h4><p>A 15-second vertical film presented above, with audio available through the video controls.</p></li>
+          </ol>
+          <p class="caseNote">Portfolio concept, not a commissioned client campaign. Presented without performance or conversion claims.</p>
         </div>
         <a class="caseHero" href="assets/img/hatan/hatan-brand-flatlay-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging flat lay" loading="lazy"></a>
         <div class="caseGrid">
@@ -152,7 +178,7 @@
         <div class="sectionHead"><h2>Video Editing</h2><p>Short-form advertising shaped through pacing, continuity, visual rhythm and sound design.</p></div>
         <div class="two">
           <div class="panel"><div class="eyebrow">Editing toolkit</div><h3>Adobe Premiere Pro</h3><p>From product details to a finished advertising sequence: editing connects individual shots into a clear visual story.</p><div class="chips"><span class="chip">Pacing & visual rhythm</span><span class="chip">Shot continuity</span><span class="chip">Sound design</span><span class="chip">Vertical social content</span></div></div>
-          <div class="panel"><div class="eyebrow">Selected editing work</div><h3>See the edit in context.</h3><p>Chocolate Craft Film brings pouring, texture and product reveals into one sequence. Chocolate Dessert Process follows preparation through finishing shots. HATAN combines a 15-second campaign film with a stadium sound mix.</p><div class="actions"><a class="btn" href="#work">Watch selected videos</a><a class="btn" href="#design">Watch HATAN</a></div></div>
+          <div class="panel"><div class="eyebrow">Selected editing work</div><h3>See the edit in context.</h3><p>Chocolate Craft Film brings pouring, texture and product reveals into one sequence. Chocolate Dessert Process follows preparation through finishing shots. HATAN combines a 15-second campaign film with a stadium sound mix.</p><div class="actions"><a class="btn" href="#work">Watch selected videos</a><a class="btn" href="#hatan-film">Watch HATAN</a></div></div>
         </div>
       </div>
     </section>
@@ -166,9 +192,21 @@
           <p><span class="highlight">Languages:</span> Arabic — Native • English — Excellent written communication • Developing spoken proficiency.</p>
         </div>
         <div class="panel">
-          <div class="eyebrow">Core toolkit</div>
+          <div class="eyebrow">Creative toolkit</div>
           <h3>Software & capabilities</h3>
-          <div class="skillList"><div>Adobe Photoshop</div><div>Adobe Illustrator</div><div>Adobe Premiere Pro</div><div>Adobe After Effects — Basic</div><div>DaVinci Resolve — Basic</div><div>Generative AI workflows</div><div>Photography</div><div>Digital Marketing Content</div><div>Concept Development</div><div>Short-form Advertising</div></div>
+          <div class="skillList"><div>Adobe Photoshop</div><div>Adobe Illustrator</div><div>Adobe Premiere Pro</div><div>Adobe After Effects — Basic</div><div>DaVinci Resolve — Basic</div><div>Photography</div><div>Digital Marketing Content</div><div>Concept Development</div><div>Short-form Advertising</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-toolkit">
+      <div class="wrap">
+        <div class="sectionHead"><h2>AI Production Toolkit</h2><p>Generative production supported by art direction, brand consistency and editing.</p></div>
+        <div class="process">
+          <div class="step"><div class="num">CONCEPT</div><h3>Visual direction</h3><p>Concept development and shot direction for product advertising and branded stories.</p></div>
+          <div class="step"><div class="num">GENERATION</div><h3>Generative visuals</h3><p>AI-assisted images, shots and motion for food, products and character narratives.</p></div>
+          <div class="step"><div class="num">REFINEMENT</div><h3>Brand continuity</h3><p>Visual refinement and art direction with consistency across branded elements.</p></div>
+          <div class="step"><div class="num">FINISHING</div><h3>Edit & sound</h3><p>Adobe Premiere Pro, visual rhythm and sound design for finished social content.</p></div>
         </div>
       </div>
     </section>
