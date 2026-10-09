@@ -2,9 +2,10 @@ name: Patch AVENA into portfolio index
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - '.github/workflows/patch-avena-index.yml'
+      - .github/workflows/patch-avena-index.yml
 
 permissions:
   contents: write
@@ -13,76 +14,19 @@ jobs:
   patch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Patch latest main safely
-        shell: bash
+      - name: Patch AVENA into latest index
+        run: python3 .github/scripts/patch_avena.py
+
+      - name: Commit and push
         run: |
-          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          for attempt in 1 2 3; do
-            git fetch origin main
-            git reset --hard origin/main
-
-            python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-
-          if 'id="avena-feature"' not in html:
-              marker = '<div class="sectionHead"><h2>Selected work</h2><p>Product advertising built from real product photography and AI-assisted production, alongside motion and narrative experiments.</p></div>'
-              block = marker + '''
-        <div id="avena-feature" style="scroll-margin-top:90px;margin-bottom:38px">
-          <div class="caseIntro" style="margin-top:0">
-            <div>
-              <div class="eyebrow">AVENA — Medical Center</div>
-              <h3>Healthcare Brand Identity</h3>
-              <p>A complete medical-center identity system covering logo presentation, typography, stationery, uniforms, interior and exterior branding, digital booking UI, vehicle branding and campaign applications.</p>
-            </div>
-            <span class="caseTag">Healthcare • Identity • Digital</span>
-          </div>
-          <a class="caseHero" href="avena.html" aria-label="View AVENA Medical Center case study">
-            <img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
-          </a>
-          <div class="panel">
-            <div class="eyebrow">Featured Case Study</div>
-            <h3>AVENA Medical Center</h3>
-            <p>Explore the full visual identity from the core brand system through environmental, uniform, vehicle, digital and social-media applications.</p>
-            <div class="actions" style="margin-top:18px"><a class="btn primary" href="avena.html">View AVENA Case Study</a></div>
-          </div>
-        </div>'''
-              if marker not in html:
-                  raise SystemExit('Selected Work marker not found; refusing unsafe edit')
-              html = html.replace(marker, block, 1)
-
-          nav_old = '<a href="#reel">Showreel</a><a href="#work">Work</a><a href="#design">Design</a>'
-          nav_new = '<a href="#reel">Showreel</a><a href="#work">Work</a><a href="#avena-feature">AVENA</a><a href="#design">Design</a>'
-          if nav_old in html and 'href="#avena-feature"' not in html.split('</nav>',1)[0]:
-              html = html.replace(nav_old, nav_new, 1)
-
-          path.write_text(html, encoding='utf-8')
-          PY
-
-            rm -f .github/workflows/patch-avena-index.yml
-            git add index.html .github/workflows/patch-avena-index.yml
-
-            if git diff --cached --quiet; then
-              echo "Nothing to change"
-              exit 0
-            fi
-
-            git commit -m "Add AVENA directly to portfolio index"
-            if git push origin HEAD:main; then
-              exit 0
-            fi
-            echo "Push raced with another update; retrying on latest main..."
-            sleep 3
-          done
-
-          echo "Could not safely push after retries" >&2
-          exit 1
+          rm -f .github/workflows/patch-avena-index.yml .github/scripts/patch_avena.py
+          git add index.html .github/workflows/patch-avena-index.yml .github/scripts/patch_avena.py
+          git commit -m "Add AVENA directly to portfolio index"
+          git push origin HEAD:main
