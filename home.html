@@ -12,16 +12,50 @@
   <script>
     (async () => {
       try {
-        const response = await fetch('/index.html?v=avena-5', {cache: 'no-store'});
+        const response = await fetch('/index.html?v=vareno-hq-1', {cache: 'no-store'});
         if (!response.ok) throw new Error('Could not load portfolio');
         const html = await response.text();
         const parsed = new DOMParser().parseFromString(html, 'text/html');
 
-        const originalScripts = [...parsed.querySelectorAll('script')].map(s => ({src:s.src, text:s.textContent, type:s.type}));
+        const originalScripts = [...parsed.querySelectorAll('script')]
+          .filter(s => !s.textContent.includes('varenoAssets') && !s.textContent.includes('assets/vareno-data/'))
+          .map(s => ({src:s.src, text:s.textContent, type:s.type}));
         parsed.querySelectorAll('script').forEach(s => s.remove());
 
         document.head.innerHTML = parsed.head.innerHTML;
         document.body.innerHTML = parsed.body.innerHTML;
+
+        const varenoAssets = {
+          hero: '/assets/img/vareno/vareno-hero.webp',
+          identity: '/assets/img/vareno/vareno-identity.webp',
+          applications: '/assets/img/vareno/vareno-final-showcase.webp',
+          final: '/assets/img/vareno/vareno-final-showcase.webp'
+        };
+        Object.entries(varenoAssets).forEach(([key,src]) => {
+          document.querySelectorAll(`[data-vareno-image="${key}"]`).forEach(img => {
+            img.src = src;
+            img.removeAttribute('srcset');
+          });
+        });
+
+        const varenoCase = document.getElementById('vareno-case');
+        if (varenoCase) {
+          const hero = varenoCase.nextElementSibling;
+          if (hero && hero.classList.contains('caseHero')) {
+            hero.classList.remove('varenoQualityHero');
+            hero.style.padding = '0';
+          }
+          document.querySelectorAll('.varenoQualityShot').forEach(el => {
+            el.classList.remove('varenoQualityShot');
+            el.style.padding = '0';
+          });
+          const linkWrap = document.createElement('div');
+          linkWrap.className = 'actions';
+          linkWrap.style.margin = '18px 0 34px';
+          linkWrap.innerHTML = '<a class="btn primary" href="/vareno/">View Full VARENO Case Study</a>';
+          const overview = hero ? hero.nextElementSibling : null;
+          if (overview) overview.insertAdjacentElement('afterend', linkWrap);
+        }
 
         const workWrap = document.querySelector('#work .wrap');
         if (workWrap && !document.getElementById('avena-feature')) {
