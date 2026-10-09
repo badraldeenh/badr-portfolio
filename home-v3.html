@@ -12,7 +12,7 @@
   <script>
   (async function(){
     try{
-      const res=await fetch('/index.html?v=vareno-work-11',{cache:'no-store'});
+      const res=await fetch('/index.html?v=vareno-work-12',{cache:'no-store'});
       if(!res.ok) throw new Error('Could not load portfolio');
       const source=await res.text();
       const doc=new DOMParser().parseFromString(source,'text/html');
@@ -24,20 +24,21 @@
 
       const css=doc.createElement('style');
       css.textContent=`
-        #vareno-feature{scroll-margin-top:90px;margin:0 0 42px;padding:24px;border:1px solid #2b2b30;border-radius:24px;background:linear-gradient(135deg,#17140f,#0e0e10);box-shadow:0 24px 70px rgba(0,0,0,.24)}
-        #vareno-feature .vf-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end;margin-bottom:18px}
+        #vareno-feature{scroll-margin-top:90px;margin:0 0 44px;padding:24px;border:1px solid #2b2b30;border-radius:24px;background:linear-gradient(135deg,#17140f,#0e0e10);box-shadow:0 24px 70px rgba(0,0,0,.24)}
+        #vareno-feature .vf-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end;margin-bottom:20px}
         #vareno-feature .vf-head h3{font-size:clamp(30px,4vw,46px);line-height:1.05;margin:4px 0 8px;letter-spacing:-.04em}
         #vareno-feature .vf-head p{margin:0;color:#aaa69d;max-width:760px}
-        #vareno-feature .vf-hero{display:block;border:1px solid #2b2b30;border-radius:18px;overflow:hidden;background:#09090b}
-        #vareno-feature .vf-hero img{display:block;width:100%!important;max-width:none!important;height:auto!important;object-fit:contain!important;margin:0!important;filter:none!important;box-shadow:none!important;border-radius:0!important}
+        #vareno-feature .vf-hero{display:block;width:100%;padding:0!important;border:1px solid #2b2b30;border-radius:18px;overflow:hidden;background:#09090b}
+        #vareno-feature .vf-hero img{display:block;width:100%!important;max-width:100%!important;height:auto!important;object-fit:contain!important;margin:0!important;padding:0!important;filter:none!important;box-shadow:none!important;border-radius:0!important}
         #vareno-feature .vf-actions{margin-top:18px}
-        #vareno-showcase{margin:44px 0 68px;scroll-margin-top:90px}
+
+        #vareno-showcase{margin:48px 0 68px;scroll-margin-top:90px}
         #vareno-showcase .vr-title{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:24px}
         #vareno-showcase .vr-title h3{font-size:clamp(34px,5vw,56px);line-height:1.02;margin:4px 0 10px;letter-spacing:-.045em}
         #vareno-showcase .vr-title p{margin:0;color:#aaa69d;max-width:760px;font-size:16px}
-        #vareno-showcase figure,#vareno-showcase .vr-hero{margin:0;border:1px solid #2b2b30;border-radius:22px;overflow:hidden;background:#09090b;box-shadow:0 24px 70px rgba(0,0,0,.28)}
-        #vareno-showcase img{display:block;width:100%!important;max-width:none!important;height:auto!important;object-fit:contain!important;margin:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important}
-        #vareno-showcase .vr-hero{display:block;width:100%;margin-bottom:18px}
+        #vareno-showcase figure,#vareno-showcase .vr-hero{width:100%;margin:0;padding:0!important;border:1px solid #2b2b30;border-radius:22px;overflow:hidden;background:#09090b;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+        #vareno-showcase img{display:block;width:100%!important;max-width:100%!important;height:auto!important;object-fit:contain!important;margin:0!important;padding:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important}
+        #vareno-showcase .vr-hero{display:block;margin-bottom:18px}
         #vareno-showcase .vr-actions{margin:18px 0 26px}
         #vareno-showcase .vr-grid{display:grid;gap:18px;margin:18px 0}
         #vareno-showcase .vr-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -45,13 +46,20 @@
         #vareno-showcase figcaption{padding:14px 16px;background:#111113;border-top:1px solid #25252a;display:flex;justify-content:space-between;gap:12px;color:#d7d4cc;font-size:13px}
         #vareno-showcase figcaption span{color:#c9a55a;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
         #vareno-showcase .vr-final{margin-top:18px}
+
+        /* Neutralize the old VARENO sizing rules if any older markup survives. */
+        #vareno-feature .varenoQualityHero,#vareno-feature .varenoQualityShot,#vareno-showcase .varenoQualityHero,#vareno-showcase .varenoQualityShot{padding:0!important;display:block!important}
+        #vareno-feature .varenoQualityHero img,#vareno-feature .varenoQualityShot img,#vareno-showcase .varenoQualityHero img,#vareno-showcase .varenoQualityShot img{width:100%!important;max-width:100%!important;height:auto!important}
+
         @media(max-width:900px){#vareno-showcase .vr-grid-3{grid-template-columns:1fr 1fr}}
-        @media(max-width:680px){#vareno-feature .vf-head,#vareno-showcase .vr-title{grid-template-columns:1fr}#vareno-showcase .vr-grid-2,#vareno-showcase .vr-grid-3{grid-template-columns:1fr}}
+        @media(max-width:680px){#vareno-feature{padding:18px}#vareno-feature .vf-head,#vareno-showcase .vr-title{grid-template-columns:1fr}#vareno-showcase .vr-grid-2,#vareno-showcase .vr-grid-3{grid-template-columns:1fr}}
       `;
       doc.head.appendChild(css);
 
+      /* Always replace any older VARENO feature instead of keeping its small-image markup. */
+      doc.getElementById('vareno-feature')?.remove();
       const workWrap=doc.querySelector('#work .wrap');
-      if(workWrap && !doc.getElementById('vareno-feature')){
+      if(workWrap){
         const avena=doc.getElementById('avena-feature');
         const feature=doc.createElement('div');
         feature.id='vareno-feature';
@@ -60,15 +68,16 @@
             <div>
               <div class="eyebrow">VARENO — Barber Club</div>
               <h3>Luxury Grooming Brand Identity</h3>
-              <p>Premium barber-club identity presented with the new high-quality project artwork rather than the old compressed preview.</p>
+              <p>A premium grooming identity presented with full-width project artwork and a dedicated case study.</p>
             </div>
             <span class="caseTag">Branding • Art Direction • Digital</span>
           </div>
-          <a class="vf-hero" href="/vareno/" aria-label="Open VARENO full case study"><img src="/assets/img/vareno/vareno-hero.webp?v=11" alt="VARENO Barber Club high-quality brand showcase" loading="eager"></a>
+          <a class="vf-hero" href="/vareno/" aria-label="Open VARENO full case study"><img src="/assets/img/vareno/vareno-hero.webp?v=12" alt="VARENO Barber Club brand showcase" loading="eager"></a>
           <div class="vf-actions"><a class="btn primary" href="/vareno/">View Full VARENO Case Study →</a></div>`;
         if(avena) avena.insertAdjacentElement('afterend',feature); else workWrap.querySelector('.sectionHead')?.insertAdjacentElement('afterend',feature);
       }
 
+      /* Remove the old VARENO design block up to HATAN. */
       const oldStart=doc.getElementById('vareno-case');
       if(oldStart){
         let boundary=oldStart.nextElementSibling;
@@ -76,23 +85,34 @@
           if(boundary.classList?.contains('caseIntro') && /HATAN/i.test(boundary.textContent||'')) break;
           boundary=boundary.nextElementSibling;
         }
-        const parent=oldStart.parentNode;
-        let n=oldStart;
-        while(n && n!==boundary){const next=n.nextElementSibling;n.remove();n=next;}
+        let node=oldStart;
+        while(node && node!==boundary){const next=node.nextElementSibling;node.remove();node=next;}
+      }
+      doc.getElementById('vareno-showcase')?.remove();
 
+      const designWrap=doc.querySelector('#design .wrap');
+      if(designWrap){
+        const hatan=[...designWrap.children].find(el=>el.classList?.contains('caseIntro') && /HATAN/i.test(el.textContent||''));
         const section=doc.createElement('div');
         section.id='vareno-showcase';
         section.innerHTML=`
-          <div class="vr-title"><div><div class="eyebrow">VARENO — Barber Club</div><h3>Luxury Grooming Brand Identity</h3><p>A complete premium grooming identity shown with large high-resolution visuals.</p></div><span class="caseTag">Branding • Art Direction • Digital</span></div>
-          <a class="vr-hero" href="/vareno/"><img src="/assets/img/vareno/vareno-hero.webp?v=11" alt="VARENO Barber Club premium identity hero"></a>
+          <div class="vr-title"><div><div class="eyebrow">VARENO — Barber Club</div><h3>Luxury Grooming Brand Identity</h3><p>A complete premium grooming identity shown with large, full-width portfolio visuals.</p></div><span class="caseTag">Branding • Art Direction • Digital</span></div>
+          <a class="vr-hero" href="/vareno/"><img src="/assets/img/vareno/vareno-hero.webp?v=12" alt="VARENO Barber Club premium identity hero"></a>
           <div class="vr-actions"><a class="btn primary" href="/vareno/">View Full VARENO Case Study →</a></div>
-          <div class="vr-grid vr-grid-2"><figure><img src="/assets/img/vareno/vareno-identity.webp?v=11" alt="VARENO identity system"><figcaption><b>Identity System</b><span>Logo • Monogram</span></figcaption></figure><figure><img src="/assets/img/vareno/vareno-guidelines.webp?v=11" alt="VARENO brand guidelines"><figcaption><b>Brand Guidelines</b><span>Color • Typography</span></figcaption></figure></div>
-          <div class="vr-grid vr-grid-3"><figure><img src="/assets/img/vareno/vareno-exterior.webp?v=11" alt="VARENO exterior branding"><figcaption><b>Exterior Branding</b><span>Facade • Signage</span></figcaption></figure><figure><img src="/assets/img/vareno/vareno-stationery.webp?v=11" alt="VARENO stationery"><figcaption><b>Stationery</b><span>Print • Cards</span></figcaption></figure><figure><img src="/assets/img/vareno/vareno-digital.webp?v=11" alt="VARENO digital touchpoints"><figcaption><b>Digital Touchpoints</b><span>Booking • Social</span></figcaption></figure></div>
-          <figure class="vr-final"><img src="/assets/img/vareno/vareno-final-showcase.webp?v=11" alt="VARENO final brand showcase"><figcaption><b>Final Brand Showcase</b><span>Complete Visual Identity</span></figcaption></figure>`;
-        parent.insertBefore(section,boundary||null);
+          <div class="vr-grid vr-grid-2">
+            <figure><img src="/assets/img/vareno/vareno-identity.webp?v=12" alt="VARENO identity system"><figcaption><b>Identity System</b><span>Logo • Monogram</span></figcaption></figure>
+            <figure><img src="/assets/img/vareno/vareno-guidelines.webp?v=12" alt="VARENO brand guidelines"><figcaption><b>Brand Guidelines</b><span>Color • Typography</span></figcaption></figure>
+          </div>
+          <div class="vr-grid vr-grid-3">
+            <figure><img src="/assets/img/vareno/vareno-exterior.webp?v=12" alt="VARENO exterior branding"><figcaption><b>Exterior Branding</b><span>Facade • Signage</span></figcaption></figure>
+            <figure><img src="/assets/img/vareno/vareno-stationery.webp?v=12" alt="VARENO stationery"><figcaption><b>Stationery</b><span>Print • Cards</span></figcaption></figure>
+            <figure><img src="/assets/img/vareno/vareno-digital.webp?v=12" alt="VARENO digital touchpoints"><figcaption><b>Digital Touchpoints</b><span>Booking • Social</span></figcaption></figure>
+          </div>
+          <figure class="vr-final"><img src="/assets/img/vareno/vareno-final-showcase.webp?v=12" alt="VARENO final brand showcase"><figcaption><b>Final Brand Showcase</b><span>Complete Visual Identity</span></figcaption></figure>`;
+        if(hatan) designWrap.insertBefore(section,hatan); else designWrap.appendChild(section);
       }
 
-      const marker=doc.createElement('meta');marker.name='vareno-build';marker.content='work-11';doc.head.appendChild(marker);
+      const marker=doc.createElement('meta');marker.name='vareno-build';marker.content='work-12';doc.head.appendChild(marker);
       const final='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
       document.open();document.write(final);document.close();
     }catch(e){
