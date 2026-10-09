@@ -116,6 +116,32 @@
     <section id="design" class="caseStudy">
       <div class="wrap">
         <div class="sectionHead"><h2>Brand Identity & Design</h2><p>Selected identity, packaging and retail applications developed as complete visual systems.</p></div>
+
+        <div id="vareno-case" class="caseIntro">
+          <div><div class="eyebrow">VARENO — Barber Club</div><h3>Luxury Grooming Brand Identity</h3><p>A self-initiated identity system for a premium barber club, developed from strategy and logo architecture through environmental branding, uniforms, grooming products, stationery and digital touchpoints.</p></div>
+          <span class="caseTag">Branding • Art Direction • Digital</span>
+        </div>
+        <figure class="caseHero"><img data-vareno-image="hero" alt="VARENO Barber Club hero identity showcase" loading="lazy"><div class="caseCaption"><b>VARENO Barber Club</b><span class="caseMeta">Hero Brand Experience</span></div></figure>
+        <div class="panel campaignCase" aria-labelledby="vareno-overview-title">
+          <div class="eyebrow">Brand Overview • Self-initiated concept</div>
+          <h3 id="vareno-overview-title">Crafted for the modern gentleman.</h3>
+          <p class="caseSummary">VARENO blends European elegance with contemporary masculine luxury, positioning the barbershop as a refined club experience rather than a routine service. The system is built around craftsmanship, confidence and modern heritage, with every touchpoint designed to feel precise, exclusive and consistent.</p>
+          <dl class="projectFacts"><div><dt>Role</dt><dd>Brand Strategy • Visual Identity • Art Direction</dd></div><div><dt>Scope</dt><dd>Logo system • Environment • Packaging • Digital</dd></div><div><dt>Positioning</dt><dd>Premium grooming • Modern heritage</dd></div><div><dt>Audience</dt><dd>Style-conscious men • 25–45</dd></div></dl>
+        </div>
+        <div class="caseGrid">
+          <figure class="caseShot"><img data-vareno-image="identity" alt="VARENO logo system, color palette, typography, pattern and brand guidelines" loading="lazy"><div class="caseCaption"><b>Identity System</b><span class="caseMeta">Logo • Color • Type • Pattern</span></div></figure>
+          <figure class="caseShot"><img data-vareno-image="applications" alt="VARENO environmental, uniform, packaging, stationery and digital brand applications" loading="lazy"><div class="caseCaption"><b>Brand Applications</b><span class="caseMeta">Environment • Uniform • Packaging • Digital</span></div></figure>
+        </div>
+        <div class="panel campaignCase">
+          <div class="eyebrow">Brand Promise</div>
+          <h3>More than a haircut. A higher standard of grooming.</h3>
+          <p>The identity extends from the storefront and interior to staff uniforms, stationery, grooming products, retail accessories and digital booking—creating one cohesive premium experience across every customer touchpoint.</p>
+          <div class="chips"><span class="chip">Exterior Branding</span><span class="chip">Interior Branding</span><span class="chip">Staff Uniform</span><span class="chip">Business & Appointment Cards</span><span class="chip">Pomade & Beard Oil</span><span class="chip">Towels & Shopping Bag</span><span class="chip">Instagram • Booking • Website</span></div>
+        </div>
+        <figure class="caseHero"><img data-vareno-image="final" alt="VARENO Barber Club final brand showcase across physical and digital touchpoints" loading="lazy"><div class="caseCaption"><b>Final Brand Showcase</b><span class="caseMeta">Crafted for the Modern Gentleman</span></div></figure>
+        <p class="caseNote">Self-initiated portfolio concept. All business names, environments and applications were created to demonstrate a complete premium grooming identity system.</p>
+        <div style="height:1px;background:var(--line);margin:56px 0"></div>
+
         <div class="caseIntro">
           <div><div class="eyebrow">HATAN — Fine Foods & Confections</div><h3>Premium Food Brand Identity</h3><p>A self-initiated brand identity case study built from logo system and typography through packaging, retail, uniforms, takeaway applications and in-store experience.</p></div>
           <span class="caseTag">Branding • Packaging • Retail</span>
@@ -243,5 +269,22 @@
       </div>
     </section>
   </main>
+  <script>
+    (() => {
+      const varenoAssets = {hero:'hero.txt', identity:'identity.txt', applications:'applications.txt', final:'final.txt'};
+      Object.entries(varenoAssets).forEach(async ([key,file]) => {
+        try {
+          const response = await fetch(`assets/vareno-data/${file}`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const base64 = (await response.text()).trim();
+          document.querySelectorAll(`[data-vareno-image="${key}"]`).forEach(img => {
+            img.src = `data:image/webp;base64,${base64}`;
+          });
+        } catch (error) {
+          console.warn('VARENO asset load failed', key, error);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
