@@ -12,16 +12,23 @@
   <script>
     (async () => {
       try {
-        const response = await fetch('/index.html?v=avena-4', {cache: 'no-store'});
+        const response = await fetch('/index.html?v=avena-5', {cache: 'no-store'});
         if (!response.ok) throw new Error('Could not load portfolio');
         const html = await response.text();
         const parsed = new DOMParser().parseFromString(html, 'text/html');
 
-        const workWrap = parsed.querySelector('#work .wrap');
-        if (workWrap && !parsed.body.textContent.includes('AVENA — Medical Center')) {
-          const sectionHead = parsed.querySelector('#work .sectionHead');
-          const entry = parsed.createElement('div');
+        const originalScripts = [...parsed.querySelectorAll('script')].map(s => ({src:s.src, text:s.textContent, type:s.type}));
+        parsed.querySelectorAll('script').forEach(s => s.remove());
+
+        document.head.innerHTML = parsed.head.innerHTML;
+        document.body.innerHTML = parsed.body.innerHTML;
+
+        const workWrap = document.querySelector('#work .wrap');
+        if (workWrap && !document.getElementById('avena-feature')) {
+          const sectionHead = document.querySelector('#work .sectionHead');
+          const entry = document.createElement('div');
           entry.id = 'avena-feature';
+          entry.style.scrollMarginTop = '90px';
           entry.innerHTML = `
             <div class="caseIntro" style="margin-top:0">
               <div>
@@ -31,46 +38,46 @@
               </div>
               <span class="caseTag">Healthcare • Identity • Digital</span>
             </div>
-            <a class="caseHero" href="avena.html" aria-label="View AVENA Medical Center case study">
-              <img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
+            <a class="caseHero" href="/avena.html" aria-label="View AVENA Medical Center case study">
+              <img src="/assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
             </a>
             <div class="panel" style="margin-bottom:34px">
               <div class="eyebrow">Featured Case Study</div>
               <h3>AVENA Medical Center</h3>
               <p>Explore the full visual identity from the core brand system through environmental, uniform, vehicle, digital and social-media applications.</p>
-              <div class="actions" style="margin-top:18px"><a class="btn primary" href="avena.html">View AVENA Case Study</a></div>
+              <div class="actions" style="margin-top:18px"><a class="btn primary" href="/avena.html">View AVENA Case Study</a></div>
             </div>`;
 
-          if (sectionHead && sectionHead.nextSibling) {
-            workWrap.insertBefore(entry, sectionHead.nextSibling);
-          } else {
-            workWrap.prepend(entry);
-          }
+          if (sectionHead) sectionHead.insertAdjacentElement('afterend', entry);
+          else workWrap.prepend(entry);
         }
 
-        const navLinks = parsed.querySelector('.links');
+        const navLinks = document.querySelector('.links');
         if (navLinks && !navLinks.querySelector('a[href="#avena-feature"]')) {
           const workLink = navLinks.querySelector('a[href="#work"]');
-          const avenaLink = parsed.createElement('a');
+          const avenaLink = document.createElement('a');
           avenaLink.href = '#avena-feature';
           avenaLink.textContent = 'AVENA';
-          if (workLink && workLink.nextSibling) navLinks.insertBefore(avenaLink, workLink.nextSibling);
+          if (workLink) workLink.insertAdjacentElement('afterend', avenaLink);
           else navLinks.appendChild(avenaLink);
         }
 
-        const extraStyle = parsed.createElement('style');
-        extraStyle.textContent = '#avena-feature{scroll-margin-top:90px}';
-        parsed.head.appendChild(extraStyle);
+        originalScripts.forEach(def => {
+          const s = document.createElement('script');
+          if (def.type) s.type = def.type;
+          if (def.src) s.src = def.src;
+          else s.textContent = def.text;
+          document.body.appendChild(s);
+        });
 
-        const hashFix = parsed.createElement('script');
-        hashFix.textContent = `window.addEventListener('load',()=>{if(location.hash==='#work'){const el=document.getElementById('avena-feature');if(el)requestAnimationFrame(()=>el.scrollIntoView({block:'start'}));}});`;
-        parsed.body.appendChild(hashFix);
-
-        document.open();
-        document.write('<!DOCTYPE html>' + parsed.documentElement.outerHTML);
-        document.close();
+        requestAnimationFrame(() => {
+          if (location.hash === '#work') {
+            const target = document.getElementById('avena-feature');
+            if (target) target.scrollIntoView({block:'start'});
+          }
+        });
       } catch (error) {
-        location.replace('/index.html');
+        document.body.innerHTML = '<div style="min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center"><div><h1>Portfolio</h1><p>Could not load the main page.</p><p><a href="/index.html" style="color:#c9a55a">Open portfolio</a> · <a href="/avena.html" style="color:#c9a55a">Open AVENA case study</a></p></div></div>';
       }
     })();
   </script>
