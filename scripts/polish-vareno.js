@@ -1,0 +1,59 @@
+const fs = require('fs');
+
+const path = 'index.html';
+let html = fs.readFileSync(path, 'utf8');
+
+const marker = '/* VARENO WIDE CASE STUDY */';
+if (!html.includes(marker)) {
+  const css = `
+    /* VARENO WIDE CASE STUDY */
+    #vareno-case{scroll-margin-top:96px}
+    .varenoIntro{margin-top:34px;margin-bottom:30px}
+    .varenoMedia{width:min(1480px,calc(100vw - 44px));margin-left:50%;transform:translateX(-50%)}
+    .varenoHero,.varenoFinal{border-radius:28px;margin-bottom:34px;background:#0b0b0c;box-shadow:0 28px 80px rgba(0,0,0,.28)}
+    .varenoHero img,.varenoFinal img{width:100%;height:auto}
+    .varenoOverview{margin:38px 0 46px;padding:36px;border-radius:22px;background:linear-gradient(135deg,#171719,#111113)}
+    .varenoSectionHead{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;margin:46px 0 22px}
+    .varenoSectionHead span{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(201,165,90,.42);border-radius:999px;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em}
+    .varenoSectionHead h4{margin:0 0 6px;font-size:26px;letter-spacing:-.02em}
+    .varenoSectionHead p{margin:0;color:var(--muted);max-width:760px}
+    .varenoStack{display:grid;grid-template-columns:1fr;gap:34px;margin-bottom:42px}
+    .varenoShot{margin:0;border-radius:24px;background:#0b0b0c;box-shadow:0 22px 60px rgba(0,0,0,.22)}
+    .varenoShot img{width:100%;height:auto}
+    .varenoShot .caseCaption,.varenoHero .caseCaption,.varenoFinal .caseCaption{padding:18px 20px;font-size:14px}
+    .varenoPromise{margin:44px 0;padding:36px;border-radius:22px}
+    .varenoDivider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:72px 0 58px}
+    @media(max-width:900px){.varenoMedia{width:min(100%,calc(100vw - 28px))}.varenoOverview,.varenoPromise{padding:28px}.varenoStack{gap:24px}}
+    @media(max-width:620px){.varenoMedia{width:calc(100vw - 20px)}.varenoHero,.varenoFinal,.varenoShot{border-radius:16px}.varenoOverview,.varenoPromise{padding:22px}.varenoSectionHead{margin:34px 0 16px}.varenoSectionHead h4{font-size:22px}.varenoShot .caseCaption,.varenoHero .caseCaption,.varenoFinal .caseCaption{padding:14px 15px}}
+`;
+  html = html.replace('  </style>', css + '  </style>');
+}
+
+const start = html.indexOf('<div id="vareno-case"');
+const end = html.indexOf('<div class="caseIntro">', start + 1);
+if (start === -1 || end === -1) throw new Error('VARENO section not found');
+let segment = html.slice(start, end);
+
+segment = segment.replace('<div id="vareno-case" class="caseIntro">', '<div id="vareno-case" class="caseIntro varenoIntro">');
+segment = segment.replace('<figure class="caseHero">', '<figure class="caseHero varenoHero varenoMedia">');
+segment = segment.replace('<div class="panel campaignCase" aria-labelledby="vareno-overview-title">', '<div class="panel campaignCase varenoOverview" aria-labelledby="vareno-overview-title">');
+segment = segment.replace('<div class="caseGrid">', '<div class="varenoSectionHead"><span>01</span><div><h4>Identity System</h4><p>Logo architecture, monogram, color palette, typography, clear space and the supporting brand pattern — presented at a readable editorial scale.</p></div></div>\n        <div class="varenoStack varenoMedia">');
+segment = segment.replaceAll('class="caseShot"', 'class="caseShot varenoShot"');
+segment = segment.replace('<div class="panel campaignCase">', '<div class="panel campaignCase varenoPromise">');
+
+const applicationsNeedle = '<figure class="caseShot varenoShot"><img data-vareno-image="applications"';
+if (segment.includes(applicationsNeedle)) {
+  segment = segment.replace(applicationsNeedle, '<div class="varenoSectionHead" style="width:min(1160px,calc(100vw - 44px));margin-left:auto;margin-right:auto"><span>02</span><div><h4>Brand Applications</h4><p>Exterior and interior branding, uniforms, stationery, grooming products, retail details and digital touchpoints shown as one complete premium barber experience.</p></div></div>\n          ' + applicationsNeedle);
+}
+
+const lastHero = segment.lastIndexOf('<figure class="caseHero">');
+if (lastHero !== -1) {
+  const before = segment.slice(0, lastHero);
+  const after = segment.slice(lastHero).replace('<figure class="caseHero">', '<div class="varenoSectionHead"><span>03</span><div><h4>Final Brand Showcase</h4><p>A closing view that brings the physical and digital identity together into one consistent brand world.</p></div></div>\n        <figure class="caseHero varenoFinal varenoMedia">');
+  segment = before + after;
+}
+
+segment = segment.replace('<div style="height:1px;background:var(--line);margin:56px 0"></div>', '<div class="varenoDivider"></div>');
+html = html.slice(0, start) + segment + html.slice(end);
+fs.writeFileSync(path, html, 'utf8');
+console.log('VARENO case study presentation polished.');
