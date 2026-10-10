@@ -106,6 +106,7 @@ module.exports = async function handler(req, res) {
   const c = settings();
   const action = req.query?.action || 'collect';
   if (action === 'status' && req.method === 'GET') return res.status(200).json({ enabled: configured(c) });
+  if (action === 'owner' && req.method === 'GET') return res.status(200).json({ authenticated: configured(c) && authorized(req, c) });
   if (!configured(c)) return res.status(503).json({ error: 'setup_required' });
   try {
     if (req.method === 'POST' && !originAllowed(req)) return res.status(403).json({ error: 'invalid_origin' });

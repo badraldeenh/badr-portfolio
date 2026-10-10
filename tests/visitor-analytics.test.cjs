@@ -35,6 +35,19 @@ test('anonymous users cannot read the dashboard API', async () => {
   assert.equal((await request('GET','sessions')).status, 401);
   assert.equal(calls.length, 0);
 });
+test('owner visibility requires a valid signed login and performs no storage reads', async () => {
+  assert.equal((await request('GET', 'owner')).json.authenticated, false);
+  const login = await request('POST', 'login', { password: process.env.ANALYTICS_ADMIN_PASSWORD });
+  const cookie = login.headers['Set-Cookie'].split(';')[0];
+  const before = calls.length;
+  const owner = await request('GET', 'owner', undefined, { cookie });
+  assert.deepEqual(owner.json, { authenticated: true });
+  assert.equal(owner.headers['Cache-Control'], 'no-store');
+  assert.equal((await request('GET', 'owner', undefined, { cookie: cookie + 'tampered' })).json.authenticated, false);
+  delete process.env.ANALYTICS_ADMIN_PASSWORD;
+  assert.equal((await request('GET', 'owner', undefined, { cookie })).json.authenticated, false);
+  assert.equal(calls.length, before);
+});
 test('login sets a protected cookie, and a signed session can read', async () => {
   const login = await request('POST','login',{ password:process.env.ANALYTICS_ADMIN_PASSWORD });
   assert.equal(login.status, 200);
