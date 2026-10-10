@@ -1,0 +1,71 @@
+name: Install visit duration tracking
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-visit-duration-tracking.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add analytics scripts to HTML pages
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          analytics_block = '''  <!-- Vercel Web Analytics -->
+          <script>
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          </script>
+          <script defer src="/_vercel/insights/script.js"></script>'''
+          duration_tag = '  <script defer src="/assets/js/visit-duration.js"></script>'
+
+          changed = []
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts:
+                  continue
+              text = path.read_text(encoding='utf-8')
+              if '</head>' not in text:
+                  continue
+
+              additions = []
+              if '/_vercel/insights/script.js' not in text:
+                  additions.append(analytics_block)
+              if '/assets/js/visit-duration.js' not in text:
+                  additions.append(duration_tag)
+
+              if not additions:
+                  continue
+
+              text = text.replace('</head>', '\n' + '\n'.join(additions) + '\n</head>', 1)
+              path.write_text(text, encoding='utf-8')
+              changed.append(str(path))
+
+          print('Updated HTML files:')
+          for item in changed:
+              print(' -', item)
+          PY
+
+      - name: Commit tracking installation
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No HTML changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u
+          git commit -m "Enable visit duration tracking across portfolio pages"
+          git push
