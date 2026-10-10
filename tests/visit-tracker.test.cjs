@@ -32,8 +32,8 @@ test('company attribution, heartbeat and hidden-tab timing stay consistent', asy
 test('declining or privacy signals never start the detailed tracker', async () => {
   for (const options of [{consent:'no'},{gpc:true}]) {const b=browser(options);await b.ready();b.advance(30000);assert.equal(b.payloads.length,0);assert.equal(b.appended.length,0);}
 });
-test('unconfigured backend retains legacy reporter without showing detailed consent', async () => {
-  const b=browser({enabled:false});await b.ready();assert.equal(b.payloads.length,0);assert.equal(b.appended[0].src,'/assets/js/visit-duration-legacy.js');
+test('unconfigured backend never injects synthetic duration pageviews', async () => {
+  const b=browser({enabled:false});await b.ready();assert.equal(b.payloads.length,0);assert.equal(b.appended.length,0);b.advance(30000);assert.equal(b.payloads.length,0);
 });
 test('new visitors must explicitly allow before detailed recording', async () => {
   const b=browser({consent:''});await b.ready();assert.equal(b.payloads.length,0);

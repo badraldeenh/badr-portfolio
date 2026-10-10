@@ -11,7 +11,7 @@ In the **badr-eldin-portfolio** Vercel project, connect an Upstash Redis databas
 
 Redeploy the main commit after configuring the variables. Open `/analytics.html`, sign in and test with `/?ref=sienna` in a separate browser. Allow detailed analytics, open a project, leave the tab visible for 20 seconds, hide it for 20 seconds, return, and click CV. Refresh the dashboard; only visible time should accrue. Verify signed-out requests to `?action=sessions` return 401. Anonymous requests may collect only, never read records.
 
-If setup is missing, `/api/visitor-analytics?action=status` reports `enabled:false`, the dashboard explicitly shows setup required, and the previous duration reporter remains active. The new central dashboard contains no historical analytics imported from Vercel.
+If setup is missing, `/api/visitor-analytics?action=status` reports `enabled:false`, the dashboard explicitly shows setup required, and duration collection stays disabled. Synthetic duration pageviews are no longer injected into Web Analytics, so actual pageview counts are not inflated. The new central dashboard contains no historical analytics imported from Vercel.
 
 ## Measurements
 
@@ -30,3 +30,5 @@ If setup is missing, `/api/visitor-analytics?action=status` reports `enabled:fal
 `node --test tests/visitor-analytics.test.cjs` validates collection requests, authentication, hostile origins, time sanitization, missing setup and rate limits using a mocked Redis transport. `node --test tests/visit-tracker.test.cjs` checks visibility timing, attribution, consent and lifecycle behavior using simulated browser events. These checks do not replace an end-to-end test against the hosted database after configuration.
 
 References: https://upstash.com/docs/redis/features/restapi and https://upstash.com/docs/redis/commands/eval
+
+Ratings currently remain browser-local, with canonical project identifiers shared across listing and case-study pages. They are not central vote totals. Central rating storage still requires a provisioned database and an API.

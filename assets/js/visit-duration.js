@@ -48,7 +48,7 @@
         const bottom = (end || el.closest('section') || el.parentElement).getBoundingClientRect()[end ? 'top' : 'bottom'];
         items.push({ key, title: label, area: Math.max(0, Math.min(bottom, innerHeight) - Math.max(top, 0)) * innerWidth });
       });
-      const pageProject = { '/aura/': 'aura', '/aura/index.html': 'aura', '/vareno/': 'vareno', '/vareno/index.html': 'vareno', '/idh/': 'idh', '/idh/index.html': 'idh', '/avena.html': 'avena' }[path];
+      const pageProject = { '/aura': 'aura', '/vareno': 'vareno', '/idh': 'idh', '/aura/': 'aura', '/aura/index.html': 'aura', '/vareno/': 'vareno', '/vareno/index.html': 'vareno', '/idh/': 'idh', '/idh/index.html': 'idh', '/avena.html': 'avena' }[path];
       if (pageProject) items.push({ key: pageProject, title: text(document.querySelector('h1')) || pageProject.toUpperCase(), area: innerWidth * innerHeight });
       return items.map(x => ({ ...x, area: x.area ?? visibleArea(x.el) })).filter(x => x.key && x.area > 0).sort((a, b) => b.area - a.area)[0];
     };
@@ -136,9 +136,7 @@
   fetch('/api/visitor-analytics?action=status', { cache: 'no-store', signal }).then(r => r.ok ? r.json() : { enabled: false }).then(status => {
     if (stopped || currentBody !== document.body) return;
     if (status.enabled) consent();
-    else {
-      // Retain the previously installed duration reporting until central storage is configured.
-      const fallback = document.createElement('script'); fallback.src = '/assets/js/visit-duration-legacy.js'; document.head.appendChild(fallback);
-    }
+    // Duration reporting stays off until central storage is configured.
+    // Synthetic pageviews would inflate real pageview and visitor reports.
   }).catch(() => {});
 })();
