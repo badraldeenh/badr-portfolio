@@ -12,6 +12,9 @@
   <script>
   (async function(){
     try{
+      if(location.pathname==='/home-v3.html'||location.pathname==='/index.html'){
+        history.replaceState(null,'','/'+location.search+location.hash);
+      }
       const res=await fetch('/portfolio-source?v=vareno-work-14',{cache:'no-store'});
       if(!res.ok) throw new Error('Could not load portfolio');
       const source=await res.text();
