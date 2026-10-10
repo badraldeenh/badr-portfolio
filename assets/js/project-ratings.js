@@ -1,6 +1,6 @@
 (() => {
-  if (window.badrProjectRatings) return;
-  window.badrProjectRatings = true;
+  if (window.badrProjectRatingsBody === document.body) return;
+  window.badrProjectRatingsBody = document.body;
   const prefix = 'badr-rating-v1:';
   const memory = new Map();
   const widgets = new Map();
