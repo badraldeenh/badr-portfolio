@@ -1,0 +1,19 @@
+/*
+  Content-Language: en
+  X-Content-Type-Options: nosniff
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+/home-v4
+  Cache-Control: no-cache, no-store, must-revalidate
+/home-v4.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/portfolio-source
+  Cache-Control: no-cache, no-store, must-revalidate
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/idh/*
+  Cache-Control: no-cache, must-revalidate
+/aura/*
+  Cache-Control: no-cache, must-revalidate
+/vareno/*
+  Cache-Control: no-cache, must-revalidate
