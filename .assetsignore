@@ -1,0 +1,16 @@
+.git/
+.github/
+.wrangler/
+node_modules/
+wrangler.jsonc
+wrangler.json
+wrangler.toml
+.assetsignore
+vercel.json
+vercel-redeploy.txt
+scripts/
+*.md
+UPLOAD_INSTRUCTIONS.txt
+assets/img/vareno/UPLOAD_HERE.txt
+.env
+.env.*
