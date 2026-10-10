@@ -2,6 +2,7 @@ const crypto = require('node:crypto');
 const TTL = 90 * 86400;
 const PREFIX = 'badr:analytics:v1:';
 const COOKIE = 'badr_analytics_admin';
+const ADMIN_MAX_AGE = 30 * 86400;
 const LIMIT = 500;
 const idPattern = /^[a-f0-9-]{32,36}$/;
 const metricPattern = /^(page|section|project|video|click):[a-zA-Z0-9_./-]{1,160}$/;
@@ -38,7 +39,11 @@ function authorized(req, c) {
   const raw = String(req.headers.cookie || '').split(';').map(x => x.trim()).find(x => x.startsWith(COOKIE + '='))?.slice(COOKIE.length + 1);
   if (!raw) return false;
   const [until, nonce, sig] = raw.split('.');
-  return /^\d+$/.test(until || '') && Number(until) > Date.now() && Number(until) <= Date.now() + 43200000 && /^[a-f0-9]{32}$/.test(nonce || '') && equal(sig || '', signature(until + '.' + nonce, c.password));
+  return /^\d+$/.test(until || '') && Number(until) > Date.now() && Number(until) <= Date.now() + ADMIN_MAX_AGE * 1000 && /^[a-f0-9]{32}$/.test(nonce || '') && equal(sig || '', signature(until + '.' + nonce, c.password));
+}
+function rememberOwner(res, c) {
+  const token = (Date.now() + ADMIN_MAX_AGE * 1000) + '.' + crypto.randomBytes(16).toString('hex');
+  res.setHeader('Set-Cookie', `${COOKIE}=${token}.${signature(token, c.password)}; Path=/api/visitor-analytics; HttpOnly; Secure; SameSite=Strict; Max-Age=${ADMIN_MAX_AGE}`);
 }
 async function rateLimit(req, c, action, maximum) {
   const ip = String(req.headers['x-vercel-forwarded-for'] || req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0];
@@ -106,15 +111,18 @@ module.exports = async function handler(req, res) {
   const c = settings();
   const action = req.query?.action || 'collect';
   if (action === 'status' && req.method === 'GET') return res.status(200).json({ enabled: configured(c) });
-  if (action === 'owner' && req.method === 'GET') return res.status(200).json({ authenticated: configured(c) && authorized(req, c) });
+  if (action === 'owner' && req.method === 'GET') {
+    const authenticated = configured(c) && authorized(req, c);
+    if (authenticated) rememberOwner(res, c);
+    return res.status(200).json({ authenticated });
+  }
   if (!configured(c)) return res.status(503).json({ error: 'setup_required' });
   try {
     if (req.method === 'POST' && !originAllowed(req)) return res.status(403).json({ error: 'invalid_origin' });
     if (action === 'login' && req.method === 'POST') {
       if (!await rateLimit(req, c, 'login', 8)) return res.status(429).json({ error: 'rate_limited' });
       if (!equal(body(req).password || '', c.password)) return res.status(401).json({ error: 'invalid_password' });
-      const token = (Date.now() + 43200000) + '.' + crypto.randomBytes(16).toString('hex');
-      res.setHeader('Set-Cookie', `${COOKIE}=${token}.${signature(token, c.password)}; Path=/api/visitor-analytics; HttpOnly; Secure; SameSite=Strict; Max-Age=43200`);
+      rememberOwner(res, c);
       return res.status(200).json({ ok: true });
     }
     if (action === 'logout' && req.method === 'POST') {
@@ -123,6 +131,7 @@ module.exports = async function handler(req, res) {
     }
     if (action === 'sessions' && req.method === 'GET') {
       if (!authorized(req, c)) return res.status(401).json({ error: 'authentication_required' });
+      rememberOwner(res, c);
       const days = [7, 30, 90].includes(Number(req.query.days)) ? Number(req.query.days) : 7;
       const ids = await redis(['ZREVRANGEBYSCORE', PREFIX + 'sessions', '+inf', Date.now() - days * 86400000, 'LIMIT', 0, LIMIT + 1], c);
       let sessions = [];

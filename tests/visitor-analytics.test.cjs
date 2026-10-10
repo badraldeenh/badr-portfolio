@@ -43,6 +43,7 @@ test('owner visibility requires a valid signed login and performs no storage rea
   const owner = await request('GET', 'owner', undefined, { cookie });
   assert.deepEqual(owner.json, { authenticated: true });
   assert.equal(owner.headers['Cache-Control'], 'no-store');
+  assert.match(owner.headers['Set-Cookie'], /Max-Age=2592000/);
   assert.equal((await request('GET', 'owner', undefined, { cookie: cookie + 'tampered' })).json.authenticated, false);
   delete process.env.ANALYTICS_ADMIN_PASSWORD;
   assert.equal((await request('GET', 'owner', undefined, { cookie })).json.authenticated, false);
@@ -52,6 +53,7 @@ test('login sets a protected cookie, and a signed session can read', async () =>
   const login = await request('POST','login',{ password:process.env.ANALYTICS_ADMIN_PASSWORD });
   assert.equal(login.status, 200);
   assert.match(login.headers['Set-Cookie'], /HttpOnly; Secure; SameSite=Strict/);
+  assert.match(login.headers['Set-Cookie'], /Max-Age=2592000/);
   const cookie = login.headers['Set-Cookie'].split(';')[0];
   assert.equal((await request('GET','sessions',undefined,{cookie})).status, 200);
   assert.equal((await request('GET','sessions',undefined,{cookie:cookie + 'tampered'})).status, 401);
