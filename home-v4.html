@@ -1,92 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0d0d0f">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Badr Eldin Mohamed Alamin — AI Video Creator, Multimedia Designer and Video Editor based in the UAE, open to opportunities in Canada, Europe and Australia." />
+  <meta name="theme-color" content="#0d0d0f" />
+  <meta property="og:title" content="BADR Magic — Creative Portfolio" />
+  <meta property="og:description" content="AI Video Creator • Multimedia Designer • Video Editor" />
   <title>BADR Magic — Creative Portfolio</title>
-  <style>html,body{margin:0;background:#0d0d0f;color:#f5f4f0;font-family:system-ui,sans-serif}#loading{min-height:100vh;display:grid;place-items:center;color:#a8a7a3}</style>
+  <style>
+    :root{--bg:#0d0d0f;--panel:#151518;--panel2:#1b1b1f;--text:#f5f4f0;--muted:#a8a7a3;--accent:#c9a55a;--line:#2b2b30;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:auto}.nav{position:sticky;top:0;z-index:30;background:rgba(13,13,15,.86);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}.navin{height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:900;letter-spacing:.09em}.brand span{color:var(--accent)}.links{display:flex;gap:22px;color:#d8d7d2;font-size:14px}.links a:hover{color:white}.cta{border:1px solid var(--accent);padding:10px 15px;border-radius:999px;color:#f7e3b2;font-weight:800}
+    .hero{padding:82px 0 58px}.heroGrid{display:grid;grid-template-columns:1.18fr .82fr;gap:58px;align-items:center}.eyebrow{color:var(--accent);font-size:13px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px}.hero h1{font-size:clamp(44px,7vw,80px);line-height:.97;margin:0 0 22px;letter-spacing:-.058em}.hero h1 em{font-style:normal;color:var(--accent)}.lead{font-size:20px;color:#cfcec9;max-width:720px;margin:0 0 28px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{padding:13px 18px;border-radius:10px;font-weight:850;border:1px solid var(--line);background:var(--panel);display:inline-flex;align-items:center;gap:8px;transition:.18s ease}.btn:hover{transform:translateY(-1px);border-color:#46464c}.btn.primary{background:var(--accent);color:#141414;border-color:var(--accent)}.micro{margin-top:24px;color:var(--muted);font-size:14px}.portrait{border-radius:28px;overflow:hidden;background:var(--panel);border:1px solid var(--line);aspect-ratio:4/5;box-shadow:0 28px 80px rgba(0,0,0,.35)}.portrait img{width:100%;height:100%;object-fit:cover}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:34px;max-width:770px}.stat{padding:14px 14px;border:1px solid var(--line);border-radius:12px;background:#111114}.stat b{display:block;font-size:13px;color:#f1f0eb}.stat span{font-size:12px;color:var(--muted)}
+    section{padding:62px 0}.sectionHead{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:26px}.sectionHead h2{margin:0;font-size:36px;letter-spacing:-.035em}.sectionHead p{margin:0;color:var(--muted);max-width:620px}.showreelBox{border:1px solid var(--line);background:var(--panel);border-radius:24px;overflow:hidden}.showreelInner{display:grid;grid-template-columns:minmax(280px,430px) 1fr}.showreelVideo{background:#000}.showreelVideo video{width:100%;aspect-ratio:9/16;object-fit:cover;max-height:720px;margin:auto}.showreelCopy{padding:46px;display:flex;flex-direction:column;justify-content:center}.showreelCopy h3{font-size:34px;margin:0 0 14px;letter-spacing:-.02em}.showreelCopy p{color:#b9b8b4;margin:0 0 20px}.chips,.miniChips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:#111114;padding:8px 10px;border-radius:999px;font-size:12px;color:#ddd}.miniChips{margin-top:14px}.miniChips span{font-size:11px;color:#c8c7c3;padding:5px 8px;border:1px solid #2d2d32;border-radius:999px;background:#101012}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s ease}.card:hover{transform:translateY(-3px);border-color:#444}.media{aspect-ratio:9/16;background:#090909;position:relative;overflow:hidden}.media video{width:100%;height:100%;object-fit:cover}.rank{position:absolute;top:12px;left:12px;background:rgba(10,10,11,.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:900;padding:6px 9px;border-radius:999px}.cardBody{padding:18px}.kicker{font-size:11px;color:var(--accent);font-weight:900;letter-spacing:.12em;text-transform:uppercase}.card h3{margin:6px 0 8px;font-size:20px}.card p{margin:0;color:var(--muted);font-size:14px}
+
+    .caseStudy{background:linear-gradient(180deg,rgba(201,165,90,.055),transparent 45%)}.caseVideoFeature{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:34px;align-items:center;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,#171719,#111113);padding:28px;margin-bottom:18px;overflow:hidden}.caseVideoFrame{background:#050506;border:1px solid #29292e;border-radius:18px;padding:10px;box-shadow:0 26px 70px rgba(0,0,0,.28)}.caseVideoFrame video{width:100%;aspect-ratio:9/16;object-fit:cover;max-height:720px;margin:auto;border-radius:12px;background:#000}.caseVideoCopy h4{font-size:30px;line-height:1.08;margin:0 0 12px;letter-spacing:-.025em}.caseVideoCopy p{margin:0 0 18px;color:#b9b8b4;max-width:620px}.caseVideoMeta{display:flex;gap:8px;flex-wrap:wrap}.caseVideoMeta span{font-size:11px;color:#d7d5ce;padding:6px 9px;border:1px solid #323238;border-radius:999px;background:#101012}.caseVideoSound{margin-top:14px;color:#8d8c87;font-size:12px}.caseHero{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--panel);margin-bottom:18px}.caseHero img{width:100%;height:auto}.caseIntro{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin:18px 0 26px}.caseIntro h3{font-size:30px;margin:0 0 8px}.caseIntro p{margin:0;color:var(--muted);max-width:760px}.caseTag{font-size:12px;color:#f4dfad;border:1px solid rgba(201,165,90,.38);background:rgba(201,165,90,.08);padding:8px 11px;border-radius:999px;white-space:nowrap}.caseGrid{columns:2;column-gap:18px}.caseShot{break-inside:avoid;margin:0 0 18px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel);transition:.2s ease}.caseShot:hover{transform:translateY(-2px);border-color:#46464c}.caseShot img{width:100%;height:auto}.caseCaption{padding:13px 15px;color:#c7c6c1;font-size:13px;display:flex;justify-content:space-between;gap:12px}.caseCaption b{color:#f4f2ec}.caseMeta{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.caseNote{margin-top:20px;color:#7f7e7a;font-size:12px}
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step{padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:16px}.num{font-size:12px;font-weight:900;color:var(--accent);letter-spacing:.12em}.step h3{margin:8px 0 8px;font-size:18px}.step p{margin:0;color:var(--muted);font-size:14px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px}.panel h3{margin:0 0 16px;font-size:24px}.skillList{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;color:#d0cfca}.skillList div{padding:10px 0;border-bottom:1px solid #242429}.about p{color:#c2c1bc}.highlight{color:var(--accent);font-weight:850}
+    .contact{background:linear-gradient(135deg,#171719,#111113);border:1px solid var(--line);border-radius:24px;padding:38px;display:flex;justify-content:space-between;gap:30px;align-items:center}.contact h2{margin:0 0 8px;font-size:34px}.contact p{margin:0;color:var(--muted)}.contactActions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.footer{padding:34px 0 46px;color:#777;font-size:13px;display:flex;justify-content:space-between;gap:16px;border-top:1px solid #1f1f22;margin-top:56px}
+    @media(max-width:900px){.heroGrid,.showreelInner,.two,.caseVideoFeature{grid-template-columns:1fr}.caseVideoFrame{max-width:390px;width:100%;margin:auto}.caseIntro{grid-template-columns:1fr}.caseGrid{columns:2}.hero{padding-top:46px}.portrait{max-width:520px}.grid{grid-template-columns:1fr 1fr}.showreelVideo video{max-height:680px}.showreelCopy{padding:30px}.links{display:none}.contact{align-items:flex-start;flex-direction:column}.contactActions{justify-content:flex-start}.process{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.caseGrid{columns:1}.wrap{width:min(var(--max),calc(100% - 24px))}.grid,.process{grid-template-columns:1fr}.hero h1{font-size:48px}.lead{font-size:18px}.sectionHead{align-items:flex-start;flex-direction:column}.sectionHead h2{font-size:30px}.skillList{grid-template-columns:1fr}.navin{height:62px}.cta{font-size:13px}.contact{padding:26px}.footer{flex-direction:column}.stats{grid-template-columns:1fr 1fr}.hero{padding-bottom:36px}}
+      section, [id="hatan-film"]{scroll-margin-top:90px}
+    a:focus-visible,video:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+    .caseHero{display:block}.panel p{color:var(--muted)}
+    .projectFacts{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:13px}
+    .projectFacts div{display:grid;grid-template-columns:82px 1fr;gap:10px;margin:7px 0}
+    .projectFacts dt{color:var(--accent);font-weight:700}.projectFacts dd{margin:0;color:#cfcec9}
+    .campaignCase{margin-bottom:24px}.caseSummary{max-width:850px}
+    .caseStages{list-style:none;padding:0;margin:24px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+    .caseStages h4{margin:8px 0;font-size:17px}.caseStages p{margin:0;font-size:13px}
+    @media(max-width:900px){.caseStages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:620px){.caseStages{grid-template-columns:1fr}.caseVideoFeature{padding:18px}.caseVideoCopy h4{font-size:26px}.caseCaption{flex-wrap:wrap}.hero h1{font-size:clamp(36px,10vw,48px)}.portrait{margin:0}.caseVideoFeature{grid-template-columns:minmax(0,1fr)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.card,.caseShot{transition:none}.btn:hover,.card:hover,.caseShot:hover{transform:none}}
+      #character-scenes .media{max-height:600px}#character-scenes .media video{object-fit:contain}
+      .varenoQualityHero,.varenoQualityShot{background:radial-gradient(circle at 50% 35%,#211d17 0,#111113 58%,#0b0b0d 100%);display:grid;grid-template-columns:1fr;place-items:center;padding:clamp(20px,4vw,48px);overflow:hidden}
+      .varenoQualityHero img,.varenoQualityShot img{width:auto!important;height:auto!important;max-width:100%;object-fit:contain;image-rendering:auto;filter:contrast(1.04) saturate(1.03);box-shadow:0 18px 48px rgba(0,0,0,.34);border-radius:12px}
+      .varenoQualityHero img{max-width:420px}
+      .varenoQualityShot img{max-width:320px}
+      .varenoQualityHero .caseCaption,.varenoQualityShot .caseCaption{width:100%;justify-self:stretch;margin-top:18px;padding-left:0;padding-right:0}
+      @media(max-width:620px){.varenoQualityHero,.varenoQualityShot{padding:18px}.varenoQualityHero img,.varenoQualityShot img{max-width:100%}}
+
+    /* Reserve image space so direct section links stay at their target. */
+    img{height:auto}
+    #chocolate-craft-film,#chocolate-dessert-process{scroll-margin-top:100px}
+    .varenoQualityHero,.varenoQualityShot{display:block;padding:0;background:#09090b}
+    .varenoQualityHero img,.varenoQualityShot img{display:block;width:100%!important;max-width:none!important;height:auto!important;margin:0;border-radius:0;box-shadow:none;filter:none}
+    .varenoQualityHero .caseCaption,.varenoQualityShot .caseCaption{margin:0;padding:13px 15px}
+    @media(max-width:900px){
+      .navin{height:auto;min-height:68px;flex-wrap:wrap;padding-top:12px;padding-bottom:10px;gap:10px}
+      .links{display:flex;order:3;width:100%;overflow-x:auto;white-space:nowrap;padding-bottom:6px;gap:20px}
+      .navin .cta{margin-left:auto}
+      section,#hatan-film,#chocolate-craft-film,#chocolate-dessert-process{scroll-margin-top:125px}
+      .two{grid-template-columns:minmax(0,1fr)}
+      .panel{min-width:0}
+    }
+  </style>
 </head>
 <body>
-  <div id="loading">Loading portfolio…</div>
-  <script>
-  (async function(){
-    try{
-      const res=await fetch('/portfolio-source?v=vareno-direct-16',{cache:'no-store'});
-      if(!res.ok) throw new Error('Could not load portfolio');
-      const source=await res.text();
-      const doc=new DOMParser().parseFromString(source,'text/html');
+  <nav class="nav">
+    <div class="wrap navin">
+      <a class="brand" href="#top">BADR<span> Magic</span></a>
+      <div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="aura/">AURA</a><a href="#design">Design</a><a href="#process">Workflow</a><a href="#editing">Editing</a><a href="#marketing">Marketing</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+      <a class="cta" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a>
+    </div>
+  </nav>
 
-      // Remove the old VARENO base64 loader. The previous loader was the reason
-      // images could appear as broken after the page was rebuilt in Chrome.
-      [...doc.querySelectorAll('script')].forEach(s=>{
-        const t=s.textContent||'';
-        if(t.includes('varenoAssets') || t.includes('assets/vareno-data/')) s.remove();
-      });
+  <main id="top">
+    <header class="hero">
+      <div class="wrap heroGrid">
+        <div>
+          <div class="eyebrow">AI Video Creator • Multimedia Designer • Video Editor</div>
+          <h1>Badr Eldin<br><em>Mohamed Alamin</em></h1>
+          <p class="lead">Creating cinematic product advertising from real product photography, AI-assisted visuals and video editing.</p>
+          <div class="actions">
+            <a class="btn primary" href="#work">View selected work</a>
+            <a class="btn" href="mailto:badrlooka90@gmail.com">Email me</a>
+          </div>
+          <div class="micro">Based in the United Arab Emirates • Open to opportunities in Canada, Europe & Australia • Available for remote interviews</div>
+          <div class="stats" aria-label="Professional focus">
+            <div class="stat"><b>AI Video</b><span>Real photography & AI-assisted visuals</span></div>
+            <div class="stat"><b>Art Direction</b><span>Concepts & brand consistency</span></div>
+            <div class="stat"><b>Editing</b><span>Premiere Pro & sound design</span></div>
+            <div class="stat"><b>Brand Visuals</b><span>Advertising & social content</span></div>
+          </div>
+        </div>
+        <figure class="portrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" /></figure>
+      </div>
+    </header>
 
-      // Give every VARENO image a real static URL before the document is rendered.
-      const varenoDirect={
-        hero:'/assets/img/vareno/vareno-hero.webp?v=16',
-        identity:'/assets/img/vareno/vareno-identity.webp?v=16',
-        applications:'/assets/img/vareno/vareno-digital.webp?v=16',
-        final:'/assets/img/vareno/vareno-final-showcase.webp?v=16'
-      };
-      Object.entries(varenoDirect).forEach(([key,url])=>{
-        doc.querySelectorAll(`[data-vareno-image="${key}"]`).forEach(img=>{
-          img.setAttribute('src',url);
-          img.removeAttribute('data-vareno-image');
-          img.setAttribute('loading',key==='hero'?'eager':'lazy');
-          img.setAttribute('decoding','async');
-        });
-      });
+    <section id="reel">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Showreel</h2><p>A compact overview of AI-assisted product advertising, food visuals, cinematic motion and character storytelling.</p></div>
+        <div class="showreelBox">
+          <div class="showreelInner">
+            <div class="showreelVideo"><video src="assets/video/showreel.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div>
+            <div class="showreelCopy">
+              <div class="eyebrow">Selected visual work</div>
+              <h3>From concept to finished video.</h3>
+              <p>My product videos start with real products photographed using a Canon camera. I work with Photoshop, ChatGPT, HappyHorse and Premiere Pro to take those photographs into AI-assisted visuals and a finished advertising edit.</p>
+              <div class="chips"><span class="chip">Generative AI</span><span class="chip">Product Advertising</span><span class="chip">Video Editing</span><span class="chip">Visual Storytelling</span><span class="chip">Social Content</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      const css=doc.createElement('style');
-      css.id='vareno-fullwidth-fix';
-      css.textContent=`
-        .varenoQualityHero,
-        .varenoQualityShot{
-          display:block!important;
-          width:100%!important;
-          max-width:none!important;
-          padding:0!important;
-          overflow:hidden!important;
-          background:#09090b!important;
-        }
-        .varenoQualityHero img,
-        .varenoQualityShot img{
-          display:block!important;
-          width:100%!important;
-          max-width:none!important;
-          height:auto!important;
-          object-fit:contain!important;
-          margin:0!important;
-          padding:0!important;
-          border-radius:0!important;
-          box-shadow:none!important;
-          filter:none!important;
-        }
-        .varenoQualityHero .caseCaption,
-        .varenoQualityShot .caseCaption{
-          width:100%!important;
-          margin-top:0!important;
-          padding:13px 15px!important;
-        }
-      `;
-      doc.head.appendChild(css);
+    <section id="work">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Selected work</h2><p>Product advertising built from real product photography and AI-assisted production, alongside motion and narrative experiments.</p></div>
+        <div id="avena-feature" style="scroll-margin-top:90px;margin-bottom:38px">
+          <div class="caseIntro" style="margin-top:0">
+            <div>
+              <div class="eyebrow">AVENA — Medical Center</div>
+              <h3>Healthcare Brand Identity</h3>
+              <p>A complete medical-center identity system covering logo presentation, typography, stationery, uniforms, interior and exterior branding, digital booking UI, vehicle branding and campaign applications.</p>
+            </div>
+            <span class="caseTag">Healthcare • Identity • Digital</span>
+          </div>
+          <a class="caseHero" href="avena.html" aria-label="View AVENA Medical Center case study">
+            <img width="3840" height="2161" src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
+          </a>
+          <div class="panel">
+            <div class="eyebrow">Featured Case Study</div>
+            <h3>AVENA Medical Center</h3>
+            <p>Explore the full visual identity from the core brand system through environmental, uniform, vehicle, digital and social-media applications.</p>
+            <div class="actions" style="margin-top:18px"><a class="btn primary" href="avena.html">View AVENA Case Study</a></div>
+          </div>
+        </div>
+        <div class="grid">
+          <a class="card" href="aura/" aria-label="Open AURA Athletics case study"><div class="media" style="background:#080a0c"><span class="rank">Featured Case Study</span><img width="1672" height="941" src="assets/img/aura/performance-overview.webp" alt="AURA Athletics performance collection" loading="lazy" style="width:100%;height:100%;object-fit:contain"></div><div class="cardBody"><div class="kicker">Branding • Sportswear • AI Art Direction</div><h3>AURA Athletics</h3><p>A complete fictional performance-sportswear case study covering brand identity, apparel and footwear direction, cinematic campaign visuals and e-commerce support.</p><div class="miniChips"><span>Brand Identity</span><span>Sportswear</span><span>AI Visuals</span><span>E-commerce</span></div><div class="actions" style="margin-top:14px"><span class="btn">View full case study →</span></div></div></a>
+          <article class="card" id="chocolate-craft-film"><div class="media"><span class="rank">01 • Featured</span><video poster="assets/img/project-01.jpg" src="assets/video/project-01.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Product Commercial</div><h3>Chocolate Craft Film</h3><p>Cinematic chocolate-making visuals built around pouring, texture, break-apart reveals and premium product detail.</p><div class="miniChips"><span>AI Visuals</span><span>Product Detail</span><span>Editing</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>AI visual production & video editing</dd></div><div><dt>Deliverable</dt><dd>Chocolate product film</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">02</span><video poster="assets/img/project-02.jpg" src="assets/video/project-02.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Food & Beverage</div><h3>Mango Beverage Commercial</h3><p>A bright vertical beverage concept combining fruit motion, macro product shots and a clean social-ad finish.</p><div class="miniChips"><span>Generative AI</span><span>Beverage</span><span>9:16</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Generative visual production</dd></div><div><dt>Deliverable</dt><dd>Vertical beverage commercial (9:16)</dd></div></dl></div></article>
+          <article class="card" id="chocolate-dessert-process"><div class="media"><span class="rank">03</span><video poster="assets/img/project-03.jpg" src="assets/video/project-03.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Product Storytelling</div><h3>Chocolate Dessert Process</h3><p>Process-led food storytelling moving from preparation and pouring to texture-focused finishing shots.</p><div class="miniChips"><span>Food Visuals</span><span>Editing</span><span>Social Content</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Video editing & product storytelling</dd></div><div><dt>Deliverable</dt><dd>Food process video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">04</span><video poster="assets/img/project-04.jpg" src="assets/video/project-04.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Short-form Food Advertising</div><h3>Filled Chocolate Reveal</h3><p>Fast macro cuts reveal multiple fillings and textures, designed to hold attention in vertical social advertising.</p><div class="miniChips"><span>Macro</span><span>Food Detail</span><span>Reels</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Short-form editing</dd></div><div><dt>Deliverable</dt><dd>Vertical chocolate reveal video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">05</span><video poster="assets/img/project-05.jpg" src="assets/video/project-05.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Process-led Commercial</div><h3>Handcrafted Chocolate Process</h3><p>A tactile sequence showing shaping, coating and glossy chocolate detail with a premium handmade feel.</p><div class="miniChips"><span>Craft</span><span>Product Detail</span><span>Vertical Video</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Product storytelling</dd></div><div><dt>Deliverable</dt><dd>Vertical craft video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">06</span><video poster="assets/img/project-06.jpg" src="assets/video/project-06.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Food Macro</div><h3>Croissant Detail Story</h3><p>A compact macro sequence focused on pastry texture, filling and preparation — built as a strong social hook.</p><div class="miniChips"><span>Macro</span><span>Food Visuals</span><span>Short-form</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Short-form storytelling</dd></div><div><dt>Deliverable</dt><dd>Short-form pastry video</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">07</span><video poster="assets/img/project-07.jpg" src="assets/video/project-07.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Generative AI Motion</div><h3>Chocolate Box Hero Shot</h3><p>A high-impact motion concept using floating chocolate elements and rapid camera movement to create an advertising hook.</p><div class="miniChips"><span>AI Motion</span><span>Hero Shot</span><span>Commercial Hook</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Generative motion</dd></div><div><dt>Deliverable</dt><dd>Chocolate box motion concept</dd></div></dl></div></article>
+          <article class="card"><div class="media"><span class="rank">08</span><video poster="assets/img/project-08.jpg" src="assets/video/project-08.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Storytelling</div><h3>Character Narrative</h3><p>Character-focused generative visuals exploring expression, continuity and short-form narrative direction.</p><div class="actions" style="margin-top:14px"><a class="btn" href="#character-scenes">Watch related scenes</a></div><div class="miniChips"><span>Characters</span><span>Continuity</span><span>Storytelling</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>HappyHorse • Adobe Premiere Pro • ChatGPT</dd></div><div><dt>Role</dt><dd>Generative character storytelling</dd></div><div><dt>Deliverable</dt><dd>Character narrative video & two related scenes</dd></div></dl></div></article>
+        </div>
+      </div>
+    </section>
 
-      const marker=doc.createElement('meta');
-      marker.name='vareno-build';
-      marker.content='direct-16';
-      doc.head.appendChild(marker);
+    <section id="character-scenes">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Character Narrative — Related Scenes</h2><p>Two additional scenes featuring the same animated family, exploring expression, interaction and character continuity.</p></div>
+        <div class="two">
+          <article class="card"><div class="media"><video src="assets/video/character-scene-01.mp4" poster="assets/img/character-scene-01.jpg" controls playsinline preload="metadata" aria-label="Character Narrative — Family Selfie"></video></div><div class="cardBody"><div class="kicker">Scene 01 • Family interaction</div><h3>Family Selfie</h3><p>A playful family selfie scene, with the child moving into the foreground and changing the mood of the moment.</p></div></article>
+          <article class="card"><div class="media"><video src="assets/video/character-scene-02.mp4" poster="assets/img/character-scene-02.jpg" controls playsinline preload="metadata" aria-label="Character Narrative — Living Room Reactions"></video></div><div class="cardBody"><div class="kicker">Scene 02 • Character expression</div><h3>Living Room Reactions</h3><p>A second living-room scene showing the same family through contrasting expressions and reactions.</p></div></article>
+        </div>
+      </div>
+    </section>
 
-      const final='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
-      document.open();
-      document.write(final);
-      document.close();
-    }catch(e){
-      document.body.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center"><div><h1>Portfolio</h1><p>Could not load the portfolio.</p><p><a href="/" style="color:#c9a55a">Reload portfolio</a></p></div></div>';
-    }
-  })();
-  </script>
+    <section id="design" class="caseStudy">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Brand Identity & Design</h2><p>Selected identity, packaging and retail applications developed as complete visual systems.</p></div>
+
+        <div id="avena-design" style="scroll-margin-top:90px">
+          <div class="caseIntro">
+            <div><div class="eyebrow">AVENA — Medical Center</div><h3>Healthcare Brand Identity</h3><p>A complete medical-center identity system built around precision, trust and contemporary patient care, extending from the core logo and typography to stationery, uniforms, environmental branding, digital booking, vehicle graphics and campaign applications.</p></div>
+            <span class="caseTag">Healthcare • Identity • Digital</span>
+          </div>
+          <a class="caseHero" href="avena.html" aria-label="Open AVENA Medical Center full case study"><img width="3840" height="2161" src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="lazy"><div class="caseCaption"><b>AVENA Medical Center</b><span class="caseMeta">Healthcare Brand System</span></div></a>
+          <div class="panel campaignCase">
+            <div class="eyebrow">Complete Identity System</div>
+            <h3>Care, Precisely.</h3>
+            <p>AVENA combines a calm clinical palette with a precise visual language designed for a modern medical environment. The system covers physical, environmental and digital touchpoints while keeping the brand clear, premium and human.</p>
+            <div class="chips"><span class="chip">Logo System</span><span class="chip">Typography</span><span class="chip">Stationery</span><span class="chip">Medical Uniforms</span><span class="chip">Interior & Exterior</span><span class="chip">Booking UI</span><span class="chip">Vehicle Branding</span><span class="chip">Campaign Visuals</span></div>
+            <div class="actions" style="margin-top:20px"><a class="btn primary" href="avena.html">View Full AVENA Case Study</a></div>
+          </div>
+          <div class="caseGrid">
+            <a class="caseShot" href="avena.html"><img width="3840" height="14608" src="assets/img/avena-case-study-part-1-4k.webp" alt="AVENA identity system and brand applications part one" loading="lazy"><div class="caseCaption"><b>Identity & Core Applications</b><span class="caseMeta">Logo • Type • Stationery • Uniforms</span></div></a>
+            <a class="caseShot" href="avena.html"><img width="3840" height="12903" src="assets/img/avena-case-study-part-2-4k.webp" alt="AVENA environmental digital and campaign applications part two" loading="lazy"><div class="caseCaption"><b>Environmental & Digital Applications</b><span class="caseMeta">Interior • Exterior • Digital • Campaign</span></div></a>
+          </div>
+          <p class="caseNote">Self-initiated portfolio concept created to demonstrate a complete healthcare identity system across physical and digital touchpoints.</p>
+        </div>
+        <div style="height:1px;background:var(--line);margin:56px 0"></div>
+
+        <div id="vareno-case" class="caseIntro">
+          <div><div class="eyebrow">VARENO — Barber Club</div><h3>Luxury Grooming Brand Identity</h3><p>A self-initiated identity system for a premium barber club, developed from strategy and logo architecture through environmental branding, uniforms, grooming products, stationery and digital touchpoints.</p></div>
+          <span class="caseTag">Branding • Art Direction • Digital</span>
+        </div>
+        <figure class="caseHero varenoQualityHero"><img width="1536" height="1024" src="assets/img/vareno/vareno-hero.webp" alt="VARENO Barber Club hero identity showcase" loading="lazy"><div class="caseCaption"><b>VARENO Barber Club</b><span class="caseMeta">Hero Brand Experience</span></div></figure>
+        <div class="panel campaignCase" aria-labelledby="vareno-overview-title">
+          <div class="eyebrow">Brand Overview • Self-initiated concept</div>
+          <h3 id="vareno-overview-title">Crafted for the modern gentleman.</h3>
+          <p class="caseSummary">VARENO blends European elegance with contemporary masculine luxury, positioning the barbershop as a refined club experience rather than a routine service. The system is built around craftsmanship, confidence and modern heritage, with every touchpoint designed to feel precise, exclusive and consistent.</p>
+          <dl class="projectFacts"><div><dt>Role</dt><dd>Brand Strategy • Visual Identity • Art Direction</dd></div><div><dt>Scope</dt><dd>Logo system • Environment • Packaging • Digital</dd></div><div><dt>Positioning</dt><dd>Premium grooming • Modern heritage</dd></div><div><dt>Audience</dt><dd>Style-conscious men • 25–45</dd></div></dl>
+        </div>
+        <div class="caseGrid">
+          <figure class="caseShot varenoQualityShot"><img width="1536" height="1024" src="assets/img/vareno/vareno-identity.webp" alt="VARENO logo system, color palette, typography, pattern and brand guidelines" loading="lazy"><div class="caseCaption"><b>Identity System</b><span class="caseMeta">Logo • Color • Type • Pattern</span></div></figure>
+          <figure class="caseShot varenoQualityShot"><img width="1536" height="1024" src="assets/img/vareno/vareno-digital.webp" alt="VARENO environmental, uniform, packaging, stationery and digital brand applications" loading="lazy"><div class="caseCaption"><b>Brand Applications</b><span class="caseMeta">Environment • Uniform • Packaging • Digital</span></div></figure>
+        </div>
+        <div class="panel campaignCase">
+          <div class="eyebrow">Brand Promise</div>
+          <h3>More than a haircut. A higher standard of grooming.</h3>
+          <p>The identity extends from the storefront and interior to staff uniforms, stationery, grooming products, retail accessories and digital booking—creating one cohesive premium experience across every customer touchpoint.</p>
+          <div class="chips"><span class="chip">Exterior Branding</span><span class="chip">Interior Branding</span><span class="chip">Staff Uniform</span><span class="chip">Business & Appointment Cards</span><span class="chip">Pomade & Beard Oil</span><span class="chip">Towels & Shopping Bag</span><span class="chip">Instagram • Booking • Website</span></div>
+        </div>
+        <figure class="caseHero varenoQualityHero"><img width="1536" height="1024" src="assets/img/vareno/vareno-final-showcase.webp" alt="VARENO Barber Club final brand showcase across physical and digital touchpoints" loading="lazy"><div class="caseCaption"><b>Final Brand Showcase</b><span class="caseMeta">Crafted for the Modern Gentleman</span></div></figure>
+        <p class="caseNote">Self-initiated portfolio concept. All business names, environments and applications were created to demonstrate a complete premium grooming identity system.</p>
+        <div style="height:1px;background:var(--line);margin:56px 0"></div>
+
+        <div class="caseIntro">
+          <div><div class="eyebrow">HATAN — Fine Foods & Confections</div><h3>Premium Food Brand Identity</h3><p>A self-initiated brand identity case study built from logo system and typography through packaging, retail, uniforms, takeaway applications and in-store experience.</p></div>
+          <span class="caseTag">Branding • Packaging • Retail</span>
+        </div>
+        <div class="caseVideoFeature" id="hatan-film">
+          <div class="caseVideoFrame">
+            <video src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4" autoplay muted loop playsinline controls preload="metadata" aria-label="HATAN Stadium Delivery Campaign"></video>
+          </div>
+          <div class="caseVideoCopy">
+            <div class="eyebrow">Featured Campaign Film</div>
+            <h4>HATAN — Stadium Delivery Campaign</h4>
+            <p>A 15-second fictional stadium-delivery concept combining AI-assisted visual production, cinematic direction, brand continuity and sound design for a social-first food campaign.</p>
+            <div class="caseVideoMeta"><span>Spec Concept</span><span>AI Video</span><span>Art Direction</span><span>9:16 Social Film</span><span>15 Seconds</span></div>
+            <div class="caseVideoSound">Autoplay starts muted. Use the video controls to hear the full stadium sound mix.</div>
+          </div>
+        </div>
+        <div class="panel campaignCase" aria-labelledby="campaign-case-title">
+          <div class="eyebrow">Campaign case study • Self-initiated concept</div>
+          <h3 id="campaign-case-title">From brand identity to a final social ad.</h3>
+          <p class="caseSummary">HATAN extends a premium food identity into a fictional stadium-delivery campaign. The finished film brings AI-assisted visuals, cinematic direction, brand continuity and a stadium sound mix into a 15-second vertical format.</p>
+          <dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>AI-assisted visual production, cinematic direction & sound design</dd></div><div><dt>Deliverable</dt><dd>15-second social film • 1080 × 1920 • 9:16</dd></div></dl>
+          <ol class="caseStages">
+            <li><span class="num">01</span><h4>Concept</h4><p>A fictional stadium-delivery idea for HATAN, connecting the food brand with a social-first campaign setting.</p></li>
+            <li><span class="num">02</span><h4>Generation</h4><p>AI-assisted visual production forms the campaign imagery, guided by cinematic direction.</p></li>
+            <li><span class="num">03</span><h4>Refinement</h4><p>Brand continuity is the visual focus: connecting the campaign film with HATAN’s wider identity system.</p></li>
+            <li><span class="num">04</span><h4>Editing</h4><p>The final sequence combines campaign visuals with sound design and a stadium sound mix.</p></li>
+            <li><span class="num">05</span><h4>Final Ad</h4><p>A 15-second vertical film presented above, with audio available through the video controls.</p></li>
+          </ol>
+          <p class="caseNote">Portfolio concept, not a commissioned client campaign. Presented without performance or conversion claims.</p>
+        </div>
+        <a class="caseHero" href="assets/img/hatan/hatan-brand-flatlay-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging flat lay" loading="lazy"></a>
+        <div class="caseGrid">
+          <a class="caseShot" href="assets/img/hatan/hatan-brand-board.webp" target="_blank" rel="noopener"><img width="1365" height="2048" src="assets/img/hatan/hatan-brand-board.webp" alt="HATAN Brand Board" loading="lazy"><div class="caseCaption"><b>Brand Board</b><span class="caseMeta">Identity System</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-packaging-board.webp" target="_blank" rel="noopener"><img width="2048" height="1536" src="assets/img/hatan/hatan-packaging-board.webp" alt="HATAN Packaging System" loading="lazy"><div class="caseCaption"><b>Packaging System</b><span class="caseMeta">Packaging</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-drawer-box-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-drawer-box-mockup.webp" alt="HATAN Signature Drawer Box" loading="lazy"><div class="caseCaption"><b>Signature Drawer Box</b><span class="caseMeta">Packaging Mockup</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-magnetic-box-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-magnetic-box-mockup.webp" alt="HATAN Magnetic Gift Box" loading="lazy"><div class="caseCaption"><b>Magnetic Gift Box</b><span class="caseMeta">Packaging Mockup</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-shopping-bag-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-shopping-bag-mockup.webp" alt="HATAN Shopping Bag" loading="lazy"><div class="caseCaption"><b>Shopping Bag</b><span class="caseMeta">Retail Packaging</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-storefront-delivery-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-storefront-delivery-mockup.webp" alt="HATAN Storefront & Delivery" loading="lazy"><div class="caseCaption"><b>Storefront & Delivery</b><span class="caseMeta">Environmental</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-staff-uniform-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-staff-uniform-mockup.webp" alt="HATAN Staff Uniform" loading="lazy"><div class="caseCaption"><b>Staff Uniform</b><span class="caseMeta">Uniform</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-staff-instore-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-staff-instore-mockup.webp" alt="HATAN In-store Brand Experience" loading="lazy"><div class="caseCaption"><b>In-store Brand Experience</b><span class="caseMeta">Retail</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-coffee-cup-collection.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-coffee-cup-collection.webp" alt="HATAN Coffee Cup Collection" loading="lazy"><div class="caseCaption"><b>Coffee Cup Collection</b><span class="caseMeta">Takeaway</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-takeaway-bag-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-takeaway-bag-mockup.webp" alt="HATAN Takeaway Bag" loading="lazy"><div class="caseCaption"><b>Takeaway Bag</b><span class="caseMeta">Takeaway</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-gift-card-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-gift-card-mockup.webp" alt="HATAN Gift & Business Cards" loading="lazy"><div class="caseCaption"><b>Gift & Business Cards</b><span class="caseMeta">Stationery</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-menu-product-card.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-menu-product-card.webp" alt="HATAN Menu & Product Card" loading="lazy"><div class="caseCaption"><b>Menu & Product Card</b><span class="caseMeta">Retail</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-store-interior-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-store-interior-mockup.webp" alt="HATAN Store Interior" loading="lazy"><div class="caseCaption"><b>Store Interior</b><span class="caseMeta">Environment</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-delivery-packaging-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-delivery-packaging-mockup.webp" alt="HATAN Delivery Packaging" loading="lazy"><div class="caseCaption"><b>Delivery Packaging</b><span class="caseMeta">Delivery</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-product-key-visual.webp" target="_blank" rel="noopener"><img width="1117" height="1408" src="assets/img/hatan/hatan-product-key-visual.webp" alt="HATAN Product Key Visual" loading="lazy"><div class="caseCaption"><b>Product Key Visual</b><span class="caseMeta">Advertising</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-social-media-01.webp" target="_blank" rel="noopener"><img width="941" height="1672" src="assets/img/hatan/hatan-social-media-01.webp" alt="HATAN Social Campaign 01" loading="lazy"><div class="caseCaption"><b>Social Campaign 01</b><span class="caseMeta">Social Media</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-social-media-02.webp" target="_blank" rel="noopener"><img width="941" height="1672" src="assets/img/hatan/hatan-social-media-02.webp" alt="HATAN Social Campaign 02" loading="lazy"><div class="caseCaption"><b>Social Campaign 02</b><span class="caseMeta">Social Media</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-social-media-03.webp" target="_blank" rel="noopener"><img width="1122" height="1402" src="assets/img/hatan/hatan-social-media-03.webp" alt="HATAN Social Campaign 03" loading="lazy"><div class="caseCaption"><b>Social Campaign 03</b><span class="caseMeta">Social Media</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-website-mockup.webp" target="_blank" rel="noopener"><img width="1536" height="1024" src="assets/img/hatan/hatan-website-mockup.webp" alt="HATAN Website / Online Shop" loading="lazy"><div class="caseCaption"><b>Website / Online Shop</b><span class="caseMeta">Digital</span></div></a>
+        </div>
+        <p class="caseNote">Concept project created for portfolio presentation. Visual applications demonstrate the identity across a complete premium food retail experience.</p>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Creative Workflow</h2><p>I take advertising ideas through a complete AI-assisted production process, from concept and visual generation to editing, sound and final delivery.</p></div>
+        <div class="process">
+          <div class="step"><div class="num">01</div><h3>Concept</h3><p>Translate the marketing goal into a focused visual idea, shot direction and campaign structure.</p></div>
+          <div class="step"><div class="num">02</div><h3>Photography & AI Visuals</h3><p>Start product videos with Canon photography, then work with Photoshop, ChatGPT and HappyHorse to develop and refine the visual material.</p></div>
+          <div class="step"><div class="num">03</div><h3>Edit & Sound</h3><p>Build pace, continuity, sound design and visual rhythm into a polished final video.</p></div>
+          <div class="step"><div class="num">04</div><h3>Campaign Ready</h3><p>Prepare finished creative for vertical advertising, social campaigns and branded content delivery.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="editing">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Video Editing</h2><p>Short-form advertising shaped through pacing, continuity, visual rhythm and sound design.</p></div>
+        <div class="two">
+          <div class="panel"><div class="eyebrow">Editing toolkit</div><h3>Adobe Premiere Pro</h3><p>From product details to a finished advertising sequence: editing connects individual shots into a clear visual story.</p><div class="chips"><span class="chip">Pacing & visual rhythm</span><span class="chip">Shot continuity</span><span class="chip">Sound design</span><span class="chip">Vertical social content</span></div></div>
+          <div class="panel"><div class="eyebrow">Selected editing work</div><h3>See the edit in context.</h3><p>Chocolate Craft Film brings pouring, texture and product reveals into one sequence. Chocolate Dessert Process follows preparation through finishing shots. HATAN combines a 15-second campaign film with a stadium sound mix.</p><div class="actions"><a class="btn" href="#chocolate-craft-film">Watch Chocolate Craft Film</a><a class="btn" href="#chocolate-dessert-process">Watch Chocolate Dessert Process</a><a class="btn" href="#hatan-film">Watch HATAN</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="marketing">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Digital Marketing & E-commerce Content</h2><p>From the first creative idea to campaign delivery and product presentation along the customer’s path to purchase.</p></div>
+        <div class="two">
+          <div class="panel"><div class="eyebrow">Social media advertising</div><h3>Campaign management & reporting</h3><p>I develop campaign ideas into visual content, manage advertising campaigns across social media platforms and prepare campaign reports.</p><div class="chips"><span class="chip">Creative concepts</span><span class="chip">Advertising content</span><span class="chip">Campaign management</span><span class="chip">Campaign reporting</span></div></div>
+          <div class="panel"><div class="eyebrow">E-commerce content</div><h3>Product presentation & catalog support</h3><p>I prepare, organise and upload product images and enter product information into e-commerce websites, connecting the advertising content with the products customers can browse and buy.</p><div class="chips"><span class="chip">Product image preparation</span><span class="chip">Product uploads</span><span class="chip">Product information entry</span><span class="chip">Catalog organisation</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="wrap two">
+        <div class="panel">
+          <div class="eyebrow">About</div>
+          <h3>Creative production & digital marketing.</h3>
+          <p>I combine AI-assisted production, graphic design and video editing with digital marketing execution. I develop ideas into finished content, manage social media advertising campaigns, prepare reports and organise product content for e-commerce websites. My work connects creative production with campaign delivery and the customer’s path to purchase.</p>
+          <p><span class="highlight">Languages:</span> Arabic — Native • English — Excellent written communication • Developing spoken proficiency.</p>
+        </div>
+        <div class="panel">
+          <div class="eyebrow">Creative toolkit</div>
+          <h3>Software & capabilities</h3>
+          <div class="skillList"><div>Adobe Photoshop</div><div>Adobe Illustrator</div><div>Adobe Premiere Pro</div><div>Adobe After Effects — Basic</div><div>DaVinci Resolve — Basic</div><div>Photography</div><div>Social Media Campaign Management</div><div>Campaign Reporting</div><div>E-commerce Product Content</div><div>Concept Development</div><div>Short-form Advertising</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-toolkit">
+      <div class="wrap">
+        <div class="sectionHead"><h2>AI Production Toolkit</h2><p>Real product photography with a Canon camera, supported by Photoshop, ChatGPT, HappyHorse and Premiere Pro.</p></div>
+        <div class="chips" aria-label="Video production tools" style="margin-bottom:24px"><span class="chip">HappyHorse</span><span class="chip">ChatGPT</span><span class="chip">Adobe Photoshop</span><span class="chip">Canon camera</span><span class="chip">Adobe Premiere Pro</span></div>
+        <div class="process">
+          <div class="step"><div class="num">CONCEPT</div><h3>Visual direction</h3><p>Concept development and shot direction for product advertising and branded stories.</p></div>
+          <div class="step"><div class="num">PHOTOGRAPHY</div><h3>Real product images</h3><p>Product photography captured with a Canon camera provides the source material for my product videos.</p></div>
+          <div class="step"><div class="num">AI & REFINEMENT</div><h3>Photos to visuals</h3><p>Photoshop, ChatGPT and HappyHorse support the production workflow from real product images to AI-assisted video visuals.</p></div>
+          <div class="step"><div class="num">FINISHING</div><h3>Edit & sound</h3><p>Adobe Premiere Pro, visual rhythm and sound design for finished social content.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact">
+          <div><div class="eyebrow">Available internationally</div><h2>Open to creative roles in Canada, Europe & Australia.</h2><p>Available for remote interviews and employer-supported relocation or work authorization opportunities in AI video, multimedia design, video editing, creative advertising and digital marketing.</p></div>
+          <div class="contactActions"><a class="btn primary" href="mailto:badrlooka90@gmail.com">Email</a><a class="btn" href="https://wa.me/971581372145" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">CV PDF</a></div>
+        </div>
+        <div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>AI Video Creator • Multimedia Designer • Video Editor</span></div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

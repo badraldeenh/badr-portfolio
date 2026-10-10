@@ -42,6 +42,21 @@
       .varenoQualityShot img{max-width:320px}
       .varenoQualityHero .caseCaption,.varenoQualityShot .caseCaption{width:100%;justify-self:stretch;margin-top:18px;padding-left:0;padding-right:0}
       @media(max-width:620px){.varenoQualityHero,.varenoQualityShot{padding:18px}.varenoQualityHero img,.varenoQualityShot img{max-width:100%}}
+
+    /* Reserve image space so direct section links stay at their target. */
+    img{height:auto}
+    #chocolate-craft-film,#chocolate-dessert-process{scroll-margin-top:100px}
+    .varenoQualityHero,.varenoQualityShot{display:block;padding:0;background:#09090b}
+    .varenoQualityHero img,.varenoQualityShot img{display:block;width:100%!important;max-width:none!important;height:auto!important;margin:0;border-radius:0;box-shadow:none;filter:none}
+    .varenoQualityHero .caseCaption,.varenoQualityShot .caseCaption{margin:0;padding:13px 15px}
+    @media(max-width:900px){
+      .navin{height:auto;min-height:68px;flex-wrap:wrap;padding-top:12px;padding-bottom:10px;gap:10px}
+      .links{display:flex;order:3;width:100%;overflow-x:auto;white-space:nowrap;padding-bottom:6px;gap:20px}
+      .navin .cta{margin-left:auto}
+      section,#hatan-film,#chocolate-craft-film,#chocolate-dessert-process{scroll-margin-top:125px}
+      .two{grid-template-columns:minmax(0,1fr)}
+      .panel{min-width:0}
+    }
   </style>
 </head>
 <body>
@@ -72,7 +87,7 @@
             <div class="stat"><b>Brand Visuals</b><span>Advertising & social content</span></div>
           </div>
         </div>
-        <figure class="portrait"><img src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" /></figure>
+        <figure class="portrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" /></figure>
       </div>
     </header>
 
@@ -106,7 +121,7 @@
             <span class="caseTag">Healthcare • Identity • Digital</span>
           </div>
           <a class="caseHero" href="avena.html" aria-label="View AVENA Medical Center case study">
-            <img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
+            <img width="3840" height="2161" src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
           </a>
           <div class="panel">
             <div class="eyebrow">Featured Case Study</div>
@@ -116,10 +131,10 @@
           </div>
         </div>
         <div class="grid">
-          <a class="card" href="aura/" aria-label="Open AURA Athletics case study"><div class="media" style="background:#080a0c"><span class="rank">Featured Case Study</span><img src="assets/img/aura/performance-overview.webp" alt="AURA Athletics performance collection" loading="lazy" style="width:100%;height:100%;object-fit:contain"></div><div class="cardBody"><div class="kicker">Branding • Sportswear • AI Art Direction</div><h3>AURA Athletics</h3><p>A complete fictional performance-sportswear case study covering brand identity, apparel and footwear direction, cinematic campaign visuals and e-commerce support.</p><div class="miniChips"><span>Brand Identity</span><span>Sportswear</span><span>AI Visuals</span><span>E-commerce</span></div><div class="actions" style="margin-top:14px"><span class="btn">View full case study →</span></div></div></a>
-          <article class="card"><div class="media"><span class="rank">01 • Featured</span><video poster="assets/img/project-01.jpg" src="assets/video/project-01.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Product Commercial</div><h3>Chocolate Craft Film</h3><p>Cinematic chocolate-making visuals built around pouring, texture, break-apart reveals and premium product detail.</p><div class="miniChips"><span>AI Visuals</span><span>Product Detail</span><span>Editing</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>AI visual production & video editing</dd></div><div><dt>Deliverable</dt><dd>Chocolate product film</dd></div></dl></div></article>
+          <a class="card" href="aura/" aria-label="Open AURA Athletics case study"><div class="media" style="background:#080a0c"><span class="rank">Featured Case Study</span><img width="1672" height="941" src="assets/img/aura/performance-overview.webp" alt="AURA Athletics performance collection" loading="lazy" style="width:100%;height:100%;object-fit:contain"></div><div class="cardBody"><div class="kicker">Branding • Sportswear • AI Art Direction</div><h3>AURA Athletics</h3><p>A complete fictional performance-sportswear case study covering brand identity, apparel and footwear direction, cinematic campaign visuals and e-commerce support.</p><div class="miniChips"><span>Brand Identity</span><span>Sportswear</span><span>AI Visuals</span><span>E-commerce</span></div><div class="actions" style="margin-top:14px"><span class="btn">View full case study →</span></div></div></a>
+          <article class="card" id="chocolate-craft-film"><div class="media"><span class="rank">01 • Featured</span><video poster="assets/img/project-01.jpg" src="assets/video/project-01.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Product Commercial</div><h3>Chocolate Craft Film</h3><p>Cinematic chocolate-making visuals built around pouring, texture, break-apart reveals and premium product detail.</p><div class="miniChips"><span>AI Visuals</span><span>Product Detail</span><span>Editing</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>AI visual production & video editing</dd></div><div><dt>Deliverable</dt><dd>Chocolate product film</dd></div></dl></div></article>
           <article class="card"><div class="media"><span class="rank">02</span><video poster="assets/img/project-02.jpg" src="assets/video/project-02.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Food & Beverage</div><h3>Mango Beverage Commercial</h3><p>A bright vertical beverage concept combining fruit motion, macro product shots and a clean social-ad finish.</p><div class="miniChips"><span>Generative AI</span><span>Beverage</span><span>9:16</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Generative visual production</dd></div><div><dt>Deliverable</dt><dd>Vertical beverage commercial (9:16)</dd></div></dl></div></article>
-          <article class="card"><div class="media"><span class="rank">03</span><video poster="assets/img/project-03.jpg" src="assets/video/project-03.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Product Storytelling</div><h3>Chocolate Dessert Process</h3><p>Process-led food storytelling moving from preparation and pouring to texture-focused finishing shots.</p><div class="miniChips"><span>Food Visuals</span><span>Editing</span><span>Social Content</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Video editing & product storytelling</dd></div><div><dt>Deliverable</dt><dd>Food process video</dd></div></dl></div></article>
+          <article class="card" id="chocolate-dessert-process"><div class="media"><span class="rank">03</span><video poster="assets/img/project-03.jpg" src="assets/video/project-03.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Product Storytelling</div><h3>Chocolate Dessert Process</h3><p>Process-led food storytelling moving from preparation and pouring to texture-focused finishing shots.</p><div class="miniChips"><span>Food Visuals</span><span>Editing</span><span>Social Content</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Video editing & product storytelling</dd></div><div><dt>Deliverable</dt><dd>Food process video</dd></div></dl></div></article>
           <article class="card"><div class="media"><span class="rank">04</span><video poster="assets/img/project-04.jpg" src="assets/video/project-04.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Short-form Food Advertising</div><h3>Filled Chocolate Reveal</h3><p>Fast macro cuts reveal multiple fillings and textures, designed to hold attention in vertical social advertising.</p><div class="miniChips"><span>Macro</span><span>Food Detail</span><span>Reels</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Short-form editing</dd></div><div><dt>Deliverable</dt><dd>Vertical chocolate reveal video</dd></div></dl></div></article>
           <article class="card"><div class="media"><span class="rank">05</span><video poster="assets/img/project-05.jpg" src="assets/video/project-05.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Process-led Commercial</div><h3>Handcrafted Chocolate Process</h3><p>A tactile sequence showing shaping, coating and glossy chocolate detail with a premium handmade feel.</p><div class="miniChips"><span>Craft</span><span>Product Detail</span><span>Vertical Video</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Product storytelling</dd></div><div><dt>Deliverable</dt><dd>Vertical craft video</dd></div></dl></div></article>
           <article class="card"><div class="media"><span class="rank">06</span><video poster="assets/img/project-06.jpg" src="assets/video/project-06.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Food Macro</div><h3>Croissant Detail Story</h3><p>A compact macro sequence focused on pastry texture, filling and preparation — built as a strong social hook.</p><div class="miniChips"><span>Macro</span><span>Food Visuals</span><span>Short-form</span></div><dl class="projectFacts"><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Short-form storytelling</dd></div><div><dt>Deliverable</dt><dd>Short-form pastry video</dd></div></dl></div></article>
@@ -148,7 +163,7 @@
             <div><div class="eyebrow">AVENA — Medical Center</div><h3>Healthcare Brand Identity</h3><p>A complete medical-center identity system built around precision, trust and contemporary patient care, extending from the core logo and typography to stationery, uniforms, environmental branding, digital booking, vehicle graphics and campaign applications.</p></div>
             <span class="caseTag">Healthcare • Identity • Digital</span>
           </div>
-          <a class="caseHero" href="avena.html" aria-label="Open AVENA Medical Center full case study"><img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="lazy"><div class="caseCaption"><b>AVENA Medical Center</b><span class="caseMeta">Healthcare Brand System</span></div></a>
+          <a class="caseHero" href="avena.html" aria-label="Open AVENA Medical Center full case study"><img width="3840" height="2161" src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="lazy"><div class="caseCaption"><b>AVENA Medical Center</b><span class="caseMeta">Healthcare Brand System</span></div></a>
           <div class="panel campaignCase">
             <div class="eyebrow">Complete Identity System</div>
             <h3>Care, Precisely.</h3>
@@ -157,8 +172,8 @@
             <div class="actions" style="margin-top:20px"><a class="btn primary" href="avena.html">View Full AVENA Case Study</a></div>
           </div>
           <div class="caseGrid">
-            <a class="caseShot" href="avena.html"><img src="assets/img/avena-case-study-part-1-4k.webp" alt="AVENA identity system and brand applications part one" loading="lazy"><div class="caseCaption"><b>Identity & Core Applications</b><span class="caseMeta">Logo • Type • Stationery • Uniforms</span></div></a>
-            <a class="caseShot" href="avena.html"><img src="assets/img/avena-case-study-part-2-4k.webp" alt="AVENA environmental digital and campaign applications part two" loading="lazy"><div class="caseCaption"><b>Environmental & Digital Applications</b><span class="caseMeta">Interior • Exterior • Digital • Campaign</span></div></a>
+            <a class="caseShot" href="avena.html"><img width="3840" height="14608" src="assets/img/avena-case-study-part-1-4k.webp" alt="AVENA identity system and brand applications part one" loading="lazy"><div class="caseCaption"><b>Identity & Core Applications</b><span class="caseMeta">Logo • Type • Stationery • Uniforms</span></div></a>
+            <a class="caseShot" href="avena.html"><img width="3840" height="12903" src="assets/img/avena-case-study-part-2-4k.webp" alt="AVENA environmental digital and campaign applications part two" loading="lazy"><div class="caseCaption"><b>Environmental & Digital Applications</b><span class="caseMeta">Interior • Exterior • Digital • Campaign</span></div></a>
           </div>
           <p class="caseNote">Self-initiated portfolio concept created to demonstrate a complete healthcare identity system across physical and digital touchpoints.</p>
         </div>
@@ -168,7 +183,7 @@
           <div><div class="eyebrow">VARENO — Barber Club</div><h3>Luxury Grooming Brand Identity</h3><p>A self-initiated identity system for a premium barber club, developed from strategy and logo architecture through environmental branding, uniforms, grooming products, stationery and digital touchpoints.</p></div>
           <span class="caseTag">Branding • Art Direction • Digital</span>
         </div>
-        <figure class="caseHero varenoQualityHero"><img data-vareno-image="hero" alt="VARENO Barber Club hero identity showcase" loading="lazy"><div class="caseCaption"><b>VARENO Barber Club</b><span class="caseMeta">Hero Brand Experience</span></div></figure>
+        <figure class="caseHero varenoQualityHero"><img width="1536" height="1024" src="assets/img/vareno/vareno-hero.webp" alt="VARENO Barber Club hero identity showcase" loading="lazy"><div class="caseCaption"><b>VARENO Barber Club</b><span class="caseMeta">Hero Brand Experience</span></div></figure>
         <div class="panel campaignCase" aria-labelledby="vareno-overview-title">
           <div class="eyebrow">Brand Overview • Self-initiated concept</div>
           <h3 id="vareno-overview-title">Crafted for the modern gentleman.</h3>
@@ -176,8 +191,8 @@
           <dl class="projectFacts"><div><dt>Role</dt><dd>Brand Strategy • Visual Identity • Art Direction</dd></div><div><dt>Scope</dt><dd>Logo system • Environment • Packaging • Digital</dd></div><div><dt>Positioning</dt><dd>Premium grooming • Modern heritage</dd></div><div><dt>Audience</dt><dd>Style-conscious men • 25–45</dd></div></dl>
         </div>
         <div class="caseGrid">
-          <figure class="caseShot varenoQualityShot"><img data-vareno-image="identity" alt="VARENO logo system, color palette, typography, pattern and brand guidelines" loading="lazy"><div class="caseCaption"><b>Identity System</b><span class="caseMeta">Logo • Color • Type • Pattern</span></div></figure>
-          <figure class="caseShot varenoQualityShot"><img data-vareno-image="applications" alt="VARENO environmental, uniform, packaging, stationery and digital brand applications" loading="lazy"><div class="caseCaption"><b>Brand Applications</b><span class="caseMeta">Environment • Uniform • Packaging • Digital</span></div></figure>
+          <figure class="caseShot varenoQualityShot"><img width="1536" height="1024" src="assets/img/vareno/vareno-identity.webp" alt="VARENO logo system, color palette, typography, pattern and brand guidelines" loading="lazy"><div class="caseCaption"><b>Identity System</b><span class="caseMeta">Logo • Color • Type • Pattern</span></div></figure>
+          <figure class="caseShot varenoQualityShot"><img width="1536" height="1024" src="assets/img/vareno/vareno-digital.webp" alt="VARENO environmental, uniform, packaging, stationery and digital brand applications" loading="lazy"><div class="caseCaption"><b>Brand Applications</b><span class="caseMeta">Environment • Uniform • Packaging • Digital</span></div></figure>
         </div>
         <div class="panel campaignCase">
           <div class="eyebrow">Brand Promise</div>
@@ -185,7 +200,7 @@
           <p>The identity extends from the storefront and interior to staff uniforms, stationery, grooming products, retail accessories and digital booking—creating one cohesive premium experience across every customer touchpoint.</p>
           <div class="chips"><span class="chip">Exterior Branding</span><span class="chip">Interior Branding</span><span class="chip">Staff Uniform</span><span class="chip">Business & Appointment Cards</span><span class="chip">Pomade & Beard Oil</span><span class="chip">Towels & Shopping Bag</span><span class="chip">Instagram • Booking • Website</span></div>
         </div>
-        <figure class="caseHero varenoQualityHero"><img data-vareno-image="final" alt="VARENO Barber Club final brand showcase across physical and digital touchpoints" loading="lazy"><div class="caseCaption"><b>Final Brand Showcase</b><span class="caseMeta">Crafted for the Modern Gentleman</span></div></figure>
+        <figure class="caseHero varenoQualityHero"><img width="1536" height="1024" src="assets/img/vareno/vareno-final-showcase.webp" alt="VARENO Barber Club final brand showcase across physical and digital touchpoints" loading="lazy"><div class="caseCaption"><b>Final Brand Showcase</b><span class="caseMeta">Crafted for the Modern Gentleman</span></div></figure>
         <p class="caseNote">Self-initiated portfolio concept. All business names, environments and applications were created to demonstrate a complete premium grooming identity system.</p>
         <div style="height:1px;background:var(--line);margin:56px 0"></div>
 
@@ -219,27 +234,27 @@
           </ol>
           <p class="caseNote">Portfolio concept, not a commissioned client campaign. Presented without performance or conversion claims.</p>
         </div>
-        <a class="caseHero" href="assets/img/hatan/hatan-brand-flatlay-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging flat lay" loading="lazy"></a>
+        <a class="caseHero" href="assets/img/hatan/hatan-brand-flatlay-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging flat lay" loading="lazy"></a>
         <div class="caseGrid">
-          <a class="caseShot" href="assets/img/hatan/hatan-brand-board.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-brand-board.webp" alt="HATAN Brand Board" loading="lazy"><div class="caseCaption"><b>Brand Board</b><span class="caseMeta">Identity System</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-packaging-board.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-packaging-board.webp" alt="HATAN Packaging System" loading="lazy"><div class="caseCaption"><b>Packaging System</b><span class="caseMeta">Packaging</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-drawer-box-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-drawer-box-mockup.webp" alt="HATAN Signature Drawer Box" loading="lazy"><div class="caseCaption"><b>Signature Drawer Box</b><span class="caseMeta">Packaging Mockup</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-magnetic-box-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-magnetic-box-mockup.webp" alt="HATAN Magnetic Gift Box" loading="lazy"><div class="caseCaption"><b>Magnetic Gift Box</b><span class="caseMeta">Packaging Mockup</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-shopping-bag-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-shopping-bag-mockup.webp" alt="HATAN Shopping Bag" loading="lazy"><div class="caseCaption"><b>Shopping Bag</b><span class="caseMeta">Retail Packaging</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-storefront-delivery-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-storefront-delivery-mockup.webp" alt="HATAN Storefront & Delivery" loading="lazy"><div class="caseCaption"><b>Storefront & Delivery</b><span class="caseMeta">Environmental</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-staff-uniform-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-staff-uniform-mockup.webp" alt="HATAN Staff Uniform" loading="lazy"><div class="caseCaption"><b>Staff Uniform</b><span class="caseMeta">Uniform</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-staff-instore-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-staff-instore-mockup.webp" alt="HATAN In-store Brand Experience" loading="lazy"><div class="caseCaption"><b>In-store Brand Experience</b><span class="caseMeta">Retail</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-coffee-cup-collection.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-coffee-cup-collection.webp" alt="HATAN Coffee Cup Collection" loading="lazy"><div class="caseCaption"><b>Coffee Cup Collection</b><span class="caseMeta">Takeaway</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-takeaway-bag-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-takeaway-bag-mockup.webp" alt="HATAN Takeaway Bag" loading="lazy"><div class="caseCaption"><b>Takeaway Bag</b><span class="caseMeta">Takeaway</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-gift-card-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-gift-card-mockup.webp" alt="HATAN Gift & Business Cards" loading="lazy"><div class="caseCaption"><b>Gift & Business Cards</b><span class="caseMeta">Stationery</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-menu-product-card.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-menu-product-card.webp" alt="HATAN Menu & Product Card" loading="lazy"><div class="caseCaption"><b>Menu & Product Card</b><span class="caseMeta">Retail</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-store-interior-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-store-interior-mockup.webp" alt="HATAN Store Interior" loading="lazy"><div class="caseCaption"><b>Store Interior</b><span class="caseMeta">Environment</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-delivery-packaging-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-delivery-packaging-mockup.webp" alt="HATAN Delivery Packaging" loading="lazy"><div class="caseCaption"><b>Delivery Packaging</b><span class="caseMeta">Delivery</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-product-key-visual.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-product-key-visual.webp" alt="HATAN Product Key Visual" loading="lazy"><div class="caseCaption"><b>Product Key Visual</b><span class="caseMeta">Advertising</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-social-media-01.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-social-media-01.webp" alt="HATAN Social Campaign 01" loading="lazy"><div class="caseCaption"><b>Social Campaign 01</b><span class="caseMeta">Social Media</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-social-media-02.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-social-media-02.webp" alt="HATAN Social Campaign 02" loading="lazy"><div class="caseCaption"><b>Social Campaign 02</b><span class="caseMeta">Social Media</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-social-media-03.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-social-media-03.webp" alt="HATAN Social Campaign 03" loading="lazy"><div class="caseCaption"><b>Social Campaign 03</b><span class="caseMeta">Social Media</span></div></a>
-          <a class="caseShot" href="assets/img/hatan/hatan-website-mockup.webp" target="_blank" rel="noopener"><img src="assets/img/hatan/hatan-website-mockup.webp" alt="HATAN Website / Online Shop" loading="lazy"><div class="caseCaption"><b>Website / Online Shop</b><span class="caseMeta">Digital</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-brand-board.webp" target="_blank" rel="noopener"><img width="1365" height="2048" src="assets/img/hatan/hatan-brand-board.webp" alt="HATAN Brand Board" loading="lazy"><div class="caseCaption"><b>Brand Board</b><span class="caseMeta">Identity System</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-packaging-board.webp" target="_blank" rel="noopener"><img width="2048" height="1536" src="assets/img/hatan/hatan-packaging-board.webp" alt="HATAN Packaging System" loading="lazy"><div class="caseCaption"><b>Packaging System</b><span class="caseMeta">Packaging</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-drawer-box-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-drawer-box-mockup.webp" alt="HATAN Signature Drawer Box" loading="lazy"><div class="caseCaption"><b>Signature Drawer Box</b><span class="caseMeta">Packaging Mockup</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-magnetic-box-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-magnetic-box-mockup.webp" alt="HATAN Magnetic Gift Box" loading="lazy"><div class="caseCaption"><b>Magnetic Gift Box</b><span class="caseMeta">Packaging Mockup</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-shopping-bag-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-shopping-bag-mockup.webp" alt="HATAN Shopping Bag" loading="lazy"><div class="caseCaption"><b>Shopping Bag</b><span class="caseMeta">Retail Packaging</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-storefront-delivery-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-storefront-delivery-mockup.webp" alt="HATAN Storefront & Delivery" loading="lazy"><div class="caseCaption"><b>Storefront & Delivery</b><span class="caseMeta">Environmental</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-staff-uniform-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-staff-uniform-mockup.webp" alt="HATAN Staff Uniform" loading="lazy"><div class="caseCaption"><b>Staff Uniform</b><span class="caseMeta">Uniform</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-staff-instore-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-staff-instore-mockup.webp" alt="HATAN In-store Brand Experience" loading="lazy"><div class="caseCaption"><b>In-store Brand Experience</b><span class="caseMeta">Retail</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-coffee-cup-collection.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-coffee-cup-collection.webp" alt="HATAN Coffee Cup Collection" loading="lazy"><div class="caseCaption"><b>Coffee Cup Collection</b><span class="caseMeta">Takeaway</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-takeaway-bag-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-takeaway-bag-mockup.webp" alt="HATAN Takeaway Bag" loading="lazy"><div class="caseCaption"><b>Takeaway Bag</b><span class="caseMeta">Takeaway</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-gift-card-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-gift-card-mockup.webp" alt="HATAN Gift & Business Cards" loading="lazy"><div class="caseCaption"><b>Gift & Business Cards</b><span class="caseMeta">Stationery</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-menu-product-card.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-menu-product-card.webp" alt="HATAN Menu & Product Card" loading="lazy"><div class="caseCaption"><b>Menu & Product Card</b><span class="caseMeta">Retail</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-store-interior-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-store-interior-mockup.webp" alt="HATAN Store Interior" loading="lazy"><div class="caseCaption"><b>Store Interior</b><span class="caseMeta">Environment</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-delivery-packaging-mockup.webp" target="_blank" rel="noopener"><img width="1448" height="1086" src="assets/img/hatan/hatan-delivery-packaging-mockup.webp" alt="HATAN Delivery Packaging" loading="lazy"><div class="caseCaption"><b>Delivery Packaging</b><span class="caseMeta">Delivery</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-product-key-visual.webp" target="_blank" rel="noopener"><img width="1117" height="1408" src="assets/img/hatan/hatan-product-key-visual.webp" alt="HATAN Product Key Visual" loading="lazy"><div class="caseCaption"><b>Product Key Visual</b><span class="caseMeta">Advertising</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-social-media-01.webp" target="_blank" rel="noopener"><img width="941" height="1672" src="assets/img/hatan/hatan-social-media-01.webp" alt="HATAN Social Campaign 01" loading="lazy"><div class="caseCaption"><b>Social Campaign 01</b><span class="caseMeta">Social Media</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-social-media-02.webp" target="_blank" rel="noopener"><img width="941" height="1672" src="assets/img/hatan/hatan-social-media-02.webp" alt="HATAN Social Campaign 02" loading="lazy"><div class="caseCaption"><b>Social Campaign 02</b><span class="caseMeta">Social Media</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-social-media-03.webp" target="_blank" rel="noopener"><img width="1122" height="1402" src="assets/img/hatan/hatan-social-media-03.webp" alt="HATAN Social Campaign 03" loading="lazy"><div class="caseCaption"><b>Social Campaign 03</b><span class="caseMeta">Social Media</span></div></a>
+          <a class="caseShot" href="assets/img/hatan/hatan-website-mockup.webp" target="_blank" rel="noopener"><img width="1536" height="1024" src="assets/img/hatan/hatan-website-mockup.webp" alt="HATAN Website / Online Shop" loading="lazy"><div class="caseCaption"><b>Website / Online Shop</b><span class="caseMeta">Digital</span></div></a>
         </div>
         <p class="caseNote">Concept project created for portfolio presentation. Visual applications demonstrate the identity across a complete premium food retail experience.</p>
       </div>
@@ -262,7 +277,7 @@
         <div class="sectionHead"><h2>Video Editing</h2><p>Short-form advertising shaped through pacing, continuity, visual rhythm and sound design.</p></div>
         <div class="two">
           <div class="panel"><div class="eyebrow">Editing toolkit</div><h3>Adobe Premiere Pro</h3><p>From product details to a finished advertising sequence: editing connects individual shots into a clear visual story.</p><div class="chips"><span class="chip">Pacing & visual rhythm</span><span class="chip">Shot continuity</span><span class="chip">Sound design</span><span class="chip">Vertical social content</span></div></div>
-          <div class="panel"><div class="eyebrow">Selected editing work</div><h3>See the edit in context.</h3><p>Chocolate Craft Film brings pouring, texture and product reveals into one sequence. Chocolate Dessert Process follows preparation through finishing shots. HATAN combines a 15-second campaign film with a stadium sound mix.</p><div class="actions"><a class="btn" href="#work">Watch selected videos</a><a class="btn" href="#hatan-film">Watch HATAN</a></div></div>
+          <div class="panel"><div class="eyebrow">Selected editing work</div><h3>See the edit in context.</h3><p>Chocolate Craft Film brings pouring, texture and product reveals into one sequence. Chocolate Dessert Process follows preparation through finishing shots. HATAN combines a 15-second campaign film with a stadium sound mix.</p><div class="actions"><a class="btn" href="#chocolate-craft-film">Watch Chocolate Craft Film</a><a class="btn" href="#chocolate-dessert-process">Watch Chocolate Dessert Process</a><a class="btn" href="#hatan-film">Watch HATAN</a></div></div>
         </div>
       </div>
     </section>
@@ -316,22 +331,5 @@
       </div>
     </section>
   </main>
-  <script>
-    (() => {
-      const varenoAssets = {hero:'hero.txt', identity:'identity.txt', applications:'applications.txt', final:'final.txt'};
-      Object.entries(varenoAssets).forEach(async ([key,file]) => {
-        try {
-          const response = await fetch(`assets/vareno-data/${file}`);
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const base64 = (await response.text()).trim();
-          document.querySelectorAll(`[data-vareno-image="${key}"]`).forEach(img => {
-            img.src = `data:image/webp;base64,${base64}`;
-          });
-        } catch (error) {
-          console.warn('VARENO asset load failed', key, error);
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
