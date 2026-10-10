@@ -1,6 +1,10 @@
 {
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": false }
+  ],
   "rewrites": [
-    { "source": "/", "destination": "/home-v3.html" }
+    { "source": "/", "destination": "/home-v3.html" },
+    { "source": "/portfolio-source", "destination": "/index.html" }
   ],
   "headers": [
     {
