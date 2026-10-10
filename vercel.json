@@ -1,5 +1,14 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/home-v3.html" }
+  ],
+  "headers": [
+    {
+      "source": "/vareno/(.*)",
+      "headers": [
+        { "key": "Content-Language", "value": "en" },
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    }
   ]
 }
