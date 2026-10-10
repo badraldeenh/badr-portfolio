@@ -1,12 +1,22 @@
 {
-  "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": false }
-  ],
   "rewrites": [
-    { "source": "/", "destination": "/home-v3.html" },
+    { "source": "/", "destination": "/home-v4.html" },
     { "source": "/portfolio-source", "destination": "/index.html" }
   ],
   "headers": [
+    {
+      "source": "/",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Content-Language", "value": "en" }
+      ]
+    },
+    {
+      "source": "/home-v4.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    },
     {
       "source": "/vareno/(.*)",
       "headers": [
