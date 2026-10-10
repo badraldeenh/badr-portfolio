@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0d0f">
+  <title>BADR Magic — Creative Portfolio</title>
+  <style>html,body{margin:0;background:#0d0d0f;color:#f5f4f0;font-family:system-ui,sans-serif}#loading{min-height:100vh;display:grid;place-items:center;color:#a8a7a3}</style>
+</head>
+<body>
+  <div id="loading">Loading portfolio…</div>
+  <script>
+  (async function(){
+    try{
+      const res=await fetch('/portfolio-source?v=vareno-fullwidth-15',{cache:'no-store'});
+      if(!res.ok) throw new Error('Could not load portfolio');
+      const source=await res.text();
+      const doc=new DOMParser().parseFromString(source,'text/html');
+
+      const css=doc.createElement('style');
+      css.id='vareno-fullwidth-fix';
+      css.textContent=`
+        .varenoQualityHero,
+        .varenoQualityShot{
+          display:block!important;
+          width:100%!important;
+          max-width:none!important;
+          padding:0!important;
+          overflow:hidden!important;
+          background:#09090b!important;
+        }
+        .varenoQualityHero img,
+        .varenoQualityShot img{
+          display:block!important;
+          width:100%!important;
+          max-width:none!important;
+          height:auto!important;
+          object-fit:contain!important;
+          margin:0!important;
+          padding:0!important;
+          border-radius:0!important;
+          box-shadow:none!important;
+          filter:none!important;
+        }
+        .varenoQualityHero .caseCaption,
+        .varenoQualityShot .caseCaption{
+          width:100%!important;
+          margin-top:0!important;
+          padding:13px 15px!important;
+        }
+      `;
+      doc.head.appendChild(css);
+
+      const marker=doc.createElement('meta');
+      marker.name='vareno-build';
+      marker.content='fullwidth-15';
+      doc.head.appendChild(marker);
+
+      const final='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
+      document.open();
+      document.write(final);
+      document.close();
+    }catch(e){
+      document.body.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center"><div><h1>Portfolio</h1><p>Could not load the portfolio.</p><p><a href="/" style="color:#c9a55a">Reload portfolio</a></p></div></div>';
+    }
+  })();
+  </script>
+</body>
+</html>
