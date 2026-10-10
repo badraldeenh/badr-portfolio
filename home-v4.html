@@ -12,10 +12,33 @@
   <script>
   (async function(){
     try{
-      const res=await fetch('/portfolio-source?v=vareno-fullwidth-15',{cache:'no-store'});
+      const res=await fetch('/portfolio-source?v=vareno-direct-16',{cache:'no-store'});
       if(!res.ok) throw new Error('Could not load portfolio');
       const source=await res.text();
       const doc=new DOMParser().parseFromString(source,'text/html');
+
+      // Remove the old VARENO base64 loader. The previous loader was the reason
+      // images could appear as broken after the page was rebuilt in Chrome.
+      [...doc.querySelectorAll('script')].forEach(s=>{
+        const t=s.textContent||'';
+        if(t.includes('varenoAssets') || t.includes('assets/vareno-data/')) s.remove();
+      });
+
+      // Give every VARENO image a real static URL before the document is rendered.
+      const varenoDirect={
+        hero:'/assets/img/vareno/vareno-hero.webp?v=16',
+        identity:'/assets/img/vareno/vareno-identity.webp?v=16',
+        applications:'/assets/img/vareno/vareno-digital.webp?v=16',
+        final:'/assets/img/vareno/vareno-final-showcase.webp?v=16'
+      };
+      Object.entries(varenoDirect).forEach(([key,url])=>{
+        doc.querySelectorAll(`[data-vareno-image="${key}"]`).forEach(img=>{
+          img.setAttribute('src',url);
+          img.removeAttribute('data-vareno-image');
+          img.setAttribute('loading',key==='hero'?'eager':'lazy');
+          img.setAttribute('decoding','async');
+        });
+      });
 
       const css=doc.createElement('style');
       css.id='vareno-fullwidth-fix';
@@ -53,7 +76,7 @@
 
       const marker=doc.createElement('meta');
       marker.name='vareno-build';
-      marker.content='fullwidth-15';
+      marker.content='direct-16';
       doc.head.appendChild(marker);
 
       const final='<!DOCTYPE html>\n'+doc.documentElement.outerHTML;
