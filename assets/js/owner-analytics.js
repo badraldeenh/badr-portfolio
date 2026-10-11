@@ -1,4 +1,34 @@
 (() => {
+  const ownerName = [...document.querySelectorAll('.footer span, footer span')].find(el => /©.*Badr Eldin/i.test(el.textContent));
+  if (ownerName) {
+    let timer;
+    let start;
+    const cancel = () => { clearTimeout(timer); timer = undefined; start = undefined; };
+    const open = () => { cancel(); window.location.assign('/analytics.html'); };
+    ownerName.style.userSelect = 'none';
+    ownerName.style.webkitUserSelect = 'none';
+    ownerName.style.webkitTouchCallout = 'none';
+    ownerName.style.touchAction = 'pan-y';
+    ownerName.tabIndex = 0;
+    ownerName.setAttribute('role', 'button');
+    ownerName.setAttribute('aria-label', 'Owner sign-in');
+    ownerName.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0) return;
+      cancel();
+      start = { x: event.clientX, y: event.clientY };
+      timer = setTimeout(open, 2000);
+    });
+    ownerName.addEventListener('pointermove', event => {
+      if (start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > 10) cancel();
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(type => ownerName.addEventListener(type, cancel));
+    ownerName.addEventListener('contextmenu', event => event.preventDefault());
+    ownerName.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+    });
+    window.addEventListener('blur', cancel);
+    document.addEventListener('visibilitychange', cancel);
+  }
   let button;
   let pending = false;
   async function check() {
