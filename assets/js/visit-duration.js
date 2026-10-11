@@ -36,7 +36,7 @@
       return Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) * Math.max(0, Math.min(r.right, innerWidth) - Math.max(r.left, 0));
     };
     const projects = () => {
-      const items = Array.from(document.querySelectorAll('.card')).map(el => ({ el, key: slug(el.querySelector('video')?.getAttribute('src')?.split('/').pop().replace(/\.[^.]+$/, '') || text(el.querySelector('h3'))), title: text(el.querySelector('h3')) }));
+      const items = Array.from(document.querySelectorAll('.card')).map(el => ({ el, key: slug((el.querySelector('video')?.getAttribute('src') || el.querySelector('video')?.getAttribute('data-src'))?.split('/').pop().replace(/\.[^.]+$/, '') || text(el.querySelector('h3'))), title: text(el.querySelector('h3')) }));
       document.querySelectorAll('#idh-design,#avena-feature,#avena-design').forEach(el => items.push({ el, key: el.id.startsWith('avena') ? 'avena' : 'idh', title: el.id.startsWith('avena') ? 'AVENA Medical Center' : 'IDH Real Estate' }));
       // Some long case studies use a heading followed by sibling images instead of a wrapper.
       document.querySelectorAll('.caseIntro').forEach(el => {
@@ -48,7 +48,8 @@
         const bottom = (end || el.closest('section') || el.parentElement).getBoundingClientRect()[end ? 'top' : 'bottom'];
         items.push({ key, title: label, area: Math.max(0, Math.min(bottom, innerHeight) - Math.max(top, 0)) * innerWidth });
       });
-      const pageProject = { '/aura': 'aura', '/vareno': 'vareno', '/idh': 'idh', '/aura/': 'aura', '/aura/index.html': 'aura', '/vareno/': 'vareno', '/vareno/index.html': 'vareno', '/idh/': 'idh', '/idh/index.html': 'idh', '/avena.html': 'avena' }[path];
+      document.querySelectorAll('[data-project-id]').forEach(el => items.push({ el, key: el.dataset.projectId, title: text(el.querySelector('h3')) }));
+      const pageProject = { '/aura': 'aura', '/vareno': 'vareno', '/idh': 'idh', '/aura/': 'aura', '/aura/index.html': 'aura', '/vareno/': 'vareno', '/vareno/index.html': 'vareno', '/idh/': 'idh', '/idh/index.html': 'idh', '/hatan': 'hatan', '/hatan/': 'hatan', '/hatan/index.html': 'hatan', '/avena.html': 'avena' }[path];
       if (pageProject) items.push({ key: pageProject, title: text(document.querySelector('h1')) || pageProject.toUpperCase(), area: innerWidth * innerHeight });
       return items.map(x => ({ ...x, area: x.area ?? visibleArea(x.el) })).filter(x => x.key && x.area > 0).sort((a, b) => b.area - a.area)[0];
     };
@@ -78,7 +79,7 @@
       activeSection = section?.id || '';
       document.querySelectorAll('video').forEach(video => {
         if (video.paused || video.ended || video.readyState < 2 || !visibleArea(video)) return;
-        const key = slug((video.getAttribute('src') || video.querySelector('source')?.getAttribute('src') || '').split('/').pop().replace(/\.[^.]+$/, ''));
+        const key = slug((video.getAttribute('src') || video.getAttribute('data-src') || video.querySelector('source')?.getAttribute('src') || '').split('/').pop().replace(/\.[^.]+$/, ''));
         if (key) get('video:' + key, video.getAttribute('aria-label') || text(video.closest('.card,.caseVideoFeature,.showreelBox')?.querySelector('h3,h4')) || key).ms += delta;
       });
     }
@@ -105,12 +106,12 @@
       const action = /\.pdf(?:$|\?)/i.test(href) ? 'cv' : /^(mailto:|https:\/\/wa.me\/)/i.test(href) ? 'contact' : '';
       if (action) { get('click:' + action, action === 'cv' ? 'CV opened' : 'Contact clicked').count++; send(true); }
       // Preserve the company label across explicitly opened internal project tabs.
-      try { const url = new URL(link.href); if (session.ref !== 'direct' && url.origin === location.origin && /(?:aura|idh|vareno|avena)/i.test(url.pathname)) { url.searchParams.set('ref', session.ref); link.href = url.href; } } catch (_) {}
+      try { const url = new URL(link.href); if (session.ref !== 'direct' && url.origin === location.origin && /(?:aura|idh|vareno|avena|hatan)/i.test(url.pathname)) { url.searchParams.set('ref', session.ref); link.href = url.href; } } catch (_) {}
     }, { signal });
     document.addEventListener('play', event => {
       const video = event.target;
       if (video.tagName !== 'VIDEO') return;
-      const key = slug((video.getAttribute('src') || '').split('/').pop().replace(/\.[^.]+$/, ''));
+      const key = slug((video.getAttribute('src') || video.getAttribute('data-src') || '').split('/').pop().replace(/\.[^.]+$/, ''));
       if (key) get('video:' + key, video.getAttribute('aria-label') || key).count++;
     }, { capture: true, signal });
     interval = setInterval(() => {
