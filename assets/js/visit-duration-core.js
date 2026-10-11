@@ -4,9 +4,9 @@
   const signal = controller.signal;
   const currentBody = document.body;
   const HEARTBEAT_MS = 5000;
-  let interval, notice, started = false, stopped = false;
+  let interval, started = false, stopped = false;
   let finish = () => {};
-  window.badrVisitAnalytics = { destroy() { finish(); stopped = true; controller.abort(); clearInterval(interval); notice?.remove(); } };
+  window.badrVisitAnalytics = { destroy() { finish(); stopped = true; controller.abort(); clearInterval(interval); } };
   const storage = (store, key, value) => { try { if (value === undefined) return store.getItem(key); store.setItem(key, value); } catch (_) {} };
   const uuid = () => crypto.randomUUID();
   const slug = v => String(v || '').toLowerCase().replace(/[^a-z0-9_-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 64);
@@ -15,19 +15,20 @@
   async function begin() {
     if (started || stopped || optedOut()) return;
     started = true;
-    notice?.remove();
+
     const stamp = Date.now();
     const params = new URLSearchParams(location.search);
     const explicitRef = slug(params.get('ref') || params.get('utm_campaign'));
     let session;
-    try { session = JSON.parse(storage(sessionStorage, 'badr-visit-session-v3') || 'null'); } catch (_) {}
+    try { session = JSON.parse(storage(sessionStorage, 'badr-visit-session-v4') || 'null'); } catch (_) {}
     if (!session || stamp - session.lastSeen > 1800000 || (explicitRef && explicitRef !== session.ref)) {
       let source = 'direct';
       try { source = document.referrer ? new URL(document.referrer).hostname : 'direct'; } catch (_) {}
       session = { id: uuid(), ref: explicitRef || 'direct', source, lastSeen: stamp };
     }
-    const visitor = storage(localStorage, 'badr-analytics-visitor') || uuid();
-    storage(localStorage, 'badr-analytics-visitor', visitor);
+    // A tab-session identifier avoids linking independent visits across days.
+    const visitor = session.visitor || uuid();
+    session.visitor = visitor;
     const pageId = uuid(), path = location.pathname, title = document.title;
     const metrics = Object.create(null);
     let activeMs = 0, elapsedMs = 0, lastTick = performance.now(), lastSend = 0, activeProject = '', activeSection = '', wasVisible = document.visibilityState === 'visible';
@@ -92,7 +93,7 @@
       if (stopped || optedOut()) return;
       tick();
       session.lastSeen = Date.now();
-      storage(sessionStorage, 'badr-visit-session-v3', JSON.stringify(session));
+      storage(sessionStorage, 'badr-visit-session-v4', JSON.stringify(session));
       const selectedMetrics = Object.fromEntries(Object.entries(metrics).slice(0, 80).map(([k, v]) => [k, { title: v.title, ms: Math.round(v.ms), count: v.count }]));
       const payload = JSON.stringify({ id: session.id, visitor, pageId, ref: session.ref, source: session.source, path, title, activeMs: Math.round(activeMs), elapsedMs: Math.round(elapsedMs), metrics: selectedMetrics });
       lastSend = performance.now();
@@ -128,22 +129,9 @@
     }, 1000);
     send();
   }
-  function consent() {
-    if (optedOut() || stopped) return;
-    if (storage(localStorage, 'badr-analytics-consent') === 'yes') return begin();
-    notice = document.createElement('aside');
-    notice.setAttribute('aria-label', 'Anonymous analytics preferences');
-    notice.style.cssText = 'position:fixed;bottom:16px;left:16px;right:16px;max-width:520px;z-index:90;padding:16px;border:1px solid #66532c;border-radius:12px;background:#171719;color:#f5f4f0;font:14px/1.5 system-ui;box-shadow:0 8px 32px #0008';
-    const message = document.createElement('p'); message.style.margin = '0 0 12px';
-    message.textContent = 'Allow anonymous visit analytics? This helps me understand time spent on projects and visits from application links.';
-    const privacy = document.createElement('a'); privacy.href = '/privacy.html'; privacy.textContent = 'Privacy details'; privacy.style.cssText = 'text-decoration:underline;margin-right:12px';
-    const button = (label, choice) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.style.cssText = 'padding:8px 12px;margin-right:8px;border:1px solid #c9a55a;border-radius:6px;background:#29251c;color:#f5f4f0;cursor:pointer;font:inherit'; b.onclick = () => { storage(localStorage, 'badr-analytics-consent', choice); notice.remove(); if (choice === 'yes') begin(); }; return b; };
-    notice.append(message, privacy, button('Allow', 'yes'), button('Decline', 'no'));
-    document.body.appendChild(notice);
-  }
   fetch('/api/visitor-analytics?action=status', { cache: 'no-store', signal }).then(r => r.ok ? r.json() : { enabled: false }).then(status => {
     if (stopped || currentBody !== document.body) return;
-    if (status.enabled) consent();
+    if (status.enabled) begin();
     // Duration reporting stays off until central storage is configured.
     // Synthetic pageviews would inflate real pageview and visitor reports.
   }).catch(() => {});

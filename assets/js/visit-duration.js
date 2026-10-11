@@ -30,7 +30,7 @@
   if (!window.badrVisitAnalyticsCoreLoader) {
     window.badrVisitAnalyticsCoreLoader = true;
     const analytics = document.createElement('script');
-    analytics.src = '/assets/js/visit-duration-core.js?v=1';
+    analytics.src = '/assets/js/visit-duration-core.js?v=2';
     analytics.async = false;
     document.head.appendChild(analytics);
   }

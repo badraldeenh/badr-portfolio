@@ -35,15 +35,15 @@ test('declining or privacy signals never start the detailed tracker', async () =
 test('unconfigured backend never injects synthetic duration pageviews', async () => {
   const b=browser({enabled:false});await b.ready();assert.equal(b.payloads.length,0);assert.equal(b.appended.length,0);b.advance(30000);assert.equal(b.payloads.length,0);
 });
-test('new visitors must explicitly allow before detailed recording', async () => {
-  const b=browser({consent:''});await b.ready();assert.equal(b.payloads.length,0);
-  const notice=b.appended[0]; assert.ok(notice.children.some(c=>c.textContent==='Allow'));
-  notice.children.find(c=>c.textContent==='Allow').onclick();await b.ready();assert.equal(b.payloads.length,1);
+test('new visits record automatically without a consent prompt or persistent visitor ID', async () => {
+  const b=browser({consent:''});await b.ready();assert.equal(b.payloads.length,1);
+  assert.equal(b.appended.length,0);
+  assert.equal(b.localStorage.getItem('badr-analytics-visitor'),null);
 });
 test('attribution survives internal navigation, new document IDs avoid double counting', async () => {
   const first=browser();await first.ready();first.advance(20000);
   const second=browser({search:'',sessionStorage:first.sessionStorage});await second.ready();
-  assert.equal(second.payloads[0].id,first.payloads[0].id);assert.equal(second.payloads[0].ref,'sienna');
+  assert.equal(second.payloads[0].id,first.payloads[0].id);assert.equal(second.payloads[0].ref,'sienna');assert.equal(second.payloads[0].visitor,first.payloads[0].visitor);
 });
 test('BFCache restoration does not count the away interval', async () => {
   const b=browser();await b.ready();b.advance(10000);b.event('window','pagehide');await b.ready();b.now(60000);b.event('window','pageshow');b.advance(15000);
