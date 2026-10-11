@@ -116,7 +116,7 @@
     section.innerHTML = `
       <div class="wrap">
         <div class="recruiter-summary-grid" aria-label="Professional experience summary">
-          <div class="recruiter-summary-item"><span>Current role</span><b>Marketing, Graphic Design & Social Media</b><p>MALEH & HELOW SWEETS — Abu Dhabi, UAE • 2024–Present</p></div>
+          <div class="recruiter-summary-item"><span>Current role</span><b>Marketing, Graphic Design & Social Media</b><p>MALEH & HELOW SWEETS — Abu Dhabi, UAE • 2025–Present</p></div>
           <div class="recruiter-summary-item"><span>Business scope</span><b>Creative support across six branches</b><p>Advertising visuals, social content, campaign execution and e-commerce product content.</p></div>
           <div class="recruiter-summary-item"><span>Hands-on production</span><b>Design that reaches real output</b><p>Print preparation, apparel printing, acrylic design, cutting equipment and custom stamp production.</p></div>
         </div>
