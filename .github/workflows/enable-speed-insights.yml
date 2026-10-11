@@ -1,0 +1,60 @@
+name: One-time Speed Insights setup
+
+on:
+  push:
+    paths:
+      - '.github/workflows/enable-speed-insights.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  enable-speed-insights:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Add Vercel Speed Insights to tracked HTML pages
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          analytics_tag = '  <script defer src="/_vercel/insights/script.js"></script>'
+          speed_block = '''  <!-- Vercel Speed Insights -->
+          <script>
+            window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+          </script>
+          <script defer src="/_vercel/speed-insights/script.js"></script>'''
+
+          changed = []
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts:
+                  continue
+              text = path.read_text(encoding='utf-8')
+              if analytics_tag not in text or '/_vercel/speed-insights/script.js' in text:
+                  continue
+              updated = text.replace(analytics_tag, analytics_tag + '\n\n' + speed_block, 1)
+              path.write_text(updated, encoding='utf-8')
+              changed.append(str(path))
+
+          if not changed:
+              raise SystemExit('No eligible HTML files found to update')
+          print('Updated:')
+          print('\n'.join(changed))
+          PY
+
+      - name: Commit the tracking fix
+        run: |
+          git config user.name "Badr Portfolio Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add -- '*.html'
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Enable Vercel Speed Insights tracking"
+          git push origin HEAD:main
