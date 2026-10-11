@@ -189,7 +189,7 @@
       hire.innerHTML = `
         <div class="wrap"><div class="final-hire-box">
           <div><div class="eyebrow">Available for opportunities</div><h2>Need a designer who can take work from identity to campaign?</h2><p>Brand design, production-ready artwork, social content and video — with hands-on marketing and production experience.</p></div>
-          <div class="final-hire-actions"><a class="btn primary" href="mailto:badrlooka90@gmail.com">Contact BADR</a><a class="btn" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a></div>
+          <div class="final-hire-actions"><a class="btn primary" href="https://wa.me/971581372145" aria-label="Contact BADR on WhatsApp">Contact BADR</a><a class="btn" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a></div>
         </div></div>`;
       video.insertAdjacentElement('afterend', hire);
     }
@@ -236,7 +236,7 @@
         <h2>Like the thinking behind ${project.name}?</h2>
         <p>Explore the next case study or contact me about graphic design, brand identity, multimedia and campaign work.</p>
         <div class="case-final-actions">
-          <a class="primary" href="mailto:badrlooka90@gmail.com">Contact BADR</a>
+          <a class="primary" href="https://wa.me/971581372145" aria-label="Contact BADR on WhatsApp">Contact BADR</a>
           <a href="/assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a>
           <a class="next" href="${project.next}">Next project — ${project.nextName} →</a>
         </div>`;

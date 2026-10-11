@@ -2,7 +2,7 @@
   if (!window.badrFinalPolishLoader) {
     window.badrFinalPolishLoader = true;
     const polish = document.createElement('script');
-    polish.src = '/assets/js/final-polish.js?v=1';
+    polish.src = '/assets/js/final-polish.js?v=2';
     polish.async = false;
     document.head.appendChild(polish);
   }
