@@ -16,7 +16,7 @@
   if (!window.badrHatanCampaignLoader) {
     window.badrHatanCampaignLoader = true;
     const hatan = document.createElement('script');
-    hatan.src = '/assets/js/restore-hatan-campaign.js?v=1';
+    hatan.src = '/assets/js/restore-hatan-campaign.js?v=2';
     hatan.async = false;
     document.head.appendChild(hatan);
   }
