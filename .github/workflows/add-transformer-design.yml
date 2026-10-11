@@ -24,64 +24,26 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import io
-          import json
-          import time
-          import urllib.parse
           import urllib.request
           from PIL import Image
 
-          targets = {
-              'DDZ1Xt1TTsc': '01-new-arrival.webp',
-              'C7ws-pJvGgZ': '02-dometic-campaign.webp',
-              'C5JXA9ByFKQ': '03-undercover-ramadan.webp',
-              'C4tF-g_PcT6': '04-borla-ramadan.webp',
-              'C4a7be_piwh': '05-ramadan-campaign.webp',
+          sources = {
+              '01-new-arrival.webp': 'https://scontent-lhr11-1.cdninstagram.com/v/t51.82787-15/655567590_18068474795288036_6774153864943472637_n.webp?_nc_cat=100&ig_cache_key=MzUyMDA3OTI5ODk0NDc4NDYzOQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTQ0MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=7EVOsGm7aVsQ7kNvwFu8MoY&_nc_oc=AdppwA17YFbxGzhkd8inhuuz6ZeF7iSz6xbVoVSxeclQWXsbmcKsn4D61QhDelzYP2Q&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-lhr11-1.cdninstagram.com&_nc_gid=AQ8DwTQTAua107O-DR21eQ&_nc_ss=7a3ba&oh=00_AQPs4PDO3enoaEFBn_6zt9LbOVAM-a1a6ybrLFoZczcG8A&oe=6AD0D918',
+              '02-dometic-campaign.webp': 'https://scontent-lhr11-1.cdninstagram.com/v/t51.82787-15/653587294_18091092233325793_872149600995472043_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ig_cache_key=MzM4MjQwMTEzMDk3NjU1MzA4MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTI4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=HPzI4pA6uwwQ7kNvwGTbqxf&_nc_oc=Adov5Go-_vUp2wVAcg-6fYQR1kUkg2S_IVp7Lv77fD5aMugWefrQsYF9c2AaTeHMB8s&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-lhr11-1.cdninstagram.com&_nc_gid=0wlmiy6vzBayTa6my-fC9A&_nc_ss=7a3ba&oh=00_AQPj4z-ITx9odza2LYfc3MZb3UUXO8ygj0SADQzZf__YVA&oe=6AD0AEB5',
+              '03-undercover-ramadan.webp': 'https://scontent-lhr11-1.cdninstagram.com/v/t51.82787-15/622171047_17979667829952802_6806405883630336415_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzMzNTI5ODIxOTY0MjQ3NTE1Mg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=RNUew8iXdNIQ7kNvwFNNFHW&_nc_oc=Adq7dJ7UboEHM80a68sMCZpLNRPqU-Vw_m53tCoi590SFFNe4MNNIS0Ep3i5gKC7zLM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-lhr11-1.cdninstagram.com&_nc_gid=Ls5IdRv38n3uAgB3G_drCQ&_nc_ss=7a3ba&oh=00_AQNVkxAx_dlfNimX0ZoWx0l_aj2Xdk0wIW4K3nqXgN1iGw&oe=6AD0CDC4',
+              '04-borla-ramadan.webp': 'https://scontent-lhr11-1.cdninstagram.com/v/t51.82787-15/655244482_18019819328651288_1873479523460016524_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzMyNzM0MTk4MDk4MzA2NzA3OQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=78qnBqMueuMQ7kNvwGVVfBz&_nc_oc=Adq9TnBqvoJPo_4zUdIQJNkD6OQlHzfzbvXjZMBsJ8whUorr-WubYta-HSGE5oZa-bA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-lhr11-1.cdninstagram.com&_nc_gid=LqRgx3B-z77wYMh8H65Avg&_nc_ss=7a3ba&oh=00_AQP2tc14HNjjichQCZwJdwLubceX6tRf502Bof_08guosQ&oe=6AD0ACDF',
+              '05-ramadan-campaign.webp': 'https://scontent-lhr11-1.cdninstagram.com/v/t51.82787-15/654031285_18081630725623642_1738690270341999182_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzMyMjIyOTA0NDQ3MDQ0NjgwNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTQ0MC5zZHIucmVndWxhcl9waG90by5DMiJ9&_nc_ohc=cDBOz0zIyjsQ7kNvwGwBcv4&_nc_oc=AdoBCvBvJ6h-MM8TbRg7ddwOTazBn0qh6K1mHZRopFep3-I0dRZcYUcqcgRPNi_e8J8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-lhr11-1.cdninstagram.com&_nc_gid=QSMqZ9PbX6soMiptcPyP6g&_nc_ss=7a3ba&oh=00_AQMn65z1MKgDcvB7EvfZmxBZp3isvqOqphYX63NoQi42HA&oe=6AD0CADC',
           }
-
-          api_headers = {
-              'X-IG-App-ID': '936619743392459',
-              'User-Agent': 'Instagram 300.0.0.0 Android',
-          }
-          base = 'https://www.instagram.com/api/v1/feed/user/transformer_uae/username/?count=12'
-          max_id = None
-          found = {}
-
-          for _ in range(20):
-              url = base + (('&max_id=' + urllib.parse.quote(max_id)) if max_id else '')
-              req = urllib.request.Request(url, headers=api_headers)
-              with urllib.request.urlopen(req, timeout=30) as response:
-                  data = json.load(response)
-
-              for item in data.get('items', []):
-                  code = item.get('code')
-                  if code not in targets or code in found:
-                      continue
-                  media_items = item.get('carousel_media') or [item]
-                  media = next((m for m in media_items if m.get('media_type') == 1), None)
-                  if not media:
-                      continue
-                  candidates = (media.get('image_versions2') or {}).get('candidates') or []
-                  if not candidates:
-                      continue
-                  best = max(candidates, key=lambda c: (c.get('width') or 0) * (c.get('height') or 0))
-                  found[code] = best['url']
-
-              if len(found) == len(targets):
-                  break
-              max_id = data.get('next_max_id')
-              if not data.get('more_available') or not max_id:
-                  break
-              time.sleep(0.1)
-
-          missing = sorted(set(targets) - set(found))
-          if missing:
-              raise SystemExit('Missing Instagram posts: ' + ', '.join(missing))
 
           out_dir = Path('assets/img/transformer')
           out_dir.mkdir(parents=True, exist_ok=True)
+          request_headers = {
+              'User-Agent': 'Mozilla/5.0',
+              'Referer': 'https://www.instagram.com/',
+          }
 
-          for code, filename in targets.items():
-              req = urllib.request.Request(found[code], headers={'User-Agent': 'Mozilla/5.0'})
+          for filename, url in sources.items():
+              req = urllib.request.Request(url, headers=request_headers)
               with urllib.request.urlopen(req, timeout=30) as response:
                   raw = response.read()
               image = Image.open(io.BytesIO(raw)).convert('RGB')
