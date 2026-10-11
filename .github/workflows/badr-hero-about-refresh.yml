@@ -28,35 +28,31 @@ jobs:
           pages = [Path('index.html'), Path('home-v4.html')]
 
           experience = '''
-    <section id="production-experience" class="production-proof">
-      <div class="wrap">
-        <div class="sectionHead"><h2>Professional Experience</h2><p>Career progression from hands-on print production to social media, content creation and multi-branch marketing design.</p></div>
-        <div class="experience-timeline">
-          <article class="experience-role">
-            <div class="experience-date">2025 - Present</div>
-            <div><h3 class="experience-company">MALEH &amp; HELOW SWEETS</h3><p class="experience-role-title">Marketing, Graphic Design &amp; Social Media <span class="experience-location">• Abu Dhabi, UAE</span></p><ul class="experience-points"><li>Handle marketing, graphic design and social media creative work across six branches.</li><li>Create promotional visuals, social campaigns, product and e-commerce content, and short-form video.</li><li>Support campaign execution and reporting while maintaining consistent brand presentation across digital and in-store touchpoints.</li></ul></div>
-          </article>
-          <article class="experience-role">
-            <div class="experience-date">2022 - 2025</div>
-            <div><h3 class="experience-company">Transformer General Trading</h3><p class="experience-role-title">Social Media &amp; Content Designer <span class="experience-location">• Mussafah Industrial Area, Abu Dhabi</span></p><ul class="experience-points"><li>Managed day-to-day social media visual content and branded communication.</li><li>Designed promotional graphics and advertising materials for digital channels.</li><li>Created branded photo/video content and short-form videos for social media.</li></ul><span class="experience-certificate">Experience certificate available upon request</span></div>
-          </article>
-          <article class="experience-role">
-            <div class="experience-date">2019 - 2021</div>
-            <div><h3 class="experience-company">VIP Stationery</h3><p class="experience-role-title">Graphic Designer <span class="experience-location">• Al Ain, UAE</span></p><ul class="experience-points"><li>Designed and produced acrylic/plastic products and prepared advertising signage for printing and fabrication.</li><li>Prepared artwork and printed customized apparel and clothing.</li><li>Designed and produced custom stamps and handled production finishing.</li><li>Operated a wide range of printing and production machines used by the stationery shop.</li></ul><span class="experience-certificate">Experience certificate available upon request</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
-'''
+          <section id="production-experience" class="production-proof">
+            <div class="wrap">
+              <div class="sectionHead"><h2>Professional Experience</h2><p>Career progression from hands-on print production to social media, content creation and multi-branch marketing design.</p></div>
+              <div class="experience-timeline">
+                <article class="experience-role">
+                  <div class="experience-date">2025 - Present</div>
+                  <div><h3 class="experience-company">MALEH &amp; HELOW SWEETS</h3><p class="experience-role-title">Marketing, Graphic Design &amp; Social Media <span class="experience-location">• Abu Dhabi, UAE</span></p><ul class="experience-points"><li>Handle marketing, graphic design and social media creative work across six branches.</li><li>Create promotional visuals, social campaigns, product and e-commerce content, and short-form video.</li><li>Support campaign execution and reporting while maintaining consistent brand presentation across digital and in-store touchpoints.</li></ul></div>
+                </article>
+                <article class="experience-role">
+                  <div class="experience-date">2022 - 2025</div>
+                  <div><h3 class="experience-company">Transformer General Trading</h3><p class="experience-role-title">Social Media &amp; Content Designer <span class="experience-location">• Mussafah Industrial Area, Abu Dhabi</span></p><ul class="experience-points"><li>Managed day-to-day social media visual content and branded communication.</li><li>Designed promotional graphics and advertising materials for digital channels.</li><li>Created branded photo/video content and short-form videos for social media.</li></ul><span class="experience-certificate">Experience certificate available upon request</span></div>
+                </article>
+                <article class="experience-role">
+                  <div class="experience-date">2019 - 2021</div>
+                  <div><h3 class="experience-company">VIP Stationery</h3><p class="experience-role-title">Graphic Designer <span class="experience-location">• Al Ain, UAE</span></p><ul class="experience-points"><li>Designed and produced acrylic/plastic products and prepared advertising signage for printing and fabrication.</li><li>Prepared artwork and printed customized apparel and clothing.</li><li>Designed and produced custom stamps and handled production finishing.</li><li>Operated a wide range of printing and production machines used by the stationery shop.</li></ul><span class="experience-certificate">Experience certificate available upon request</span></div>
+                </article>
+              </div>
+            </div>
+          </section>
+          '''
 
           for path in pages:
               text = path.read_text(encoding='utf-8')
-
-              # Lock the corrected career dates into the static source.
               text = text.replace('2024–Present', '2025–Present')
               text = text.replace('2024 - Present', '2025 - Present')
-
-              # Make the featured film name and poster correct in the raw HTML too.
               text = text.replace('HATAN — Stadium Delivery Campaign', 'Matchday Delivery Spot')
               text = text.replace('HATAN Stadium Delivery Campaign', 'Matchday Delivery Spot — 15 second vertical advertising film')
               text = text.replace('<div class="eyebrow">Featured Campaign Film</div>', '<div class="eyebrow">Featured Advertising Film</div>')
@@ -66,11 +62,9 @@ jobs:
               video_replacement = '<video poster="assets/img/hatan/matchday-delivery-poster.jpg" src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4" controls playsinline preload="none" aria-label="Matchday Delivery Spot — 15 second vertical advertising film"></video>'
               text = video_pattern.sub(video_replacement, text)
 
-              # Remove obsolete homepage sections from the HTML itself.
               for section_id in ('process', 'editing', 'marketing', 'ai-toolkit'):
                   text = re.sub(r'\n\s*<section id="' + re.escape(section_id) + r'">.*?</section>\s*\n', '\n', text, count=1, flags=re.S)
 
-              # Put the full career timeline in static HTML; runtime enhancement remains progressive only.
               if 'id="production-experience"' not in text:
                   marker = '    <section id="about" class="about">'
                   if marker not in text:
@@ -79,20 +73,17 @@ jobs:
 
               path.write_text(text, encoding='utf-8')
 
-          # Remove the old current-role date from the legacy enhancer as well.
           ratings = Path('assets/js/project-ratings.js')
           rt = ratings.read_text(encoding='utf-8')
           rt = rt.replace('2024–Present', '2025–Present').replace('2024 - Present', '2025 - Present')
           ratings.write_text(rt, encoding='utf-8')
 
-          # Keep exact film naming consistent in any supporting JavaScript.
           for js in Path('assets/js').glob('*.js'):
               t = js.read_text(encoding='utf-8')
               t2 = t.replace('HATAN — Stadium Delivery Campaign', 'Matchday Delivery Spot').replace('HATAN Stadium Delivery Campaign', 'Matchday Delivery Spot — 15 second vertical advertising film')
               if t2 != t:
                   js.write_text(t2, encoding='utf-8')
 
-          # Verification: the obsolete sections and obsolete current-role date must be gone from both homepage sources.
           for path in pages:
               text = path.read_text(encoding='utf-8')
               for section_id in ('process', 'editing', 'marketing', 'ai-toolkit'):
