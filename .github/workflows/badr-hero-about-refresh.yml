@@ -1,4 +1,4 @@
-name: BADR Portfolio Positioning Refresh
+name: BADR Final Source Cleanup
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  refresh:
+  cleanup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,96 +19,100 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Reposition portfolio around brand design
+      - name: Clean homepage source and lock final experience data
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
 
-          files = [Path('home-v4.html'), Path('index.html')]
+          pages = [Path('index.html'), Path('home-v4.html')]
 
-          featured = "\n".join([
-              '    <section id="featured-branding" class="featuredBranding">',
-              '      <div class="wrap">',
-              '        <div class="sectionHead"><h2>Featured Brand Identity</h2><p>Selected identity systems, campaign direction and visual applications — presented first for a fast recruiter review.</p></div>',
-              '        <div class="brandPriorityGrid">',
-              '          <a class="card brandPriorityCard" href="idh/" aria-label="Open IDH real estate brand identity case study"><div class="brandPriorityMedia"><img src="assets/img/idh/hero.webp" alt="IDH Integrated Development Holdings brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">01 • Real Estate Branding</div><h3>IDH — Integrated Development Holdings</h3><p>Luxury real-estate identity spanning logo, print, environmental branding, campaign and digital applications.</p><div class="miniChips"><span>Brand Identity</span><span>Art Direction</span><span>Digital</span></div></div></a>',
-              '          <a class="card brandPriorityCard" href="avena.html" aria-label="Open AVENA Medical Center case study"><div class="brandPriorityMedia"><img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">02 • Healthcare Branding</div><h3>AVENA Medical Center</h3><p>A complete healthcare identity across stationery, uniforms, environments, digital booking and campaign visuals.</p><div class="miniChips"><span>Brand System</span><span>Environmental</span><span>Digital</span></div></div></a>',
-              '          <a class="card brandPriorityCard" href="vareno/" aria-label="Open VARENO Barber Club case study"><div class="brandPriorityMedia"><img src="assets/img/vareno/vareno-hero.webp" alt="VARENO Barber Club luxury grooming identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">03 • Luxury Grooming</div><h3>VARENO Barber Club</h3><p>Premium grooming identity built from strategy and logo architecture through packaging, environments and digital touchpoints.</p><div class="miniChips"><span>Brand Strategy</span><span>Packaging</span><span>Retail</span></div></div></a>',
-              '          <a class="card brandPriorityCard brandPriorityWide" href="aura/" aria-label="Open AURA Athletics case study"><div class="brandPriorityMedia"><img src="assets/img/aura/performance-overview.webp" alt="AURA Athletics sportswear brand identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">04 • Sportswear Branding</div><h3>AURA Athletics</h3><p>Performance-sportswear identity with apparel, campaign art direction, e-commerce and product storytelling.</p><div class="miniChips"><span>Sportswear</span><span>AI Art Direction</span><span>E-commerce</span></div></div></a>',
-              '          <a class="card brandPriorityCard brandPriorityWide" href="hatan/" aria-label="Open HATAN Fine Foods case study"><div class="brandPriorityMedia"><img src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">05 • Food & Packaging</div><h3>HATAN — Fine Foods & Confections</h3><p>Premium food identity extending through packaging, retail, takeaway applications and campaign content.</p><div class="miniChips"><span>Branding</span><span>Packaging</span><span>Retail</span></div></div></a>',
-              '        </div>',
-              '      </div>',
-              '    </section>',
-          ]) + "\n"
+          experience = '''
+    <section id="production-experience" class="production-proof">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Professional Experience</h2><p>Career progression from hands-on print production to social media, content creation and multi-branch marketing design.</p></div>
+        <div class="experience-timeline">
+          <article class="experience-role">
+            <div class="experience-date">2025 - Present</div>
+            <div><h3 class="experience-company">MALEH &amp; HELOW SWEETS</h3><p class="experience-role-title">Marketing, Graphic Design &amp; Social Media <span class="experience-location">• Abu Dhabi, UAE</span></p><ul class="experience-points"><li>Handle marketing, graphic design and social media creative work across six branches.</li><li>Create promotional visuals, social campaigns, product and e-commerce content, and short-form video.</li><li>Support campaign execution and reporting while maintaining consistent brand presentation across digital and in-store touchpoints.</li></ul></div>
+          </article>
+          <article class="experience-role">
+            <div class="experience-date">2022 - 2025</div>
+            <div><h3 class="experience-company">Transformer General Trading</h3><p class="experience-role-title">Social Media &amp; Content Designer <span class="experience-location">• Mussafah Industrial Area, Abu Dhabi</span></p><ul class="experience-points"><li>Managed day-to-day social media visual content and branded communication.</li><li>Designed promotional graphics and advertising materials for digital channels.</li><li>Created branded photo/video content and short-form videos for social media.</li></ul><span class="experience-certificate">Experience certificate available upon request</span></div>
+          </article>
+          <article class="experience-role">
+            <div class="experience-date">2019 - 2021</div>
+            <div><h3 class="experience-company">VIP Stationery</h3><p class="experience-role-title">Graphic Designer <span class="experience-location">• Al Ain, UAE</span></p><ul class="experience-points"><li>Designed and produced acrylic/plastic products and prepared advertising signage for printing and fabrication.</li><li>Prepared artwork and printed customized apparel and clothing.</li><li>Designed and produced custom stamps and handled production finishing.</li><li>Operated a wide range of printing and production machines used by the stationery shop.</li></ul><span class="experience-certificate">Experience certificate available upon request</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+'''
 
-          css = "\n".join([
-              '    /* Portfolio positioning refresh — branding first */',
-              '    .featuredBranding{padding-top:38px;background:linear-gradient(180deg,rgba(201,165,90,.05),transparent 70%)}',
-              '    .brandPriorityGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}',
-              '    .brandPriorityCard{grid-column:span 2}.brandPriorityWide{grid-column:span 3}',
-              '    .brandPriorityMedia{aspect-ratio:16/10;background:#0a0a0c;overflow:hidden;border-bottom:1px solid var(--line)}',
-              '    .brandPriorityMedia img{width:100%;height:100%;object-fit:cover}',
-              '    .aboutSummary{font-size:16px;color:#e0dfda!important;line-height:1.65}',
-              '    @media(max-width:900px){.brandPriorityGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.brandPriorityCard,.brandPriorityWide{grid-column:auto}}',
-              '    @media(max-width:620px){.brandPriorityGrid{grid-template-columns:1fr}}',
-          ]) + "\n"
-
-          for path in files:
+          for path in pages:
               text = path.read_text(encoding='utf-8')
 
-              replacements = [
-                  ('<meta name="description" content="Portfolio of Badr Eldin Mohamed Alamin — AI Video Creator, Multimedia Designer and Video Editor based in the UAE, open to opportunities in Canada, Europe and Australia." />', '<meta name="description" content="BADR — Graphic Designer, Brand Identity Designer, Visual Content Creator and Video Editor based in the UAE, open to opportunities in Canada, Europe and Australia." />'),
-                  ('<meta property="og:title" content="BADR Magic — Creative Portfolio" />', '<meta property="og:title" content="BADR — Creative Portfolio" />'),
-                  ('<meta property="og:description" content="AI Video Creator • Multimedia Designer • Video Editor" />', '<meta property="og:description" content="Graphic Designer • Brand Identity • Visual Content • Video Editing" />'),
-                  ('<title>BADR Magic — Creative Portfolio</title>', '<title>BADR — Creative Portfolio</title>'),
-                  ('<div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="aura/">AURA</a><a href="#design">Design</a><a href="#process">Workflow</a><a href="#editing">Editing</a><a href="#marketing">Marketing</a><a href="#about">About</a><a href="#contact">Contact</a></div>', '<div class="links"><a href="#featured-branding">Work</a><a href="#design">Branding</a><a href="#reel">Video</a><a href="#about">About</a><a href="#contact">Contact</a></div>'),
-                  ('<div class="eyebrow">AI Video Creator • Multimedia Designer • Video Editor</div>', '<div class="eyebrow">Graphic Designer • Brand Identity • Visual Content • Video Editing</div>'),
-                  ('<p class="lead">Creating cinematic product advertising from real product photography, AI-assisted visuals and video editing.</p>', '<p class="lead">Building distinctive brands, visual identities and advertising content.</p>'),
-                  ('<a class="btn primary" href="#work">View selected work</a>', '<a class="btn primary" href="#featured-branding">View selected work</a>'),
-                  ('<div class="micro">Based in the United Arab Emirates • Open to opportunities in Canada, Europe & Australia • Available for remote interviews</div>', '<div class="micro">Based in UAE • Open to relocation — Canada, Europe & Australia</div>'),
-                  ('<div class="sectionHead"><h2>Selected work</h2><p>Professional video work for MALEH &amp; HELOW SWEETS alongside independent projects, including the Mango Beverage Commercial. Each video identifies its context and my role.</p></div>', '<div class="sectionHead"><h2>Video & Visual Content</h2><p>Selected advertising, product storytelling and short-form video work after the brand identity projects above.</p></div>'),
-                  ('<div><div class="eyebrow">Available internationally</div><h2>Open to creative roles in Canada, Europe & Australia.</h2><p>Available for remote interviews and employer-supported relocation or work authorization opportunities in AI video, multimedia design, video editing, creative advertising and digital marketing.</p></div>', '<div><div class="eyebrow">Available internationally</div><h2>Open to creative roles in Canada, Europe & Australia.</h2><p>Available for remote interviews and employer-supported relocation or work authorization opportunities in graphic design, brand identity, visual content, video editing and creative advertising.</p></div>'),
-                  ('<div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>AI Video Creator • Multimedia Designer • Video Editor</span></div>', '<div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>Graphic Designer • Brand Identity • Visual Content • Video Editing</span></div>'),
-              ]
+              # Lock the corrected career dates into the static source.
+              text = text.replace('2024–Present', '2025–Present')
+              text = text.replace('2024 - Present', '2025 - Present')
 
-              for old, new in replacements:
-                  if old in text:
-                      text = text.replace(old, new, 1)
+              # Make the featured film name and poster correct in the raw HTML too.
+              text = text.replace('HATAN — Stadium Delivery Campaign', 'Matchday Delivery Spot')
+              text = text.replace('HATAN Stadium Delivery Campaign', 'Matchday Delivery Spot — 15 second vertical advertising film')
+              text = text.replace('<div class="eyebrow">Featured Campaign Film</div>', '<div class="eyebrow">Featured Advertising Film</div>')
+              text = text.replace('A 15-second independent stadium-delivery concept combining AI-assisted visual production, cinematic direction, brand continuity and sound design for a social-first food campaign.', 'A 15-second vertical food-delivery spot combining AI-assisted visual production, cinematic direction, brand continuity and stadium sound design.')
 
-              if 'id="featured-branding"' not in text:
-                  marker = '    </header>\n\n    <section id="reel">'
+              video_pattern = re.compile(r'<video\s+src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920\.mp4"\s+autoplay\s+muted\s+loop\s+playsinline\s+controls\s+preload="metadata"\s+aria-label="Matchday Delivery Spot — 15 second vertical advertising film"></video>')
+              video_replacement = '<video poster="assets/img/hatan/matchday-delivery-poster.jpg" src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4" controls playsinline preload="none" aria-label="Matchday Delivery Spot — 15 second vertical advertising film"></video>'
+              text = video_pattern.sub(video_replacement, text)
+
+              # Remove obsolete homepage sections from the HTML itself.
+              for section_id in ('process', 'editing', 'marketing', 'ai-toolkit'):
+                  text = re.sub(r'\n\s*<section id="' + re.escape(section_id) + r'">.*?</section>\s*\n', '\n', text, count=1, flags=re.S)
+
+              # Put the full career timeline in static HTML; runtime enhancement remains progressive only.
+              if 'id="production-experience"' not in text:
+                  marker = '    <section id="about" class="about">'
                   if marker not in text:
-                      raise SystemExit(f'{path}: hero/reel marker not found')
-                  text = text.replace(marker, '    </header>\n' + featured + '\n    <section id="reel">', 1)
-
-              pattern = re.compile(r'\n\s*<div id="avena-feature".*?\n\s*<div class="grid">\s*<a class="card" href="idh/".*?</a>\s*<a class="card" href="aura/".*?</a>', re.S)
-              text, n = pattern.subn('\n        <div class="grid">', text, count=1)
-              if n == 0 and 'id="avena-feature"' in text:
-                  raise SystemExit(f'{path}: could not simplify video section')
-
-              about_marker = '          </div>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>'
-              if 'class="aboutSummary"' not in text:
-                  if about_marker not in text:
-                      raise SystemExit(f'{path}: about marker not found')
-                  text = text.replace(about_marker, '          </div>\n          <p class="aboutSummary">Graphic designer and creative producer with professional experience since 2019 across brand identity, print production, social content, product advertising and video editing.</p>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>', 1)
-
-              if '/* Portfolio positioning refresh' not in text:
-                  if '</style>' not in text:
-                      raise SystemExit(f'{path}: style closing tag not found')
-                  text = text.replace('</style>', css + '  </style>', 1)
+                      raise SystemExit(f'{path}: About section marker not found')
+                  text = text.replace(marker, experience + '\n' + marker, 1)
 
               path.write_text(text, encoding='utf-8')
+
+          # Remove the old current-role date from the legacy enhancer as well.
+          ratings = Path('assets/js/project-ratings.js')
+          rt = ratings.read_text(encoding='utf-8')
+          rt = rt.replace('2024–Present', '2025–Present').replace('2024 - Present', '2025 - Present')
+          ratings.write_text(rt, encoding='utf-8')
+
+          # Keep exact film naming consistent in any supporting JavaScript.
+          for js in Path('assets/js').glob('*.js'):
+              t = js.read_text(encoding='utf-8')
+              t2 = t.replace('HATAN — Stadium Delivery Campaign', 'Matchday Delivery Spot').replace('HATAN Stadium Delivery Campaign', 'Matchday Delivery Spot — 15 second vertical advertising film')
+              if t2 != t:
+                  js.write_text(t2, encoding='utf-8')
+
+          # Verification: the obsolete sections and obsolete current-role date must be gone from both homepage sources.
+          for path in pages:
+              text = path.read_text(encoding='utf-8')
+              for section_id in ('process', 'editing', 'marketing', 'ai-toolkit'):
+                  if f'<section id="{section_id}">' in text:
+                      raise SystemExit(f'{path}: obsolete section still present: {section_id}')
+              if '2024–Present' in text or '2024 - Present' in text:
+                  raise SystemExit(f'{path}: obsolete MALEH date still present')
+              for required in ('2025 - Present', '2022 - 2025', '2019 - 2021', 'Matchday Delivery Spot'):
+                  if required not in text:
+                      raise SystemExit(f'{path}: missing required source text: {required}')
           PY
 
-      - name: Commit changes
+      - name: Commit source cleanup
         run: |
-          if git diff --quiet -- home-v4.html index.html; then
+          if git diff --quiet -- index.html home-v4.html assets/js; then
             echo "No changes needed"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add home-v4.html index.html
-          git commit -m "Prioritize branding and recruiter positioning"
+          git add index.html home-v4.html assets/js
+          git commit -m "Clean homepage source and lock final experience timeline"
           git push
