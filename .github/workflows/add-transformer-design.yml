@@ -1,0 +1,158 @@
+name: Add Transformer automotive design project
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-transformer-design.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  add-transformer-design:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+
+      - name: Build Transformer portfolio assets and section
+        shell: bash
+        run: |
+          python -m pip install pillow -q
+          python - <<'PY'
+          from pathlib import Path
+          import io
+          import json
+          import time
+          import urllib.parse
+          import urllib.request
+          from PIL import Image
+
+          targets = {
+              'DDZ1Xt1TTsc': '01-new-arrival.webp',
+              'C7ws-pJvGgZ': '02-dometic-campaign.webp',
+              'C5JXA9ByFKQ': '03-undercover-ramadan.webp',
+              'C4tF-g_PcT6': '04-borla-ramadan.webp',
+              'C4a7be_piwh': '05-ramadan-campaign.webp',
+          }
+
+          api_headers = {
+              'X-IG-App-ID': '936619743392459',
+              'User-Agent': 'Instagram 300.0.0.0 Android',
+          }
+          base = 'https://www.instagram.com/api/v1/feed/user/transformer_uae/username/?count=12'
+          max_id = None
+          found = {}
+
+          for _ in range(20):
+              url = base + (('&max_id=' + urllib.parse.quote(max_id)) if max_id else '')
+              req = urllib.request.Request(url, headers=api_headers)
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  data = json.load(response)
+
+              for item in data.get('items', []):
+                  code = item.get('code')
+                  if code not in targets or code in found:
+                      continue
+                  media_items = item.get('carousel_media') or [item]
+                  media = next((m for m in media_items if m.get('media_type') == 1), None)
+                  if not media:
+                      continue
+                  candidates = (media.get('image_versions2') or {}).get('candidates') or []
+                  if not candidates:
+                      continue
+                  best = max(candidates, key=lambda c: (c.get('width') or 0) * (c.get('height') or 0))
+                  found[code] = best['url']
+
+              if len(found) == len(targets):
+                  break
+              max_id = data.get('next_max_id')
+              if not data.get('more_available') or not max_id:
+                  break
+              time.sleep(0.1)
+
+          missing = sorted(set(targets) - set(found))
+          if missing:
+              raise SystemExit('Missing Instagram posts: ' + ', '.join(missing))
+
+          out_dir = Path('assets/img/transformer')
+          out_dir.mkdir(parents=True, exist_ok=True)
+
+          for code, filename in targets.items():
+              req = urllib.request.Request(found[code], headers={'User-Agent': 'Mozilla/5.0'})
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  raw = response.read()
+              image = Image.open(io.BytesIO(raw)).convert('RGB')
+              if image.width > 1440:
+                  new_height = round(image.height * 1440 / image.width)
+                  image = image.resize((1440, new_height), Image.Resampling.LANCZOS)
+              image.save(out_dir / filename, 'WEBP', quality=88, method=6)
+
+          old_head = '<div class="sectionHead"><h2>Brand Identity & Design</h2><p>Selected identity, packaging and retail applications developed as complete visual systems.</p></div>'
+          new_head = '<div class="sectionHead"><h2>Brand Identity & Graphic Design</h2><p>Selected identity systems, advertising campaigns, packaging and visual applications.</p></div>'
+
+          block = '''
+
+        <div id="transformer-design" style="scroll-margin-top:90px;margin-bottom:52px">
+          <div class="caseIntro">
+            <div>
+              <div class="eyebrow">Transformer General Trading — Automotive Social Media Design</div>
+              <h3>Automotive Advertising &amp; Social Campaigns</h3>
+              <p>Selected commercial design work for automotive and off-road products, combining product-focused layouts, promotional messaging and campaign-ready visual direction for social media.</p>
+            </div>
+            <span class="caseTag">Automotive • Social Media • Advertising</span>
+          </div>
+
+          <div class="panel campaignCase">
+            <div class="eyebrow">Selected Commercial Work</div>
+            <p class="caseSummary">A focused selection of five automotive campaign designs chosen for visual quality, composition and portfolio relevance.</p>
+            <dl class="projectFacts">
+              <div><dt>Company</dt><dd>Transformer General Trading</dd></div>
+              <div><dt>Role</dt><dd>Social Media &amp; Advertising Designer</dd></div>
+              <div><dt>Tools</dt><dd>Adobe Photoshop</dd></div>
+              <div><dt>Deliverables</dt><dd>Social Media Campaigns • Product Ads • Promotional Graphics</dd></div>
+            </dl>
+          </div>
+
+          <figure class="caseHero">
+            <img src="assets/img/transformer/01-new-arrival.webp" alt="Transformer General Trading Rough Country new arrival automotive campaign design" width="1440" height="1440" loading="lazy" decoding="async">
+            <div class="caseCaption"><b>New Arrival Campaign — Rough Country</b><span class="caseMeta">Automotive Product Advertising</span></div>
+          </figure>
+
+          <div class="caseGrid">
+            <figure class="caseShot"><img src="assets/img/transformer/02-dometic-campaign.webp" alt="Dometic automotive product campaign design for Transformer General Trading" width="1280" height="1600" loading="lazy" decoding="async"><figcaption class="caseCaption"><b>Dometic Product Campaign</b><span class="caseMeta">Product Advertising</span></figcaption></figure>
+            <figure class="caseShot"><img src="assets/img/transformer/03-undercover-ramadan.webp" alt="UnderCover Flex Ramadan automotive offer design for Transformer General Trading" width="1080" height="1080" loading="lazy" decoding="async"><figcaption class="caseCaption"><b>UnderCover Flex — Ramadan Offer</b><span class="caseMeta">Seasonal Promotion</span></figcaption></figure>
+            <figure class="caseShot"><img src="assets/img/transformer/04-borla-ramadan.webp" alt="Borla Exhaust Ramadan automotive campaign design for Transformer General Trading" width="1080" height="1080" loading="lazy" decoding="async"><figcaption class="caseCaption"><b>Borla Exhaust — Ramadan Campaign</b><span class="caseMeta">Automotive Campaign</span></figcaption></figure>
+            <figure class="caseShot"><img src="assets/img/transformer/05-ramadan-campaign.webp" alt="Ramadan discount social media campaign design for Transformer General Trading" width="1440" height="1439" loading="lazy" decoding="async"><figcaption class="caseCaption"><b>Ramadan 30% Campaign</b><span class="caseMeta">Social Media Advertising</span></figcaption></figure>
+          </div>
+          <p class="caseNote">Commercial automotive design work presented as a focused campaign selection for portfolio review.</p>
+        </div>
+        <div style="height:1px;background:var(--line);margin:56px 0"></div>'''
+
+          for filename in ('index.html', 'home-v4.html'):
+              path = Path(filename)
+              if not path.exists():
+                  continue
+              text = path.read_text(encoding='utf-8')
+              if old_head in text:
+                  text = text.replace(old_head, new_head, 1)
+              marker = new_head if new_head in text else old_head
+              if 'id="transformer-design"' not in text:
+                  if marker not in text:
+                      raise SystemExit(f'Design section marker not found in {filename}')
+                  text = text.replace(marker, marker + block, 1)
+              path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit portfolio update and remove temporary workflow
+        shell: bash
+        run: |
+          rm -f .github/workflows/add-transformer-design.yml
+          git config user.name "BADR Portfolio Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Add Transformer automotive social design project" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
