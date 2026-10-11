@@ -6,6 +6,13 @@
     polish.async = false;
     document.head.appendChild(polish);
   }
+  if (!window.badrFinalTouchLoader) {
+    window.badrFinalTouchLoader = true;
+    const touch = document.createElement('script');
+    touch.src = '/assets/js/final-touch.js?v=1';
+    touch.async = false;
+    document.head.appendChild(touch);
+  }
   if (!window.badrVisitAnalyticsCoreLoader) {
     window.badrVisitAnalyticsCoreLoader = true;
     const analytics = document.createElement('script');
