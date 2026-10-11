@@ -114,10 +114,20 @@
     if (recruiterSummary && video) recruiterSummary.insertAdjacentElement('afterend', video);
     else if (design && video) design.insertAdjacentElement('afterend', video);
 
-    // HATAN is a branding/packaging case study, not a video-grid item.
-    document.querySelectorAll('#work [data-hatan-work-card="1"]').forEach(card => card.remove());
+    // HATAN belongs to Design. Remove both the injected link and any wrapper
+    // created around it by the rating system, so no empty card remains.
+    document.querySelectorAll('#work [data-hatan-work-card="1"]').forEach(node => {
+      const wrapper = node.closest('.card');
+      if (wrapper) wrapper.remove();
+      else node.remove();
+    });
+
     document.querySelectorAll('#work .card').forEach(card => {
-      if (/HATAN\s*[—-]/i.test(card.textContent || '') && /Brand|Packaging/i.test(card.textContent || '')) card.remove();
+      const text = card.textContent || '';
+      const linksToHatan = !!card.querySelector('a[href*="/hatan/"]');
+      const isHatan = /HATAN\s*[—-]/i.test(text) || linksToHatan;
+      const isEmpty = !card.querySelector('video, img, h3');
+      if (isHatan || isEmpty) card.remove();
     });
 
     const work = document.getElementById('work');
@@ -125,9 +135,10 @@
       const cards = [...work.querySelectorAll(':scope .grid > .card')];
       const visible = cards.filter(card => !card.hidden);
       const toggle = work.querySelector('.work-toggle');
-      if (toggle && cards.length > visible.length) {
-        const hiddenCount = cards.length - visible.length;
-        toggle.textContent = `View more video work (${hiddenCount})`;
+      if (toggle) {
+        const hiddenCount = Math.max(0, cards.length - visible.length);
+        if (hiddenCount > 0) toggle.textContent = `View more video work (${hiddenCount})`;
+        else toggle.closest('.work-toggle-wrap')?.remove();
       }
     }
   }, { once: true });
