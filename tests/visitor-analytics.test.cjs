@@ -27,7 +27,10 @@ async function request(method, action, payload, extras = {}) {
 const sample = () => ({ id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', visitor:'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', pageId:'cccccccc-cccc-cccc-cccc-cccccccccccc', path:'/', title:'Portfolio', ref:'sienna', source:'mail.google.com', activeMs:20000, elapsedMs:40000, metrics: { 'project:aura': { title:'AURA', ms:15000, count:1 }, 'click:cv': { title:'CV opened', ms:0, count:1 } } });
 test('missing setup fails closed and never exposes records', async () => {
   delete process.env.ANALYTICS_ADMIN_PASSWORD;
-  assert.equal((await request('GET','status')).json.enabled, false);
+  const status = (await request('GET','status')).json;
+  assert.equal(status.enabled, false);
+  assert.equal(status.retentionDays, 30);
+  assert.equal(status.locationPrecision, 'country');
   assert.equal((await request('GET','sessions')).status, 503);
   assert.equal(calls.length, 0);
 });
@@ -66,14 +69,18 @@ test('bad password and cross-origin writes are rejected', async () => {
   assert.equal((await request('POST','collect',sample(),{origin:'https://other.test'})).status, 403);
   assert.equal(calls.length, before);
 });
-test('collection preserves ref and durations, normalizes geo, never saves raw IP', async () => {
+test('collection preserves useful analytics while minimizing location and raw IP data', async () => {
   const r = await request('POST','collect',sample(), { 'x-vercel-ip-country':'CA','x-vercel-ip-city':'New%20York','x-vercel-forwarded-for':'192.0.2.50' });
   assert.equal(r.status, 202);
   const command = calls.find(x => x[0] === 'EVAL' && x[1].includes('incoming='));
   const value = JSON.parse(command[5]);
-  assert.equal(value.ref,'sienna'); assert.equal(value.activeMs,20000); assert.equal(value.elapsedMs,40000); assert.equal(value.city,'New York');
+  assert.equal(value.ref,'sienna');
+  assert.equal(value.activeMs,20000);
+  assert.equal(value.elapsedMs,40000);
+  assert.equal(value.country,'CA');
+  assert.ok(!Object.hasOwn(value, 'city'));
   assert.ok(!JSON.stringify(calls).includes('192.0.2.50'));
-  assert.equal(command.at(-1),90*86400);
+  assert.equal(command.at(-1),30*86400);
 });
 test('invalid duration, oversized events, arbitrary paths and IDs are rejected', async () => {
   for (const change of [{activeMs:-1},{activeMs:50000},{path:'/secret?email=x'},{id:'invalid'},{metrics:{bad:{ms:0,count:0}}},{metrics:{'project:aura':{ms:0,count:-1}}}]) {
