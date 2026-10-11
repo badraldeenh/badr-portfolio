@@ -73,6 +73,72 @@
       #work .work-toggle:hover{background:#d8b86f;border-color:#d8b86f;transform:translateY(-2px)}
       #work .work-toggle:focus-visible{outline:2px solid #f4dfad;outline-offset:4px}
 
+      /* Desktop presentation polish — intentionally scoped away from mobile/tablet */
+      @media(min-width:1180px){
+        body.recruiter-polish .wrap{width:min(1360px,calc(100% - 80px));max-width:none}
+        body.recruiter-polish .navin{height:76px}
+        body.recruiter-polish .links{gap:28px;font-size:14px}
+        body.recruiter-polish .hero{padding:96px 0 72px}
+        body.recruiter-polish .heroGrid{max-width:1160px}
+        body.recruiter-polish .heroName{font-size:clamp(96px,10vw,154px)!important}
+        body.recruiter-polish .hero .lead{font-size:22px;line-height:1.5;max-width:850px}
+        body.recruiter-polish .hero .micro{font-size:14px;margin-top:28px}
+        body.recruiter-polish .stats{max-width:920px;gap:14px;margin-top:38px}
+        body.recruiter-polish .stat{padding:17px 16px;border-radius:14px}
+        body.recruiter-polish .stat b{font-size:14px}
+        body.recruiter-polish .stat span{font-size:12px;line-height:1.45}
+        body.recruiter-polish section{padding:76px 0}
+        body.recruiter-polish .sectionHead{gap:46px;margin-bottom:34px}
+        body.recruiter-polish .sectionHead h2{font-size:44px;line-height:1.08}
+        body.recruiter-polish .sectionHead p{font-size:15.5px;line-height:1.65;max-width:700px}
+
+        #design{padding-top:54px}
+        #design .brandPriorityGrid{gap:24px}
+        #design .brandPriorityCard{border-radius:22px;box-shadow:0 18px 50px rgba(0,0,0,.15)}
+        #design .brandPriorityCard:hover{transform:translateY(-4px);border-color:#4a4740}
+        #design .brandPriorityMedia{aspect-ratio:16/9}
+        #design .brandPriorityCard .cardBody{padding:23px}
+        #design .brandPriorityCard h3{font-size:22px;line-height:1.2;margin-top:8px}
+        #design .brandPriorityCard p{font-size:14px;line-height:1.6}
+
+        #video{padding-top:82px}
+        #video>.video-intro{padding-bottom:10px}
+        #video>#reel{padding-top:24px}
+        #reel .showreelBox{border-radius:28px;box-shadow:0 26px 70px rgba(0,0,0,.22)}
+        #reel .showreelInner{grid-template-columns:minmax(380px,480px) minmax(0,1fr)}
+        #reel .showreelVideo video{max-height:760px}
+        #reel .showreelCopy{padding:58px 64px}
+        #reel .showreelCopy h3{font-size:40px;line-height:1.08}
+        #reel .showreelCopy p{font-size:15px;line-height:1.7;max-width:720px}
+
+        #video>#work{padding-top:54px}
+        #work .grid{gap:24px}
+        #work .grid>.card{grid-template-columns:220px minmax(0,1fr);min-height:390px;border-radius:22px}
+        #work .grid>.card>.media{min-height:390px}
+        #work .grid>.card>.cardBody{padding:26px}
+        #work .grid>.card>.cardBody h3{font-size:22px;line-height:1.18}
+        #work .grid>.card:first-child{grid-template-columns:minmax(360px,440px) minmax(0,1fr);min-height:560px}
+        #work .grid>.card:first-child>.media{min-height:560px}
+        #work .grid>.card:first-child>.cardBody{padding:42px 46px}
+        #work .grid>.card:first-child>.cardBody h3{font-size:36px}
+        #work .grid>.card:first-child>.cardBody>p{font-size:15.5px;line-height:1.7}
+
+        #recruiter-summary .recruiter-summary-grid{gap:18px}
+        #recruiter-summary .recruiter-summary-item{padding:22px;border-radius:16px}
+        #production-experience .two{gap:26px}
+        #production-experience .panel{padding:34px;border-radius:20px}
+        #about .panel{padding:34px}
+        #contact .contact{padding:46px 50px;border-radius:26px}
+        #contact .contact h2{font-size:38px}
+      }
+
+      @media(min-width:1500px){
+        body.recruiter-polish .wrap{width:min(1440px,calc(100% - 112px))}
+        body.recruiter-polish .heroGrid{max-width:1240px}
+        #design .brandPriorityGrid{gap:26px}
+        #work .grid{gap:26px}
+      }
+
       @media(max-width:980px){
         #work .grid{grid-template-columns:1fr}
         #work .grid>.card,#work .grid>.card:first-child{grid-column:auto;grid-template-columns:210px minmax(0,1fr);min-height:380px}
