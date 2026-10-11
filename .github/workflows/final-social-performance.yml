@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   polish-static-html:
-    if: ${{ !contains(github.event.head_commit.message, '[final-meta]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -55,22 +54,23 @@ jobs:
               )
 
               marker = '<meta property="og:description" content="Brand identity • Graphic design • Video • Creative production" />'
-              block = '''<meta property="og:description" content="Brand identity • Graphic design • Video • Creative production" />
-  <meta property="og:image" content="https://badr-eldin-portfolio.vercel.app/api/og-image" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="BADR — Brand & Multimedia Designer portfolio" />
-  <meta property="og:url" content="https://badr-eldin-portfolio.vercel.app/" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="BADR — Brand & Multimedia Designer" />
-  <meta name="twitter:description" content="Brand identity • Graphic design • Video • Creative production" />
-  <meta name="twitter:image" content="https://badr-eldin-portfolio.vercel.app/api/og-image" />
-  <link rel="canonical" href="https://badr-eldin-portfolio.vercel.app/" />'''
+              metadata = [
+                  marker,
+                  '  <meta property="og:image" content="https://badr-eldin-portfolio.vercel.app/api/og-image" />',
+                  '  <meta property="og:image:width" content="1200" />',
+                  '  <meta property="og:image:height" content="630" />',
+                  '  <meta property="og:image:alt" content="BADR — Brand & Multimedia Designer portfolio" />',
+                  '  <meta property="og:url" content="https://badr-eldin-portfolio.vercel.app/" />',
+                  '  <meta property="og:type" content="website" />',
+                  '  <meta name="twitter:card" content="summary_large_image" />',
+                  '  <meta name="twitter:title" content="BADR — Brand & Multimedia Designer" />',
+                  '  <meta name="twitter:description" content="Brand identity • Graphic design • Video • Creative production" />',
+                  '  <meta name="twitter:image" content="https://badr-eldin-portfolio.vercel.app/api/og-image" />',
+                  '  <link rel="canonical" href="https://badr-eldin-portfolio.vercel.app/" />',
+              ]
               if '/api/og-image' not in text and marker in text:
-                  text = text.replace(marker, block, 1)
+                  text = text.replace(marker, '\n'.join(metadata), 1)
 
-              # Portfolio cards have poster images, so metadata can wait until the card is near view.
               text = re.sub(
                   r'(<video\s+poster="[^"]+"\s+src="[^"]+"\s+controls\s+playsinline\s+)preload="metadata"',
                   r'\1preload="none"',
