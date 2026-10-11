@@ -13,6 +13,13 @@
     touch.async = false;
     document.head.appendChild(touch);
   }
+  if (!window.badrExperienceUpdateLoader) {
+    window.badrExperienceUpdateLoader = true;
+    const experience = document.createElement('script');
+    experience.src = '/assets/js/experience-update.js?v=1';
+    experience.async = false;
+    document.head.appendChild(experience);
+  }
   if (!window.badrHatanCampaignLoader) {
     window.badrHatanCampaignLoader = true;
     const hatan = document.createElement('script');
