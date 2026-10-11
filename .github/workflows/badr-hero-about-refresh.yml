@@ -57,6 +57,7 @@ jobs:
               text = text.replace('HATAN Stadium Delivery Campaign', 'Matchday Delivery Spot — 15 second vertical advertising film')
               text = text.replace('<div class="eyebrow">Featured Campaign Film</div>', '<div class="eyebrow">Featured Advertising Film</div>')
               text = text.replace('A 15-second independent stadium-delivery concept combining AI-assisted visual production, cinematic direction, brand continuity and sound design for a social-first food campaign.', 'A 15-second vertical food-delivery spot combining AI-assisted visual production, cinematic direction, brand continuity and stadium sound design.')
+              text = text.replace('Autoplay starts muted. Use the video controls to hear the full stadium sound mix.', 'Use the video controls to play the film and hear the full stadium sound mix.')
 
               video_pattern = re.compile(r'<video\s+src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920\.mp4"\s+autoplay\s+muted\s+loop\s+playsinline\s+controls\s+preload="metadata"\s+aria-label="Matchday Delivery Spot — 15 second vertical advertising film"></video>')
               video_replacement = '<video poster="assets/img/hatan/matchday-delivery-poster.jpg" src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4" controls playsinline preload="none" aria-label="Matchday Delivery Spot — 15 second vertical advertising film"></video>'
