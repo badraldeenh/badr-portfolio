@@ -62,6 +62,17 @@
       .two{grid-template-columns:minmax(0,1fr)}
       .panel{min-width:0}
     }
+  
+    /* BADR identity refresh — focused Hero + portrait moved to About */
+    .brand{font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif;font-weight:600;letter-spacing:.24em}.brand span{letter-spacing:0;color:var(--accent)}
+    .heroGrid{grid-template-columns:1fr;max-width:1040px;margin-inline:auto}
+    .heroName{font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif!important;font-size:clamp(72px,13vw,148px)!important;line-height:.82!important;font-weight:500!important;letter-spacing:.24em!important;margin:8px -.24em 30px 0!important;text-transform:uppercase}
+    .hero .lead{max-width:760px}
+    .aboutProfile{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:center;margin-bottom:24px}
+    .aboutPortrait{width:150px;aspect-ratio:4/5;margin:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#101012;box-shadow:0 18px 44px rgba(0,0,0,.26)}
+    .aboutPortrait img{width:100%;height:100%;object-fit:cover}
+    .aboutProfile .eyebrow{margin-bottom:9px}.aboutProfile h3{margin:0 0 7px;font-size:26px}.aboutRole{margin:0!important;color:#aaa9a5!important;font-size:14px}
+    @media(max-width:620px){.heroName{font-size:clamp(58px,20vw,88px)!important;letter-spacing:.18em!important;margin-right:-.18em!important}.aboutProfile{grid-template-columns:108px minmax(0,1fr);gap:16px}.aboutPortrait{width:108px}.aboutProfile h3{font-size:21px}}
   </style>
   <!-- Vercel Web Analytics -->
   <script>
@@ -77,7 +88,7 @@
 <body>
   <nav class="nav">
     <div class="wrap navin">
-      <a class="brand" href="#top">BADR<span> Magic</span></a>
+      <a class="brand" href="#top" aria-label="BADR home">BADR<span>.</span></a>
       <div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="aura/">AURA</a><a href="#design">Design</a><a href="#process">Workflow</a><a href="#editing">Editing</a><a href="#marketing">Marketing</a><a href="#about">About</a><a href="#contact">Contact</a></div>
       <a class="cta" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a>
     </div>
@@ -88,7 +99,7 @@
       <div class="wrap heroGrid">
         <div>
           <div class="eyebrow">AI Video Creator • Multimedia Designer • Video Editor</div>
-          <h1>Badr Eldin<br><em>Mohamed Alamin</em></h1>
+          <h1 class="heroName">BADR</h1>
           <p class="lead">Creating cinematic product advertising from real product photography, AI-assisted visuals and video editing.</p>
           <div class="actions">
             <a class="btn primary" href="#work">View selected work</a>
@@ -102,7 +113,6 @@
             <div class="stat"><b>Brand Visuals</b><span>Advertising & social content</span></div>
           </div>
         </div>
-        <figure class="portrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" /></figure>
       </div>
     </header>
 
@@ -314,8 +324,10 @@
     <section id="about" class="about">
       <div class="wrap two">
         <div class="panel">
-          <div class="eyebrow">About</div>
-          <h3>Creative production & digital marketing.</h3>
+          <div class="aboutProfile">
+            <figure class="aboutPortrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" loading="lazy" decoding="async" /></figure>
+            <div><div class="eyebrow">About</div><h3>Badr Eldin Mohamed Alamin</h3><p class="aboutRole">Creative production & digital marketing.</p></div>
+          </div>
           <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span><br>Marketing, Graphic Design &amp; Social Media Specialist • 2024–Present<br>Responsible for marketing, design and social media across six branches. The videos identified with the company name were created as part of my work for the company.</p>
           <p>I combine AI-assisted production, graphic design and video editing with digital marketing execution. I develop ideas into finished content, manage social media advertising campaigns, prepare reports and organise product content for e-commerce websites. My work connects creative production with campaign delivery and the customer’s path to purchase.</p>
           <p><span class="highlight">Languages:</span> Arabic — Native • English — Excellent written communication • Developing spoken proficiency.</p>
