@@ -1,0 +1,92 @@
+name: Final social metadata and preload polish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  polish-static-html:
+    if: ${{ !contains(github.event.head_commit.message, '[final-meta]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Inject static metadata and defer portfolio video metadata
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          files = [Path('index.html'), Path('home-v4.html')]
+          for path in files:
+              if not path.exists():
+                  continue
+              text = path.read_text(encoding='utf-8')
+
+              text = re.sub(
+                  r'<meta name="description" content="[^"]*"\s*/>',
+                  '<meta name="description" content="BADR — Brand & Multimedia Designer portfolio featuring brand identity, graphic design, production-ready artwork, advertising content and video editing." />',
+                  text,
+                  count=1,
+              )
+              text = re.sub(
+                  r'<meta property="og:title" content="[^"]*"\s*/>',
+                  '<meta property="og:title" content="BADR — Brand & Multimedia Designer" />',
+                  text,
+                  count=1,
+              )
+              text = re.sub(
+                  r'<meta property="og:description" content="[^"]*"\s*/>',
+                  '<meta property="og:description" content="Brand identity • Graphic design • Video • Creative production" />',
+                  text,
+                  count=1,
+              )
+              text = re.sub(
+                  r'<title>[^<]*</title>',
+                  '<title>BADR — Brand & Multimedia Designer | Portfolio</title>',
+                  text,
+                  count=1,
+              )
+
+              marker = '<meta property="og:description" content="Brand identity • Graphic design • Video • Creative production" />'
+              block = '''<meta property="og:description" content="Brand identity • Graphic design • Video • Creative production" />
+  <meta property="og:image" content="https://badr-eldin-portfolio.vercel.app/api/og-image" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="BADR — Brand & Multimedia Designer portfolio" />
+  <meta property="og:url" content="https://badr-eldin-portfolio.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BADR — Brand & Multimedia Designer" />
+  <meta name="twitter:description" content="Brand identity • Graphic design • Video • Creative production" />
+  <meta name="twitter:image" content="https://badr-eldin-portfolio.vercel.app/api/og-image" />
+  <link rel="canonical" href="https://badr-eldin-portfolio.vercel.app/" />'''
+              if '/api/og-image' not in text and marker in text:
+                  text = text.replace(marker, block, 1)
+
+              # Portfolio cards have poster images, so metadata can wait until the card is near view.
+              text = re.sub(
+                  r'(<video\s+poster="[^"]+"\s+src="[^"]+"\s+controls\s+playsinline\s+)preload="metadata"',
+                  r'\1preload="none"',
+                  text,
+              )
+              path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit static polish if needed
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html home-v4.html; then
+            echo "No static changes needed"
+            exit 0
+          fi
+          git config user.name "BADR Portfolio Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html home-v4.html
+          git commit -m "Add static social preview and defer video metadata [final-meta]"
+          git push
