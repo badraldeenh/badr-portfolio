@@ -8,11 +8,11 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio of Badr Eldin Mohamed Alamin — AI Video Creator, Multimedia Designer and Video Editor based in the UAE, open to opportunities in Canada, Europe and Australia." />
+  <meta name="description" content="BADR — Graphic Designer, Brand Identity Designer, Visual Content Creator and Video Editor based in the UAE, open to opportunities in Canada, Europe and Australia." />
   <meta name="theme-color" content="#0d0d0f" />
-  <meta property="og:title" content="BADR Magic — Creative Portfolio" />
-  <meta property="og:description" content="AI Video Creator • Multimedia Designer • Video Editor" />
-  <title>BADR Magic — Creative Portfolio</title>
+  <meta property="og:title" content="BADR — Creative Portfolio" />
+  <meta property="og:description" content="Graphic Designer • Brand Identity • Visual Content • Video Editing" />
+  <title>BADR — Creative Portfolio</title>
   <style>
     :root{--bg:#0d0d0f;--panel:#151518;--panel2:#1b1b1f;--text:#f5f4f0;--muted:#a8a7a3;--accent:#c9a55a;--line:#2b2b30;--max:1160px}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}img,video{display:block;max-width:100%}
@@ -73,6 +73,15 @@
     .aboutPortrait img{width:100%;height:100%;object-fit:cover}
     .aboutProfile .eyebrow{margin-bottom:9px}.aboutProfile h3{margin:0 0 7px;font-size:26px}.aboutRole{margin:0!important;color:#aaa9a5!important;font-size:14px}
     @media(max-width:620px){.heroName{font-size:clamp(58px,20vw,88px)!important;letter-spacing:.18em!important;margin-right:-.18em!important}.aboutProfile{grid-template-columns:108px minmax(0,1fr);gap:16px}.aboutPortrait{width:108px}.aboutProfile h3{font-size:21px}}
+      /* Portfolio positioning refresh — branding first */
+    .featuredBranding{padding-top:38px;background:linear-gradient(180deg,rgba(201,165,90,.05),transparent 70%)}
+    .brandPriorityGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
+    .brandPriorityCard{grid-column:span 2}.brandPriorityWide{grid-column:span 3}
+    .brandPriorityMedia{aspect-ratio:16/10;background:#0a0a0c;overflow:hidden;border-bottom:1px solid var(--line)}
+    .brandPriorityMedia img{width:100%;height:100%;object-fit:cover}
+    .aboutSummary{font-size:16px;color:#e0dfda!important;line-height:1.65}
+    @media(max-width:900px){.brandPriorityGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.brandPriorityCard,.brandPriorityWide{grid-column:auto}}
+    @media(max-width:620px){.brandPriorityGrid{grid-template-columns:1fr}}
   </style>
   <!-- Vercel Web Analytics -->
   <script>
@@ -89,7 +98,7 @@
   <nav class="nav">
     <div class="wrap navin">
       <a class="brand" href="#top" aria-label="BADR home">BADR<span>.</span></a>
-      <div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="aura/">AURA</a><a href="#design">Design</a><a href="#process">Workflow</a><a href="#editing">Editing</a><a href="#marketing">Marketing</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+      <div class="links"><a href="#featured-branding">Work</a><a href="#design">Branding</a><a href="#reel">Video</a><a href="#about">About</a><a href="#contact">Contact</a></div>
       <a class="cta" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">View CV</a>
     </div>
   </nav>
@@ -98,14 +107,14 @@
     <header class="hero">
       <div class="wrap heroGrid">
         <div>
-          <div class="eyebrow">AI Video Creator • Multimedia Designer • Video Editor</div>
+          <div class="eyebrow">Graphic Designer • Brand Identity • Visual Content • Video Editing</div>
           <h1 class="heroName">BADR</h1>
-          <p class="lead">Creating cinematic product advertising from real product photography, AI-assisted visuals and video editing.</p>
+          <p class="lead">Building distinctive brands, visual identities and advertising content.</p>
           <div class="actions">
-            <a class="btn primary" href="#work">View selected work</a>
+            <a class="btn primary" href="#featured-branding">View selected work</a>
             <a class="btn" href="mailto:badrlooka90@gmail.com">Email me</a>
           </div>
-          <div class="micro">Based in the United Arab Emirates • Open to opportunities in Canada, Europe & Australia • Available for remote interviews</div>
+          <div class="micro">Based in UAE • Open to relocation — Canada, Europe & Australia</div>
           <div class="stats" aria-label="Professional focus">
             <div class="stat"><b>AI Video</b><span>Real photography & AI-assisted visuals</span></div>
             <div class="stat"><b>Art Direction</b><span>Concepts & brand consistency</span></div>
@@ -115,6 +124,18 @@
         </div>
       </div>
     </header>
+    <section id="featured-branding" class="featuredBranding">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Featured Brand Identity</h2><p>Selected identity systems, campaign direction and visual applications — presented first for a fast recruiter review.</p></div>
+        <div class="brandPriorityGrid">
+          <a class="card brandPriorityCard" href="idh/" aria-label="Open IDH real estate brand identity case study"><div class="brandPriorityMedia"><img src="assets/img/idh/hero.webp" alt="IDH Integrated Development Holdings brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">01 • Real Estate Branding</div><h3>IDH — Integrated Development Holdings</h3><p>Luxury real-estate identity spanning logo, print, environmental branding, campaign and digital applications.</p><div class="miniChips"><span>Brand Identity</span><span>Art Direction</span><span>Digital</span></div></div></a>
+          <a class="card brandPriorityCard" href="avena.html" aria-label="Open AVENA Medical Center case study"><div class="brandPriorityMedia"><img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">02 • Healthcare Branding</div><h3>AVENA Medical Center</h3><p>A complete healthcare identity across stationery, uniforms, environments, digital booking and campaign visuals.</p><div class="miniChips"><span>Brand System</span><span>Environmental</span><span>Digital</span></div></div></a>
+          <a class="card brandPriorityCard" href="vareno/" aria-label="Open VARENO Barber Club case study"><div class="brandPriorityMedia"><img src="assets/img/vareno/vareno-hero.webp" alt="VARENO Barber Club luxury grooming identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">03 • Luxury Grooming</div><h3>VARENO Barber Club</h3><p>Premium grooming identity built from strategy and logo architecture through packaging, environments and digital touchpoints.</p><div class="miniChips"><span>Brand Strategy</span><span>Packaging</span><span>Retail</span></div></div></a>
+          <a class="card brandPriorityCard brandPriorityWide" href="aura/" aria-label="Open AURA Athletics case study"><div class="brandPriorityMedia"><img src="assets/img/aura/performance-overview.webp" alt="AURA Athletics sportswear brand identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">04 • Sportswear Branding</div><h3>AURA Athletics</h3><p>Performance-sportswear identity with apparel, campaign art direction, e-commerce and product storytelling.</p><div class="miniChips"><span>Sportswear</span><span>AI Art Direction</span><span>E-commerce</span></div></div></a>
+          <a class="card brandPriorityCard brandPriorityWide" href="hatan/" aria-label="Open HATAN Fine Foods case study"><div class="brandPriorityMedia"><img src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">05 • Food & Packaging</div><h3>HATAN — Fine Foods & Confections</h3><p>Premium food identity extending through packaging, retail, takeaway applications and campaign content.</p><div class="miniChips"><span>Branding</span><span>Packaging</span><span>Retail</span></div></div></a>
+        </div>
+      </div>
+    </section>
 
     <section id="reel">
       <div class="wrap">
@@ -136,29 +157,8 @@
 
     <section id="work">
       <div class="wrap">
-        <div class="sectionHead"><h2>Selected work</h2><p>Professional video work for MALEH &amp; HELOW SWEETS alongside independent projects, including the Mango Beverage Commercial. Each video identifies its context and my role.</p></div>
-        <div id="avena-feature" style="scroll-margin-top:90px;margin-bottom:38px">
-          <div class="caseIntro" style="margin-top:0">
-            <div>
-              <div class="eyebrow">AVENA — Medical Center</div>
-              <h3>Healthcare Brand Identity</h3>
-              <p>A complete medical-center identity system covering logo presentation, typography, stationery, uniforms, interior and exterior branding, digital booking UI, vehicle branding and campaign applications.</p>
-            </div>
-            <span class="caseTag">Healthcare • Identity • Digital</span>
-          </div>
-          <a class="caseHero" href="avena.html" aria-label="View AVENA Medical Center case study">
-            <img width="3840" height="2161" src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center brand identity case study" loading="eager">
-          </a>
-          <div class="panel">
-            <div class="eyebrow">Featured Case Study</div>
-            <h3>AVENA Medical Center</h3>
-            <p>Explore the full visual identity from the core brand system through environmental, uniform, vehicle, digital and social-media applications.</p>
-            <div class="actions" style="margin-top:18px"><a class="btn primary" href="avena.html">View AVENA Case Study</a></div>
-          </div>
-        </div>
+        <div class="sectionHead"><h2>Video & Visual Content</h2><p>Selected advertising, product storytelling and short-form video work after the brand identity projects above.</p></div>
         <div class="grid">
-          <a class="card" href="idh/" aria-label="Open IDH real estate brand identity case study"><div class="media" style="aspect-ratio:16/9"><img src="assets/img/idh/hero.webp" alt="IDH Integrated Development Holdings luxury real estate identity" width="1672" height="941" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain"><span class="rank">Brand Identity Case Study</span></div><div class="cardBody"><div class="kicker">Real Estate • Branding • Art Direction</div><h3>IDH — Integrated Development Holdings</h3><p>A premium architectural identity across print, built environments, campaigns and digital experiences.</p><div class="miniChips"><span>Brand Identity</span><span>Architecture</span><span>Digital</span></div><div class="actions" style="margin-top:14px"><span class="btn">View full case study →</span></div></div></a>
-          <a class="card" href="aura/" aria-label="Open AURA Athletics case study"><div class="media" style="background:#080a0c"><span class="rank">Featured Case Study</span><img width="941" height="1672" src="assets/img/aura/campaign-poster.webp" alt="AURA Athletics campaign poster with the original white and lime logo" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div><div class="cardBody"><div class="kicker">Branding • Sportswear • AI Art Direction</div><h3>AURA Athletics</h3><p>A complete fictional performance-sportswear case study covering brand identity, apparel and footwear direction, cinematic campaign visuals and e-commerce support.</p><div class="miniChips"><span>Brand Identity</span><span>Sportswear</span><span>AI Visuals</span><span>E-commerce</span></div><div class="actions" style="margin-top:14px"><span class="btn">View full case study →</span></div></div></a>
           <article class="card" id="chocolate-craft-film"><div class="media"><span class="rank">01 • Featured</span><video poster="assets/img/project-01.jpg" src="assets/video/project-01.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Product Commercial</div><h3>Chocolate Craft Film</h3><p>Cinematic chocolate-making visuals built around pouring, texture, break-apart reveals and premium product detail.</p><div class="miniChips"><span>AI Visuals</span><span>Product Detail</span><span>Editing</span></div><dl class="projectFacts"><div><dt>Employer</dt><dd>MALEH &amp; HELOW SWEETS</dd></div><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>AI visual production & video editing</dd></div><div><dt>Deliverable</dt><dd>Chocolate product film</dd></div></dl></div></article>
           <article class="card"><div class="media"><span class="rank">02</span><video poster="assets/img/project-02.jpg" src="assets/video/project-02.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">AI Food & Beverage</div><h3>Mango Beverage Commercial</h3><p>A bright vertical beverage concept combining fruit motion, macro product shots and a clean social-ad finish.</p><div class="miniChips"><span>Generative AI</span><span>Beverage</span><span>9:16</span></div><dl class="projectFacts"><div><dt>Context</dt><dd>Independent portfolio project</dd></div><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Generative visual production</dd></div><div><dt>Deliverable</dt><dd>Vertical beverage commercial (9:16)</dd></div></dl></div></article>
           <article class="card" id="chocolate-dessert-process"><div class="media"><span class="rank">03</span><video poster="assets/img/project-03.jpg" src="assets/video/project-03.mp4" controls playsinline preload="metadata"></video></div><div class="cardBody"><div class="kicker">Product Storytelling</div><h3>Chocolate Dessert Process</h3><p>Process-led food storytelling moving from preparation and pouring to texture-focused finishing shots.</p><div class="miniChips"><span>Food Visuals</span><span>Editing</span><span>Social Content</span></div><dl class="projectFacts"><div><dt>Employer</dt><dd>MALEH &amp; HELOW SWEETS</dd></div><div><dt>Tools</dt><dd>Canon camera • Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div><div><dt>Role</dt><dd>Video editing & product storytelling</dd></div><div><dt>Deliverable</dt><dd>Food process video</dd></div></dl></div></article>
@@ -328,6 +328,7 @@
             <figure class="aboutPortrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" loading="lazy" decoding="async" /></figure>
             <div><div class="eyebrow">About</div><h3>Badr Eldin Mohamed Alamin</h3><p class="aboutRole">Creative production & digital marketing.</p></div>
           </div>
+          <p class="aboutSummary">Graphic designer and creative producer with professional experience since 2019 across brand identity, print production, social content, product advertising and video editing.</p>
           <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span><br>Marketing, Graphic Design &amp; Social Media Specialist • 2024–Present<br>Responsible for marketing, design and social media across six branches. The videos identified with the company name were created as part of my work for the company.</p>
           <p>I combine AI-assisted production, graphic design and video editing with digital marketing execution. I develop ideas into finished content, manage social media advertising campaigns, prepare reports and organise product content for e-commerce websites. My work connects creative production with campaign delivery and the customer’s path to purchase.</p>
           <p><span class="highlight">Languages:</span> Arabic — Native • English — Excellent written communication • Developing spoken proficiency.</p>
@@ -356,10 +357,10 @@
     <section id="contact">
       <div class="wrap">
         <div class="contact">
-          <div><div class="eyebrow">Available internationally</div><h2>Open to creative roles in Canada, Europe & Australia.</h2><p>Available for remote interviews and employer-supported relocation or work authorization opportunities in AI video, multimedia design, video editing, creative advertising and digital marketing.</p></div>
+          <div><div class="eyebrow">Available internationally</div><h2>Open to creative roles in Canada, Europe & Australia.</h2><p>Available for remote interviews and employer-supported relocation or work authorization opportunities in graphic design, brand identity, visual content, video editing and creative advertising.</p></div>
           <div class="contactActions"><a class="btn primary" href="mailto:badrlooka90@gmail.com">Email</a><a class="btn" href="https://wa.me/971581372145" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf" target="_blank" rel="noopener">CV PDF</a></div>
         </div>
-        <div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>AI Video Creator • Multimedia Designer • Video Editor</span></div>
+        <div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>Graphic Designer • Brand Identity • Visual Content • Video Editing</span></div>
       </div>
     </section>
   </main>
