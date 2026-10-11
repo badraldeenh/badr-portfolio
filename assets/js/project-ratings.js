@@ -5,7 +5,7 @@
   const memory = new Map();
   const widgets = new Map();
   let serial = 0;
-  const projectId = path => ({ '/avena.html': 'avena', '/aura/index.html': 'aura', '/vareno/index.html': 'vareno', '/idh/index.html': 'idh' }[path] || path);
+  const projectId = path => ({ '/avena.html': 'avena', '/aura': 'aura', '/aura/index.html': 'aura', '/vareno': 'vareno', '/vareno/index.html': 'vareno', '/idh': 'idh', '/idh/index.html': 'idh', '/hatan': 'hatan', '/hatan/index.html': 'hatan' }[path] || path);
   const slug = value => String(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const read = id => {
     try {
@@ -106,14 +106,14 @@
       const video = card.querySelector('video');
       const link = card.querySelector('.rating-project-link');
       const path = link ? new URL(link.href).pathname.replace(/\/$/, '') : '';
-      const id = video ? `video-${slug(new URL(video.currentSrc || video.src, location.href).pathname.split('/').pop().replace(/\.[^.]+$/, ''))}` : `project-${slug(projectId(path) || title)}`;
+      const id = video ? `video-${slug(new URL(video.currentSrc || video.getAttribute('src') || video.dataset.src, location.href).pathname.split('/').pop().replace(/\.[^.]+$/, ''))}` : `project-${slug(projectId(path) || title)}`;
       add(link ? card : card.querySelector('.cardBody') || card, id, title, !!link);
     });
     document.querySelectorAll('video').forEach(video => {
       if (video.closest('.card')) return;
       const feature = video.closest('.showreelBox, .caseVideoFeature') || video.parentElement;
       const title = feature.querySelector('h3, h4')?.textContent.trim() || video.getAttribute('aria-label') || 'Video';
-      const id = `video-${slug(new URL(video.currentSrc || video.src, location.href).pathname.split('/').pop().replace(/\.[^.]+$/, ''))}`;
+      const id = `video-${slug(new URL(video.currentSrc || video.getAttribute('src') || video.dataset.src, location.href).pathname.split('/').pop().replace(/\.[^.]+$/, ''))}`;
       add(feature.querySelector('.showreelCopy, .caseVideoCopy') || feature, id, title);
     });
     const projects = [
@@ -123,11 +123,15 @@
       ['#hatan .caseIntro', 'hatan', 'HATAN Patisserie']
     ];
     projects.forEach(([selector, id, title]) => document.querySelectorAll(selector).forEach(intro => add(intro.firstElementChild || intro, `project-${id}`, title)));
+    document.querySelectorAll('[data-project-id]').forEach(card => {
+      const title = card.querySelector('h3')?.textContent.trim();
+      if (title) add(card.querySelector('.identityCopy') || card, `project-${card.dataset.projectId}`, title);
+    });
     document.querySelectorAll('.caseIntro').forEach(intro => {
       if (intro.querySelector('.eyebrow')?.textContent.includes('HATAN')) add(intro.firstElementChild || intro, 'project-hatan', 'HATAN Patisserie');
     });
     const path = location.pathname.replace(/\/$/, '');
-    const pageId = { '/aura': 'aura', '/aura/index.html': 'aura', '/vareno': 'vareno', '/vareno/index.html': 'vareno', '/idh': 'idh', '/idh/index.html': 'idh', '/avena.html': 'avena' }[path];
+    const pageId = { '/aura': 'aura', '/aura/index.html': 'aura', '/vareno': 'vareno', '/vareno/index.html': 'vareno', '/idh': 'idh', '/idh/index.html': 'idh', '/hatan': 'hatan', '/hatan/index.html': 'hatan', '/avena.html': 'avena' }[path];
     if (pageId) {
       const hero = document.querySelector('main .hero .wrap, main .hero, main header');
       add(hero, `project-${pageId}`, document.querySelector('h1')?.textContent.trim() || pageId.toUpperCase());
