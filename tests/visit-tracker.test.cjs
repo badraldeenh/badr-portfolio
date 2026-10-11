@@ -2,7 +2,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const vm = require('node:vm');
 const fs = require('node:fs');
-const source = fs.readFileSync(require.resolve('../assets/js/visit-duration.js'),'utf8');
+const source = fs.readFileSync(require.resolve('../assets/js/visit-duration-core.js'),'utf8');
 function browser(options = {}) {
   let now = 0, interval, id = 0;
   const listeners = {}, payloads = [], appended = [];

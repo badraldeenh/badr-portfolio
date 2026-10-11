@@ -11,7 +11,7 @@
   const allMetrics = s => pageList(s).flatMap(p => Object.entries(p.metrics || {}));
   function state(text, error = false) { $('state').textContent = text; $('state').className = 'state ' + (error ? 'error' : ''); }
   async function api(action, method = 'GET', body) {
-    const r = await fetch('/api/visitor-analytics?action=' + action, { method, headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined, cache: 'no-store' });
+    const r = await fetch('/api/visitor-analytics?action=' + action, { method, headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined, cache: 'no-store', credentials: 'same-origin', signal: AbortSignal.timeout(15000) });
     const json = await r.json();
     if (!r.ok) { const e = new Error(json.error); e.status = r.status; throw e; }
     return json;
@@ -54,6 +54,9 @@
     $('projects').replaceChildren();
     [...totals.values()].sort((a, b) => b.ms - a.ms).forEach(v => { const tr = document.createElement('tr'); tr.append(node('td', (v.video ? 'فيديو: ' : '') + v.title), node('td', num(seconds(v.ms))), node('td', num(v.visits))); $('projects').append(tr); });
     $('empty').hidden = displayed.length > 0;
+    $('empty').textContent = $('ref').value
+      ? 'لا توجد زيارات مسجلة لهذا الرابط ضمن الفترة المختارة. اختر جميع المصادر أو وسّع الفترة.'
+      : 'لا توجد زيارات وافق أصحابها على التسجيل ضمن هذه الفترة. اختر آخر 90 يومًا للتحقق من الزيارات الأقدم. الزيارات قبل تفعيل الخدمة أو دون موافقة لا تظهر هنا.';
   }
   async function refresh(silent = false) {
     if (refreshing) return;
@@ -68,10 +71,10 @@
       if ([...$('ref').options].some(o => o.value === priorRef)) $('ref').value = priorRef;
       $('login').hidden = true; $('dashboard').hidden = false;
       render();
-      if (!silent) state('تم تحديث النتائج.');
+      state('آخر تحديث ناجح: ' + time(Date.now()) + ' — ' + num(data.sessions.length) + ' زيارة مسجلة ضمن الفترة المختارة.');
     } catch (e) {
       if (e.status === 401) { $('dashboard').hidden = true; $('login').hidden = false; state('أدخل كلمة المرور الخاصة باللوحة.'); }
-      else if (!silent) state('تعذّر تحميل النتائج. تحقق من اتصال التخزين ثم أعد المحاولة.', true);
+      else state((data.sessions.length ? 'النتائج الظاهرة من آخر تحديث ناجح. ' : '') + (e.message === 'setup_required' ? 'إعداد خدمة الإحصائيات غير مكتمل.' : e.message === 'storage_unavailable' ? 'تعذّر الاتصال بقاعدة الزيارات. اضغط تحديث لإعادة المحاولة.' : 'فشل تحديث النتائج. تحقق من الاتصال واضغط تحديث؛ هذا لا يعني أن عدد الزيارات صفر.'), true);
     } finally {
       refreshing = false;
       $('refresh').disabled = false;
@@ -97,5 +100,10 @@
   setInterval(() => {
     if (!document.hidden && !$('dashboard').hidden && !refreshing) refresh(true);
   }, 10000);
-  api('status').then(async status => { if (!status.enabled) { $('setup').hidden = false; state('الإعداد المطلوب غير مكتمل.', true); return; } await refresh(); }).catch(() => state('تعذّر الوصول إلى خدمة التحليلات. ربما لم يُنشر التحديث بعد.', true));
+  try {
+    const blocked = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1';
+    const preference = localStorage.getItem('badr-analytics-consent');
+    $('tracking-preference').textContent = blocked ? 'هذا المتصفح يطلب منع التتبّع؛ زيارتك الحالية لا تُسجّل في هذه اللوحة.' : preference === 'yes' ? 'هذا المتصفح يسمح بتسجيل تفاصيل الزيارة عند تصفّح البورتفوليو.' : preference === 'no' ? 'هذا المتصفح رفض تسجيل تفاصيل الزيارة؛ زيارتك الحالية لا تظهر في هذه اللوحة.' : 'هذا المتصفح لم يوافق بعد على تسجيل تفاصيل الزيارة. تظهر الزيارات هنا بعد اختيار Allow في الموقع.';
+  } catch (_) { $('tracking-preference').textContent = 'تعذّر قراءة تفضيل التتبّع لهذا المتصفح.'; }
+  api('status').then(async status => { if (!status.enabled) { $('setup').hidden = false; state('الإعداد المطلوب غير مكتمل.', true); return; } await refresh(); }).catch(() => state('تعذّر الوصول إلى خدمة التحليلات. أعد تحميل الصفحة للمحاولة مرة أخرى.', true));
 })();
