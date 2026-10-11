@@ -32,8 +32,8 @@
     if (!grid) return false;
     grid.setAttribute('aria-label','Professional experience timeline');
     grid.innerHTML = `
-      <div class="recruiter-summary-item"><span>2024 - Present</span><b>Marketing, Graphic Design & Social Media</b><p>MALEH & HELOW SWEETS - Abu Dhabi, UAE</p></div>
-      <div class="recruiter-summary-item"><span>2021 - 2024</span><b>Social Media & Content Designer</b><p>Transformer General Trading - Mussafah Industrial Area, Abu Dhabi</p></div>
+      <div class="recruiter-summary-item"><span>2025 - Present</span><b>Marketing, Graphic Design & Social Media</b><p>MALEH & HELOW SWEETS - Abu Dhabi, UAE</p></div>
+      <div class="recruiter-summary-item"><span>2022 - 2025</span><b>Social Media & Content Designer</b><p>Transformer General Trading - Mussafah Industrial Area, Abu Dhabi</p></div>
       <div class="recruiter-summary-item"><span>2019 - 2021</span><b>Graphic Designer</b><p>VIP Stationery - Al Ain, UAE • Print & production experience</p></div>`;
     return true;
   }
@@ -58,7 +58,7 @@
     }
     timeline.innerHTML = `
       <article class="experience-role">
-        <div class="experience-date">2024 - Present</div>
+        <div class="experience-date">2025 - Present</div>
         <div>
           <h3 class="experience-company">MALEH & HELOW SWEETS</h3>
           <p class="experience-role-title">Marketing, Graphic Design & Social Media <span class="experience-location">• Abu Dhabi, UAE</span></p>
@@ -70,7 +70,7 @@
         </div>
       </article>
       <article class="experience-role">
-        <div class="experience-date">2021 - 2024</div>
+        <div class="experience-date">2022 - 2025</div>
         <div>
           <h3 class="experience-company">Transformer General Trading</h3>
           <p class="experience-role-title">Social Media & Content Designer <span class="experience-location">• Mussafah Industrial Area, Abu Dhabi</span></p>
