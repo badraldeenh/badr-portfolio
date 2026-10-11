@@ -1,0 +1,15 @@
+.projectContext{display:block;margin:12px 0 8px;font-size:11px;color:#c9a55a;letter-spacing:.04em}
+.projectContribution{font-size:12px!important;color:#c6c5bf!important;line-height:1.55;margin:10px 0!important}
+#design .brandPriorityGrid .cardBody{height:auto!important;min-height:0;display:block!important}
+#design .brandPriorityGrid .cardBody .miniChips{margin-top:14px!important;padding-top:0!important}
+#design .brandPriorityGrid>.card{display:flex;flex-direction:column}
+#design .brandPriorityGrid>.card>.rating-project-link{display:flex;flex-direction:column;flex:1}
+#design .brandPriorityGrid>.card>.project-rating{margin-top:0;padding-top:0}
+.caseEvidence{padding:24px 0 34px!important}
+.caseEvidenceGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.caseEvidenceItem{padding:22px;background:#151518;border:1px solid #2b2b30;border-radius:16px;min-width:0}
+.caseEvidenceItem h2{font-size:14px!important;margin:0 0 10px!important;color:#c9a55a;letter-spacing:.05em}
+.caseEvidenceItem p{font-size:14px!important;color:#c6c5bf;line-height:1.65;margin:0!important}
+.caseEvidenceNote{font-size:12px;color:#a8a7a3;margin:16px 0 0}
+@media(max-width:720px){.caseEvidenceGrid{grid-template-columns:1fr}.caseEvidenceItem{padding:18px}.campaignMore>summary{padding:16px;font-size:13px}.campaignMore>.instagramCampaignGrid,.campaignMore>.caseGrid{padding:12px}.projectContribution{font-size:12px!important}#design #transformer-design .caseHero{max-width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{transition:none!important}}
