@@ -1,0 +1,81 @@
+name: BADR Hero and About Refresh
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/badr-hero-about-refresh.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update hero and About section
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          def replace_once(old, new, label):
+              global text
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly 1 match, found {count}')
+              text = text.replace(old, new, 1)
+
+          replace_once(
+              '<a class="brand" href="#top">BADR<span> Magic</span></a>',
+              '<a class="brand" href="#top" aria-label="BADR home">BADR<span>.</span></a>',
+              'navigation brand'
+          )
+
+          replace_once(
+              '<h1>Badr Eldin<br><em>Mohamed Alamin</em></h1>',
+              '<h1 class="heroName">BADR</h1>',
+              'hero name'
+          )
+
+          replace_once(
+              '        <figure class="portrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" /></figure>\n',
+              '',
+              'hero portrait'
+          )
+
+          replace_once(
+              '''        <div class="panel">\n          <div class="eyebrow">About</div>\n          <h3>Creative production & digital marketing.</h3>''',
+              '''        <div class="panel">\n          <div class="aboutProfile">\n            <figure class="aboutPortrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" loading="lazy" decoding="async" /></figure>\n            <div><div class="eyebrow">About</div><h3>Badr Eldin Mohamed Alamin</h3><p class="aboutRole">Creative production & digital marketing.</p></div>\n          </div>''',
+              'about profile'
+          )
+
+          css = '''\n    /* BADR identity refresh — focused Hero + portrait moved to About */\n    .brand{font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif;font-weight:600;letter-spacing:.24em}.brand span{letter-spacing:0;color:var(--accent)}\n    .heroGrid{grid-template-columns:1fr;max-width:1040px;margin-inline:auto}\n    .heroName{font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif!important;font-size:clamp(72px,13vw,148px)!important;line-height:.82!important;font-weight:500!important;letter-spacing:.24em!important;margin:8px -.24em 30px 0!important;text-transform:uppercase}\n    .hero .lead{max-width:760px}\n    .aboutProfile{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:center;margin-bottom:24px}\n    .aboutPortrait{width:150px;aspect-ratio:4/5;margin:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#101012;box-shadow:0 18px 44px rgba(0,0,0,.26)}\n    .aboutPortrait img{width:100%;height:100%;object-fit:cover}\n    .aboutProfile .eyebrow{margin-bottom:9px}.aboutProfile h3{margin:0 0 7px;font-size:26px}.aboutRole{margin:0!important;color:#aaa9a5!important;font-size:14px}\n    @media(max-width:620px){.heroName{font-size:clamp(58px,20vw,88px)!important;letter-spacing:.18em!important;margin-right:-.18em!important}.aboutProfile{grid-template-columns:108px minmax(0,1fr);gap:16px}.aboutPortrait{width:108px}.aboutProfile h3{font-size:21px}}\n'''
+          marker = '</style>'
+          if '/* BADR identity refresh' not in text:
+              if marker not in text:
+                  raise SystemExit('style closing tag not found')
+              text = text.replace(marker, css + '  </style>', 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Refresh BADR hero and move portrait to About"
+          git push
