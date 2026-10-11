@@ -30,46 +30,34 @@
     document.addEventListener('visibilitychange', cancel);
   }
 
-  // Recruiter-first homepage presentation. The HTML already prioritizes brand identity;
-  // this keeps the strongest case studies first and shortens the secondary video grid.
-  const featuredBranding = document.getElementById('featured-branding');
-  const work = document.getElementById('work');
-  if (featuredBranding && work) {
+  // Final homepage hierarchy for recruiter review.
+  if (['/', '/index.html'].includes(location.pathname)) {
     document.body.classList.add('recruiter-polish');
 
-    const grid = work.querySelector('.grid');
-    if (grid) {
-      const cards = [...grid.children].filter(el => el.matches('.card'));
-      const extras = cards.slice(3);
-      extras.forEach(el => el.classList.add('portfolio-extra'));
+    // Keep the public identity as BADR only.
+    const brand = document.querySelector('.brand');
+    if (brand) brand.innerHTML = 'BADR<span>.</span>';
 
-      if (extras.length) {
-        const controls = document.createElement('div');
-        controls.className = 'portfolio-more-row';
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'btn portfolio-more-btn';
-        button.textContent = 'View all video projects';
-        button.setAttribute('aria-expanded', 'false');
-        controls.append(button);
-        grid.insertAdjacentElement('afterend', controls);
+    // A short navigation that maps directly to the information recruiters need.
+    const navLinks = document.querySelector('.links');
+    if (navLinks) {
+      navLinks.innerHTML = '<a href="#featured-branding">Portfolio</a><a href="#reel">Video</a><a href="#production-experience">Experience</a><a href="#about">About</a><a href="#contact">Contact</a>';
+    }
 
-        const setExpanded = expanded => {
-          extras.forEach(el => el.classList.toggle('is-visible', expanded));
-          button.textContent = expanded ? 'Show fewer video projects' : 'View all video projects';
-          button.setAttribute('aria-expanded', String(expanded));
-        };
-        button.addEventListener('click', () => setExpanded(button.getAttribute('aria-expanded') !== 'true'));
+    const featuredBranding = document.getElementById('featured-branding');
+    const recruiterSummary = document.getElementById('recruiter-summary');
+    if (featuredBranding && recruiterSummary) featuredBranding.insertAdjacentElement('afterend', recruiterSummary);
 
-        const revealHashTarget = () => {
-          if (!location.hash) return;
-          let target;
-          try { target = document.querySelector(location.hash); } catch (_) { return; }
-          if (target && target.closest('.portfolio-extra')) setExpanded(true);
-        };
-        revealHashTarget();
-        window.addEventListener('hashchange', revealHashTarget);
-      }
+    // The complete identity projects already have dedicated case-study pages.
+    // Remove the duplicated long-form branding section from the homepage only.
+    document.getElementById('design')?.remove();
+
+    const work = document.getElementById('work');
+    if (work) {
+      const h2 = work.querySelector('.sectionHead h2');
+      const p = work.querySelector('.sectionHead p');
+      if (h2) h2.textContent = 'Selected Campaign & Video Work';
+      if (p) p.textContent = 'Five focused projects showing professional advertising, AI-assisted content and video editing. Use “View more video work” for the additional projects.';
     }
   }
 
