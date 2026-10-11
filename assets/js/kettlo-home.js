@@ -2,7 +2,7 @@
   if (!['/', '/index.html'].includes(location.pathname)) return;
   if (document.getElementById('kettlo-feature-card')) return;
 
-  const grid = document.querySelector('#featured-branding .brandPriorityGrid');
+  const grid = document.querySelector('#featured-branding .brandPriorityGrid, #design .brandPriorityGrid');
   if (!grid) return;
 
   const style = document.createElement('style');
