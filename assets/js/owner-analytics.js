@@ -29,6 +29,69 @@
     window.addEventListener('blur', cancel);
     document.addEventListener('visibilitychange', cancel);
   }
+
+  // Recruiter-first homepage presentation.
+  const heroName = document.querySelector('.heroName');
+  const work = document.getElementById('work');
+  const reel = document.getElementById('reel');
+  if (heroName && work && reel) {
+    document.body.classList.add('recruiter-polish');
+
+    const heroEyebrow = document.querySelector('.hero .eyebrow');
+    const heroLead = document.querySelector('.hero .lead');
+    const heroMicro = document.querySelector('.hero .micro');
+    if (heroEyebrow) heroEyebrow.textContent = 'Brand & Multimedia Designer • Visual Content • Video';
+    if (heroLead) heroLead.textContent = 'Brand identities, campaign visuals and AI-assisted video crafted for modern marketing teams.';
+    if (heroMicro) heroMicro.textContent = 'Based in the United Arab Emirates • Open to opportunities in Canada, Europe & Australia • Available for remote interviews';
+
+    const navLinks = document.querySelector('.links');
+    if (navLinks) {
+      navLinks.innerHTML = '<a href="#work">Portfolio</a><a href="#design">Brand Design</a><a href="#reel">Video</a><a href="#process">Workflow</a><a href="#about">About</a><a href="#contact">Contact</a>';
+    }
+
+    const main = work.parentElement;
+    if (main && reel.parentElement === main) main.insertBefore(work, reel);
+
+    const workTitle = work.querySelector('.sectionHead h2');
+    const workDescription = work.querySelector('.sectionHead p');
+    if (workTitle) workTitle.textContent = 'Selected Portfolio';
+    if (workDescription) workDescription.textContent = 'A focused selection of brand identity, advertising and video work. Open the case studies for the full systems, process and applications.';
+
+    const grid = work.querySelector('.grid');
+    if (grid) {
+      const cards = [...grid.children].filter(el => el.matches('.card'));
+      const extras = cards.slice(5);
+      extras.forEach(el => el.classList.add('portfolio-extra'));
+
+      if (extras.length) {
+        const controls = document.createElement('div');
+        controls.className = 'portfolio-more-row';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn portfolio-more-btn';
+        button.textContent = 'View all video projects';
+        button.setAttribute('aria-expanded', 'false');
+        controls.append(button);
+        grid.insertAdjacentElement('afterend', controls);
+
+        const setExpanded = expanded => {
+          extras.forEach(el => el.classList.toggle('is-visible', expanded));
+          button.textContent = expanded ? 'Show fewer projects' : 'View all video projects';
+          button.setAttribute('aria-expanded', String(expanded));
+        };
+        button.addEventListener('click', () => setExpanded(button.getAttribute('aria-expanded') !== 'true'));
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.querySelector(location.hash);
+          if (target && target.closest('.portfolio-extra')) setExpanded(true);
+        };
+        revealHashTarget();
+        window.addEventListener('hashchange', revealHashTarget);
+      }
+    }
+  }
+
   let button;
   let pending = false;
   async function check() {
