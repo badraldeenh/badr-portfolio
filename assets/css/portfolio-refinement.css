@@ -11,5 +11,28 @@
 .caseEvidenceItem h2{font-size:14px!important;margin:0 0 10px!important;color:#c9a55a;letter-spacing:.05em}
 .caseEvidenceItem p{font-size:14px!important;color:#c6c5bf;line-height:1.65;margin:0!important}
 .caseEvidenceNote{font-size:12px;color:#a8a7a3;margin:16px 0 0}
-@media(max-width:720px){.caseEvidenceGrid{grid-template-columns:1fr}.caseEvidenceItem{padding:18px}.campaignMore>summary{padding:16px;font-size:13px}.campaignMore>.instagramCampaignGrid,.campaignMore>.caseGrid{padding:12px}.projectContribution{font-size:12px!important}#design #transformer-design .caseHero{max-width:100%}}
+
+/* Recruiter-first homepage: lead with the strongest real/commercial case studies. */
+#featured-branding .brandPriorityGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+#featured-branding .brandPriorityGrid>.card:nth-child(-n+4){display:none!important}
+#featured-branding .brandPriorityGrid>#maleh-helow-design{order:2}
+#featured-branding .brandPriorityGrid>#transformer-design{order:3}
+#featured-branding .brandPriorityGrid>.card[href="hatan/"]{order:1}
+#featured-branding .brandPriorityGrid>.card[href="/hatan/"]{order:1}
+#featured-branding .sectionHead h2{font-size:0;line-height:1.15}
+#featured-branding .sectionHead h2::after{content:"Selected Case Studies";font-size:36px;letter-spacing:-.035em}
+#featured-branding .sectionHead p{font-size:0}
+#featured-branding .sectionHead p::after{content:"Four focused projects for a fast recruiter review: brand identity, commercial social design, product advertising and video.";font-size:15px;line-height:1.55;color:var(--muted,#a8a7a3)}
+#featured-branding .brandPriorityCard{min-height:100%}
+#featured-branding .brandPriorityMedia{aspect-ratio:4/3;overflow:hidden;background:#0a0a0b}
+#featured-branding .brandPriorityMedia img{width:100%;height:100%;object-fit:cover}
+#featured-branding .cardBody{display:flex;flex-direction:column;height:100%}
+#featured-branding .campaignOpen{margin-top:auto;padding-top:16px}
+#reel{padding-top:34px}
+#reel .sectionHead h2{font-size:0;line-height:1.15}
+#reel .sectionHead h2::after{content:"04 • Mango Beverage Commercial";font-size:36px;letter-spacing:-.035em}
+#reel .showreelBox{box-shadow:0 28px 80px rgba(0,0,0,.28)}
+
+@media(max-width:900px){#featured-branding .brandPriorityGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.caseEvidenceGrid{grid-template-columns:1fr}.caseEvidenceItem{padding:18px}.campaignMore>summary{padding:16px;font-size:13px}.campaignMore>.instagramCampaignGrid,.campaignMore>.caseGrid{padding:12px}.projectContribution{font-size:12px!important}#design #transformer-design .caseHero{max-width:100%}#featured-branding .brandPriorityGrid{grid-template-columns:1fr}#featured-branding .sectionHead h2::after,#reel .sectionHead h2::after{font-size:30px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{transition:none!important}}
