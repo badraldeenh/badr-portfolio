@@ -16,21 +16,21 @@
       <div class="media">
         <span class="rank">01 • Featured</span>
         <video
-          poster="assets/img/hatan/hatan-product-key-visual.webp"
+          poster="assets/img/hatan/hatan-storefront-delivery-mockup.webp"
           src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4"
           controls
           playsinline
           preload="none"
-          aria-label="HATAN Stadium Delivery Campaign — 15 second vertical advertising film">
+          aria-label="Matchday Delivery Spot — 15 second vertical advertising film">
         </video>
       </div>
       <div class="cardBody">
-        <div class="kicker">AI Campaign Film • Independent Concept</div>
-        <h3>HATAN — Stadium Delivery Campaign</h3>
-        <p>A 15-second vertical advertising concept combining AI-assisted visual production, cinematic direction, brand continuity and stadium sound design.</p>
+        <div class="kicker">AI Advertising Film • Independent Concept</div>
+        <h3>Matchday Delivery Spot</h3>
+        <p>A 15-second vertical food-delivery spot combining AI-assisted visual production, cinematic direction, brand continuity and stadium sound design.</p>
         <div class="miniChips"><span>15 Seconds</span><span>9:16</span><span>AI Video</span><span>Art Direction</span><span>Sound Design</span></div>
         <dl class="projectFacts">
-          <div><dt>Context</dt><dd>Independent HATAN portfolio campaign</dd></div>
+          <div><dt>Context</dt><dd>Independent portfolio advertising concept</dd></div>
           <div><dt>Format</dt><dd>1080 × 1920 • 15-second vertical film</dd></div>
           <div><dt>Role</dt><dd>AI-assisted visual production, direction, editing & sound design</dd></div>
           <div><dt>Tools</dt><dd>Adobe Photoshop • ChatGPT • HappyHorse • Adobe Premiere Pro</dd></div>
@@ -42,7 +42,7 @@
     const heading = work.querySelector('.sectionHead h2');
     const sub = work.querySelector('.sectionHead p');
     if (heading) heading.textContent = 'Selected Video Projects';
-    if (sub) sub.textContent = 'HATAN Stadium Delivery Campaign, advertising films, product storytelling and AI-assisted video work.';
+    if (sub) sub.textContent = 'Advertising films, product storytelling and AI-assisted video work, led by a featured matchday delivery spot.';
 
     const cards = [...grid.querySelectorAll(':scope > .card')];
     cards.forEach((item, index) => {
