@@ -82,7 +82,7 @@ jobs:
                       raise SystemExit(f'{path}: hero/reel marker not found')
                   text = text.replace(marker, '    </header>\n' + featured + '\n    <section id="reel">', 1)
 
-              pattern = re.compile(r'\n        <div id="avena-feature".*?\n        <div class="grid">\n          <a class="card" href="idh/".*?</a>\n          <a class="card" href="aura/".*?</a>', re.S)
+              pattern = re.compile(r'\n\s*<div id="avena-feature".*?\n\s*<div class="grid">\s*<a class="card" href="idh/".*?</a>\s*<a class="card" href="aura/".*?</a>', re.S)
               text, n = pattern.subn('\n        <div class="grid">', text, count=1)
               if n == 0 and 'id="avena-feature"' in text:
                   raise SystemExit(f'{path}: could not simplify video section')
