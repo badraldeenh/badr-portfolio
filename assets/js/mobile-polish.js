@@ -6,24 +6,22 @@
   const style = document.createElement('style');
   style.id = 'badr-mobile-polish';
   style.textContent = `
-    .mobile-section-nav{display:none}
+    .mobile-section-nav{display:none!important}
 
     @media(max-width:720px){
       body.recruiter-polish{overflow-x:hidden}
       body.recruiter-polish .wrap{width:calc(100% - 28px);max-width:none}
 
-      body.recruiter-polish .nav{backdrop-filter:blur(18px);background:rgba(13,13,15,.94)}
-      body.recruiter-polish .navin{height:64px;gap:12px}
-      body.recruiter-polish .brand{font-size:16px;letter-spacing:.2em}
-      body.recruiter-polish .cta{padding:9px 12px;font-size:12px;white-space:nowrap}
+      body.recruiter-polish .nav{backdrop-filter:blur(18px);background:rgba(13,13,15,.96)}
+      body.recruiter-polish .navin{height:auto;min-height:64px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 12px;padding:10px 0 9px}
+      body.recruiter-polish .brand{font-size:16px;letter-spacing:.2em;grid-column:1}
+      body.recruiter-polish .cta{padding:9px 12px;font-size:12px;white-space:nowrap;grid-column:2}
+      body.recruiter-polish .links{display:flex!important;grid-column:1/-1;width:100%;gap:8px;overflow-x:auto;padding:9px 0 0;margin-top:8px;border-top:1px solid rgba(255,255,255,.07);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+      body.recruiter-polish .links::-webkit-scrollbar{display:none}
+      body.recruiter-polish .links a{flex:0 0 auto;padding:7px 11px;border:1px solid #29292f;border-radius:999px;background:#121215;color:#c9c8c3;font-size:11px;font-weight:800;letter-spacing:.02em}
+      body.recruiter-polish .links a:active{background:#c9a55a;color:#111;border-color:#c9a55a}
 
-      .mobile-section-nav{display:block;position:sticky;top:64px;z-index:29;background:rgba(13,13,15,.96);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(16px)}
-      .mobile-section-nav-inner{display:flex;gap:8px;overflow-x:auto;padding:9px 14px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-      .mobile-section-nav-inner::-webkit-scrollbar{display:none}
-      .mobile-section-nav a{flex:0 0 auto;padding:7px 11px;border:1px solid #29292f;border-radius:999px;background:#121215;color:#c9c8c3;font-size:11px;font-weight:800;letter-spacing:.02em}
-      .mobile-section-nav a:active{background:#c9a55a;color:#111;border-color:#c9a55a}
-
-      #design,#video,#production-experience,#about,#contact{scroll-margin-top:118px!important}
+      #design,#video,#production-experience,#about,#contact{scroll-margin-top:122px!important}
 
       body.recruiter-polish .hero{padding:42px 0 34px}
       body.recruiter-polish .heroGrid{max-width:none;margin:0}
@@ -49,7 +47,7 @@
       #design .brandPriorityMedia{aspect-ratio:16/10}
       #design .brandPriorityCard .cardBody{padding:17px 17px 18px}
       #design .brandPriorityCard .kicker{font-size:9.5px;letter-spacing:.1em}
-      #design .brandPriorityCard h3{font-size:20px;line-height:1.18;margin:7px 0 7px}
+      #design .brandPriorityCard h3{font-size:20px;line-height:1.18;margin:7px 0}
       #design .brandPriorityCard p{font-size:12.8px;line-height:1.52}
       #design .miniChips{gap:6px;margin-top:11px}
       #design .miniChips span{font-size:9.5px;padding:5px 7px}
@@ -122,17 +120,10 @@
       body.recruiter-polish .heroName{font-size:58px!important}
       body.recruiter-polish .hero .actions{grid-template-columns:1fr}
       body.recruiter-polish .stats{grid-template-columns:1fr}
-      .mobile-section-nav-inner{padding-left:11px;padding-right:11px}
     }
   `;
   document.head.appendChild(style);
 
-  const nav = document.querySelector('.nav');
-  if (nav && !document.querySelector('.mobile-section-nav')) {
-    const mobileNav = document.createElement('nav');
-    mobileNav.className = 'mobile-section-nav';
-    mobileNav.setAttribute('aria-label', 'Mobile portfolio sections');
-    mobileNav.innerHTML = '<div class="mobile-section-nav-inner"><a href="#design">Design</a><a href="#video">Video</a><a href="#production-experience">Experience</a><a href="#about">About</a><a href="#contact">Contact</a></div>';
-    nav.insertAdjacentElement('afterend', mobileNav);
-  }
+  // Keep one mobile section navigation only: use the existing main navigation links.
+  document.querySelectorAll('.mobile-section-nav').forEach(node => node.remove());
 })();
