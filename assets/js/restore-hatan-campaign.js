@@ -16,7 +16,7 @@
       <div class="media">
         <span class="rank">01 • Featured</span>
         <video
-          poster="assets/img/hatan/hatan-storefront-delivery-mockup.webp"
+          poster="assets/img/hatan/matchday-delivery-poster.jpg"
           src="assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4"
           controls
           playsinline
