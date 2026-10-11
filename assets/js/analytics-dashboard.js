@@ -2,6 +2,7 @@
   const $ = id => document.getElementById(id);
   let data = { sessions: [] };
   let displayed = [];
+  let refreshing = false;
   const seconds = ms => Math.round(ms / 1000);
   const num = n => Number(n).toLocaleString('ar-AE');
   const time = stamp => new Date(stamp).toLocaleString('ar-AE', { timeZone: 'Asia/Dubai' });
@@ -24,7 +25,7 @@
     $('people').textContent = num(new Set(displayed.map(s => s.visitor)).size);
     $('average').textContent = num(displayed.length ? seconds(displayed.reduce((n, s) => n + active(s), 0) / displayed.length) : 0);
     $('cv').textContent = num(displayed.reduce((n, s) => n + allMetrics(s).filter(([k]) => k === 'click:cv').reduce((a, [, v]) => a + v.count, 0), 0));
-    $('scope').textContent = `النتائج تخص الزيارات المحمّلة ضمن آخر ${data.days} أيام (حتى ${data.limit} زيارة). الأوقات بتوقيت الإمارات. ` + (data.truncated ? 'توجد زيارات أقدم لم تُحمّل؛ الملخص يخص هذه العينة فقط.' : '') + ' لا تُظهر كلمة «آخر تحديث» وقت خروج مؤكدًا.';
+    $('scope').textContent = `النتائج تخص الزيارات المحمّلة ضمن آخر ${data.days} أيام (حتى ${data.limit} زيارة). الأوقات بتوقيت الإمارات. ` + (data.truncated ? 'توجد زيارات أقدم لم تُحمّل؛ الملخص يخص هذه العينة فقط.' : '') + ' المدة تُحدّث تلقائيًا أثناء بقاء الزائر في الموقع، وآخر تحديث ليس بالضرورة وقت خروج مؤكدًا.';
     $('sessions').replaceChildren();
     const totals = new Map();
     displayed.forEach(s => {
@@ -54,9 +55,11 @@
     [...totals.values()].sort((a, b) => b.ms - a.ms).forEach(v => { const tr = document.createElement('tr'); tr.append(node('td', (v.video ? 'فيديو: ' : '') + v.title), node('td', num(seconds(v.ms))), node('td', num(v.visits))); $('projects').append(tr); });
     $('empty').hidden = displayed.length > 0;
   }
-  async function refresh() {
+  async function refresh(silent = false) {
+    if (refreshing) return;
+    refreshing = true;
     $('refresh').disabled = true;
-    state('جارٍ تحميل النتائج…');
+    if (!silent) state('جارٍ تحميل النتائج…');
     try {
       data = await api('sessions&days=' + $('days').value);
       const priorRef = $('ref').value;
@@ -64,11 +67,15 @@
       [...new Set(data.sessions.map(s => s.ref))].sort().forEach(ref => $('ref').append(new Option(ref === 'direct' ? 'الرابط العام' : ref, ref)));
       if ([...$('ref').options].some(o => o.value === priorRef)) $('ref').value = priorRef;
       $('login').hidden = true; $('dashboard').hidden = false;
-      render(); state('تم تحديث النتائج.');
+      render();
+      if (!silent) state('تم تحديث النتائج.');
     } catch (e) {
       if (e.status === 401) { $('dashboard').hidden = true; $('login').hidden = false; state('أدخل كلمة المرور الخاصة باللوحة.'); }
-      else state('تعذّر تحميل النتائج. تحقق من اتصال التخزين ثم أعد المحاولة.', true);
-    } finally { $('refresh').disabled = false; }
+      else if (!silent) state('تعذّر تحميل النتائج. تحقق من اتصال التخزين ثم أعد المحاولة.', true);
+    } finally {
+      refreshing = false;
+      $('refresh').disabled = false;
+    }
   }
   $('login').addEventListener('submit', async e => {
     e.preventDefault(); const button = e.target.querySelector('button'); button.disabled = true;
@@ -76,7 +83,7 @@
     catch (e) { state(e.status === 401 ? 'كلمة المرور غير صحيحة.' : e.status === 429 ? 'محاولات كثيرة؛ انتظر دقيقة ثم حاول.' : 'تعذّر الاتصال بالخادم.', true); }
     finally { button.disabled = false; }
   });
-  $('refresh').onclick = refresh; $('days').onchange = refresh; $('ref').onchange = render;
+  $('refresh').onclick = () => refresh(false); $('days').onchange = () => refresh(false); $('ref').onchange = render;
   $('logout').onclick = async () => { try { await api('logout', 'POST'); data = { sessions: [] }; $('sessions').replaceChildren(); $('projects').replaceChildren(); $('dashboard').hidden = true; $('login').hidden = false; state('تم تسجيل الخروج.'); } catch (_) { state('تعذّر تسجيل الخروج؛ أعد المحاولة.', true); } };
   $('generate').onclick = () => { const code = $('company').value.toLowerCase().replace(/[^a-z0-9_-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 64); if (!code) return state('اكتب رمز الشركة بالإنجليزية.', true); const url = new URL('/', location.origin); url.searchParams.set('ref', code); $('link').textContent = url.href; $('copy').hidden = false; };
   $('copy').onclick = async () => { try { await navigator.clipboard.writeText($('link').textContent); state('تم نسخ رابط الشركة.'); } catch (_) { state('حدد الرابط الظاهر وانسخه يدويًا.'); } };
@@ -87,5 +94,8 @@
     const blob = new Blob(['\uFEFF' + rows.map(r => r.map(escape).join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'badr-visits.csv'; a.click(); URL.revokeObjectURL(url);
   };
+  setInterval(() => {
+    if (!document.hidden && !$('dashboard').hidden && !refreshing) refresh(true);
+  }, 10000);
   api('status').then(async status => { if (!status.enabled) { $('setup').hidden = false; state('الإعداد المطلوب غير مكتمل.', true); return; } await refresh(); }).catch(() => state('تعذّر الوصول إلى خدمة التحليلات. ربما لم يُنشر التحديث بعد.', true));
 })();
