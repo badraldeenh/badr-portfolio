@@ -1,0 +1,94 @@
+name: Optimize Matchday video and poster
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/optimize-matchday-video.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimize-matchday:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ensure ffmpeg is available
+        shell: bash
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -n 1
+
+      - name: Compress Matchday film and extract cinematic poster
+        shell: bash
+        run: |
+          set -euo pipefail
+          VIDEO='assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4'
+          POSTER='assets/img/hatan/matchday-delivery-poster.jpg'
+          TMP='/tmp/matchday-web.mp4'
+
+          test -f "$VIDEO"
+          BEFORE=$(stat -c%s "$VIDEO")
+          echo "Original bytes: $BEFORE"
+
+          if [ "$BEFORE" -gt 12000000 ]; then
+            ffmpeg -y -i "$VIDEO" \
+              -vf "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=black" \
+              -c:v libx264 -preset slow -crf 22 -maxrate 4500k -bufsize 9000k \
+              -profile:v high -level 4.1 -pix_fmt yuv420p \
+              -c:a aac -b:a 128k -ac 2 -ar 48000 \
+              -movflags +faststart "$TMP"
+            mv "$TMP" "$VIDEO"
+          else
+            echo "Video is already web-sized; skipping transcode."
+          fi
+
+          # Pull a real frame from the film itself, near the middle of the 15-second spot.
+          ffmpeg -y -ss 00:00:07.000 -i "$VIDEO" -frames:v 1 \
+            -vf "scale=720:-2" -q:v 2 "$POSTER"
+
+          AFTER=$(stat -c%s "$VIDEO")
+          echo "Optimized bytes: $AFTER"
+          ls -lh "$VIDEO" "$POSTER"
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/js/restore-hatan-campaign.js')
+          text = p.read_text(encoding='utf-8')
+          text = text.replace(
+              'poster="assets/img/hatan/hatan-storefront-delivery-mockup.webp"',
+              'poster="assets/img/hatan/matchday-delivery-poster.jpg"'
+          )
+          p.write_text(text, encoding='utf-8')
+
+          loader = Path('assets/js/visit-duration.js')
+          ltext = loader.read_text(encoding='utf-8')
+          ltext = ltext.replace('/assets/js/restore-hatan-campaign.js?v=2', '/assets/js/restore-hatan-campaign.js?v=3')
+          loader.write_text(ltext, encoding='utf-8')
+          PY
+
+      - name: Commit optimized assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'BADR Portfolio Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add \
+            assets/video/HATAN_Stadium_Ad_Final_15s_1080x1920.mp4 \
+            assets/img/hatan/matchday-delivery-poster.jpg \
+            assets/js/restore-hatan-campaign.js \
+            assets/js/visit-duration.js
+          if git diff --cached --quiet; then
+            echo 'No optimization changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Optimize Matchday film and use in-film poster [matchday-web]'
+          git push
