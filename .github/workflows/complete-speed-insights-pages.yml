@@ -1,0 +1,55 @@
+name: Complete Speed Insights setup across tracked pages
+
+on:
+  push:
+    paths:
+      - '.github/workflows/complete-speed-insights-pages.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  complete-speed-insights:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Add Speed Insights wherever Web Analytics is already enabled
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          analytics_tag = '<script defer src="/_vercel/insights/script.js"></script>'
+          speed_block = '''<!-- Vercel Speed Insights -->
+          <script>
+            window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+          </script>
+          <script defer src="/_vercel/speed-insights/script.js"></script>'''
+
+          changed = []
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts:
+                  continue
+              text = path.read_text(encoding='utf-8')
+              if analytics_tag not in text or '/_vercel/speed-insights/script.js' in text:
+                  continue
+              path.write_text(text.replace(analytics_tag, analytics_tag + '\n' + speed_block, 1), encoding='utf-8')
+              changed.append(str(path))
+
+          print('Updated:', ', '.join(changed) if changed else 'none')
+          PY
+
+      - name: Commit tracked-page Speed Insights coverage
+        run: |
+          git config user.name "Badr Portfolio Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add -- '*.html'
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Track Speed Insights across portfolio pages"
+          git push origin HEAD:main
