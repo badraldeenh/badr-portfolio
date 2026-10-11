@@ -19,12 +19,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Update hero and About section
+      - name: Update live home page
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          path = Path('index.html')
+          path = Path('home-v4.html')
           text = path.read_text(encoding='utf-8')
 
           def replace_once(old, new, label):
@@ -70,12 +70,12 @@ jobs:
 
       - name: Commit changes
         run: |
-          if git diff --quiet -- index.html; then
+          if git diff --quiet -- home-v4.html; then
             echo "No changes needed"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          git commit -m "Refresh BADR hero and move portrait to About"
+          git add home-v4.html
+          git commit -m "Refresh live BADR hero and move portrait to About"
           git push
