@@ -1,4 +1,4 @@
-name: BADR Hero and About Refresh
+name: BADR Portfolio Positioning Refresh
 
 on:
   push:
@@ -19,63 +19,96 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Update live home page
+      - name: Reposition portfolio around brand design
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
-          path = Path('home-v4.html')
-          text = path.read_text(encoding='utf-8')
+          files = [Path('home-v4.html'), Path('index.html')]
 
-          def replace_once(old, new, label):
-              global text
-              count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f'{label}: expected exactly 1 match, found {count}')
-              text = text.replace(old, new, 1)
+          featured = '''
+    <section id="featured-branding" class="featuredBranding">
+      <div class="wrap">
+        <div class="sectionHead"><h2>Featured Brand Identity</h2><p>Selected identity systems, campaign direction and visual applications — presented first for a fast recruiter review.</p></div>
+        <div class="brandPriorityGrid">
+          <a class="card brandPriorityCard" href="idh/" aria-label="Open IDH real estate brand identity case study"><div class="brandPriorityMedia"><img src="assets/img/idh/hero.webp" alt="IDH Integrated Development Holdings brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">01 • Real Estate Branding</div><h3>IDH — Integrated Development Holdings</h3><p>Luxury real-estate identity spanning logo, print, environmental branding, campaign and digital applications.</p><div class="miniChips"><span>Brand Identity</span><span>Art Direction</span><span>Digital</span></div></div></a>
+          <a class="card brandPriorityCard" href="avena.html" aria-label="Open AVENA Medical Center case study"><div class="brandPriorityMedia"><img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">02 • Healthcare Branding</div><h3>AVENA Medical Center</h3><p>A complete healthcare identity across stationery, uniforms, environments, digital booking and campaign visuals.</p><div class="miniChips"><span>Brand System</span><span>Environmental</span><span>Digital</span></div></div></a>
+          <a class="card brandPriorityCard" href="vareno/" aria-label="Open VARENO Barber Club case study"><div class="brandPriorityMedia"><img src="assets/img/vareno/vareno-hero.webp" alt="VARENO Barber Club luxury grooming identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">03 • Luxury Grooming</div><h3>VARENO Barber Club</h3><p>Premium grooming identity built from strategy and logo architecture through packaging, environments and digital touchpoints.</p><div class="miniChips"><span>Brand Strategy</span><span>Packaging</span><span>Retail</span></div></div></a>
+          <a class="card brandPriorityCard brandPriorityWide" href="aura/" aria-label="Open AURA Athletics case study"><div class="brandPriorityMedia"><img src="assets/img/aura/performance-overview.webp" alt="AURA Athletics sportswear brand identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">04 • Sportswear Branding</div><h3>AURA Athletics</h3><p>Performance-sportswear identity with apparel, campaign art direction, e-commerce and product storytelling.</p><div class="miniChips"><span>Sportswear</span><span>AI Art Direction</span><span>E-commerce</span></div></div></a>
+          <a class="card brandPriorityCard brandPriorityWide" href="hatan/" aria-label="Open HATAN Fine Foods case study"><div class="brandPriorityMedia"><img src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">05 • Food & Packaging</div><h3>HATAN — Fine Foods & Confections</h3><p>Premium food identity extending through packaging, retail, takeaway applications and campaign content.</p><div class="miniChips"><span>Branding</span><span>Packaging</span><span>Retail</span></div></div></a>
+        </div>
+      </div>
+    </section>
+'''
 
-          replace_once(
-              '<a class="brand" href="#top">BADR<span> Magic</span></a>',
-              '<a class="brand" href="#top" aria-label="BADR home">BADR<span>.</span></a>',
-              'navigation brand'
-          )
+          css = '''
+    /* Portfolio positioning refresh — branding first */
+    .featuredBranding{padding-top:38px;background:linear-gradient(180deg,rgba(201,165,90,.05),transparent 70%)}
+    .brandPriorityGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
+    .brandPriorityCard{grid-column:span 2}.brandPriorityWide{grid-column:span 3}
+    .brandPriorityMedia{aspect-ratio:16/10;background:#0a0a0c;overflow:hidden;border-bottom:1px solid var(--line)}
+    .brandPriorityMedia img{width:100%;height:100%;object-fit:cover}
+    .aboutSummary{font-size:16px;color:#e0dfda!important;line-height:1.65}
+    @media(max-width:900px){.brandPriorityGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.brandPriorityCard,.brandPriorityWide{grid-column:auto}}
+    @media(max-width:620px){.brandPriorityGrid{grid-template-columns:1fr}}
+'''
 
-          replace_once(
-              '<h1>Badr Eldin<br><em>Mohamed Alamin</em></h1>',
-              '<h1 class="heroName">BADR</h1>',
-              'hero name'
-          )
+          for path in files:
+              text = path.read_text(encoding='utf-8')
 
-          replace_once(
-              '        <figure class="portrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" /></figure>\n',
-              '',
-              'hero portrait'
-          )
+              replacements = [
+                  ('<meta name="description" content="Portfolio of Badr Eldin Mohamed Alamin — AI Video Creator, Multimedia Designer and Video Editor based in the UAE, open to opportunities in Canada, Europe and Australia." />', '<meta name="description" content="BADR — Graphic Designer, Brand Identity Designer, Visual Content Creator and Video Editor based in the UAE, open to opportunities in Canada, Europe and Australia." />'),
+                  ('<meta property="og:title" content="BADR Magic — Creative Portfolio" />', '<meta property="og:title" content="BADR — Creative Portfolio" />'),
+                  ('<meta property="og:description" content="AI Video Creator • Multimedia Designer • Video Editor" />', '<meta property="og:description" content="Graphic Designer • Brand Identity • Visual Content • Video Editing" />'),
+                  ('<title>BADR Magic — Creative Portfolio</title>', '<title>BADR — Creative Portfolio</title>'),
+                  ('<div class="links"><a href="#reel">Showreel</a><a href="#work">Work</a><a href="aura/">AURA</a><a href="#design">Design</a><a href="#process">Workflow</a><a href="#editing">Editing</a><a href="#marketing">Marketing</a><a href="#about">About</a><a href="#contact">Contact</a></div>', '<div class="links"><a href="#featured-branding">Work</a><a href="#design">Branding</a><a href="#reel">Video</a><a href="#about">About</a><a href="#contact">Contact</a></div>'),
+                  ('<div class="eyebrow">AI Video Creator • Multimedia Designer • Video Editor</div>', '<div class="eyebrow">Graphic Designer • Brand Identity • Visual Content • Video Editing</div>'),
+                  ('<p class="lead">Creating cinematic product advertising from real product photography, AI-assisted visuals and video editing.</p>', '<p class="lead">Building distinctive brands, visual identities and advertising content.</p>'),
+                  ('<a class="btn primary" href="#work">View selected work</a>', '<a class="btn primary" href="#featured-branding">View selected work</a>'),
+                  ('<div class="micro">Based in the United Arab Emirates • Open to opportunities in Canada, Europe & Australia • Available for remote interviews</div>', '<div class="micro">Based in UAE • Open to relocation — Canada, Europe & Australia</div>'),
+                  ('<div class="sectionHead"><h2>Selected work</h2><p>Professional video work for MALEH &amp; HELOW SWEETS alongside independent projects, including the Mango Beverage Commercial. Each video identifies its context and my role.</p></div>', '<div class="sectionHead"><h2>Video & Visual Content</h2><p>Selected advertising, product storytelling and short-form video work after the brand identity projects above.</p></div>'),
+                  ('<div><div class="eyebrow">Available internationally</div><h2>Open to creative roles in Canada, Europe & Australia.</h2><p>Available for remote interviews and employer-supported relocation or work authorization opportunities in AI video, multimedia design, video editing, creative advertising and digital marketing.</p></div>', '<div><div class="eyebrow">Available internationally</div><h2>Open to creative roles in Canada, Europe & Australia.</h2><p>Available for remote interviews and employer-supported relocation or work authorization opportunities in graphic design, brand identity, visual content, video editing and creative advertising.</p></div>'),
+                  ('<div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>AI Video Creator • Multimedia Designer • Video Editor</span></div>', '<div class="footer"><span>© 2026 Badr Eldin Mohamed Alamin</span><span>Graphic Designer • Brand Identity • Visual Content • Video Editing</span></div>'),
+              ]
 
-          replace_once(
-              '''        <div class="panel">\n          <div class="eyebrow">About</div>\n          <h3>Creative production & digital marketing.</h3>''',
-              '''        <div class="panel">\n          <div class="aboutProfile">\n            <figure class="aboutPortrait"><img width="1122" height="1402" src="assets/img/badr-portrait.jpg" alt="Portrait of Badr Eldin Mohamed Alamin" loading="lazy" decoding="async" /></figure>\n            <div><div class="eyebrow">About</div><h3>Badr Eldin Mohamed Alamin</h3><p class="aboutRole">Creative production & digital marketing.</p></div>\n          </div>''',
-              'about profile'
-          )
+              for old, new in replacements:
+                  if old in text:
+                      text = text.replace(old, new, 1)
 
-          css = '''\n    /* BADR identity refresh — focused Hero + portrait moved to About */\n    .brand{font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif;font-weight:600;letter-spacing:.24em}.brand span{letter-spacing:0;color:var(--accent)}\n    .heroGrid{grid-template-columns:1fr;max-width:1040px;margin-inline:auto}\n    .heroName{font-family:"Bodoni 72","Didot","Bodoni MT",Georgia,serif!important;font-size:clamp(72px,13vw,148px)!important;line-height:.82!important;font-weight:500!important;letter-spacing:.24em!important;margin:8px -.24em 30px 0!important;text-transform:uppercase}\n    .hero .lead{max-width:760px}\n    .aboutProfile{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;align-items:center;margin-bottom:24px}\n    .aboutPortrait{width:150px;aspect-ratio:4/5;margin:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#101012;box-shadow:0 18px 44px rgba(0,0,0,.26)}\n    .aboutPortrait img{width:100%;height:100%;object-fit:cover}\n    .aboutProfile .eyebrow{margin-bottom:9px}.aboutProfile h3{margin:0 0 7px;font-size:26px}.aboutRole{margin:0!important;color:#aaa9a5!important;font-size:14px}\n    @media(max-width:620px){.heroName{font-size:clamp(58px,20vw,88px)!important;letter-spacing:.18em!important;margin-right:-.18em!important}.aboutProfile{grid-template-columns:108px minmax(0,1fr);gap:16px}.aboutPortrait{width:108px}.aboutProfile h3{font-size:21px}}\n'''
-          marker = '</style>'
-          if '/* BADR identity refresh' not in text:
-              if marker not in text:
-                  raise SystemExit('style closing tag not found')
-              text = text.replace(marker, css + '  </style>', 1)
+              if 'id="featured-branding"' not in text:
+                  marker = '    </header>\n\n    <section id="reel">'
+                  if marker not in text:
+                      raise SystemExit(f'{path}: hero/reel marker not found')
+                  text = text.replace(marker, '    </header>\n' + featured + '\n    <section id="reel">', 1)
 
-          path.write_text(text, encoding='utf-8')
+              pattern = re.compile(r'\n        <div id="avena-feature".*?\n        <div class="grid">\n          <a class="card" href="idh/".*?</a>\n          <a class="card" href="aura/".*?</a>', re.S)
+              text, n = pattern.subn('\n        <div class="grid">', text, count=1)
+              if n == 0 and 'id="avena-feature"' in text:
+                  raise SystemExit(f'{path}: could not simplify video section')
+
+              about_marker = '''          </div>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>'''
+              if 'class="aboutSummary"' not in text:
+                  if about_marker not in text:
+                      raise SystemExit(f'{path}: about marker not found')
+                  text = text.replace(about_marker, '''          </div>\n          <p class="aboutSummary">Graphic designer and creative producer with professional experience since 2019 across brand identity, print production, social content, product advertising and video editing.</p>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>''', 1)
+
+              if '/* Portfolio positioning refresh' not in text:
+                  if '</style>' not in text:
+                      raise SystemExit(f'{path}: style closing tag not found')
+                  text = text.replace('</style>', css + '  </style>', 1)
+
+              path.write_text(text, encoding='utf-8')
           PY
 
       - name: Commit changes
         run: |
-          if git diff --quiet -- home-v4.html; then
+          if git diff --quiet -- home-v4.html index.html; then
             echo "No changes needed"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add home-v4.html
-          git commit -m "Refresh live BADR hero and move portrait to About"
+          git add home-v4.html index.html
+          git commit -m "Prioritize branding and recruiter positioning"
           git push
