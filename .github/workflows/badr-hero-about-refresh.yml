@@ -27,32 +27,32 @@ jobs:
 
           files = [Path('home-v4.html'), Path('index.html')]
 
-          featured = '''
-    <section id="featured-branding" class="featuredBranding">
-      <div class="wrap">
-        <div class="sectionHead"><h2>Featured Brand Identity</h2><p>Selected identity systems, campaign direction and visual applications — presented first for a fast recruiter review.</p></div>
-        <div class="brandPriorityGrid">
-          <a class="card brandPriorityCard" href="idh/" aria-label="Open IDH real estate brand identity case study"><div class="brandPriorityMedia"><img src="assets/img/idh/hero.webp" alt="IDH Integrated Development Holdings brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">01 • Real Estate Branding</div><h3>IDH — Integrated Development Holdings</h3><p>Luxury real-estate identity spanning logo, print, environmental branding, campaign and digital applications.</p><div class="miniChips"><span>Brand Identity</span><span>Art Direction</span><span>Digital</span></div></div></a>
-          <a class="card brandPriorityCard" href="avena.html" aria-label="Open AVENA Medical Center case study"><div class="brandPriorityMedia"><img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">02 • Healthcare Branding</div><h3>AVENA Medical Center</h3><p>A complete healthcare identity across stationery, uniforms, environments, digital booking and campaign visuals.</p><div class="miniChips"><span>Brand System</span><span>Environmental</span><span>Digital</span></div></div></a>
-          <a class="card brandPriorityCard" href="vareno/" aria-label="Open VARENO Barber Club case study"><div class="brandPriorityMedia"><img src="assets/img/vareno/vareno-hero.webp" alt="VARENO Barber Club luxury grooming identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">03 • Luxury Grooming</div><h3>VARENO Barber Club</h3><p>Premium grooming identity built from strategy and logo architecture through packaging, environments and digital touchpoints.</p><div class="miniChips"><span>Brand Strategy</span><span>Packaging</span><span>Retail</span></div></div></a>
-          <a class="card brandPriorityCard brandPriorityWide" href="aura/" aria-label="Open AURA Athletics case study"><div class="brandPriorityMedia"><img src="assets/img/aura/performance-overview.webp" alt="AURA Athletics sportswear brand identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">04 • Sportswear Branding</div><h3>AURA Athletics</h3><p>Performance-sportswear identity with apparel, campaign art direction, e-commerce and product storytelling.</p><div class="miniChips"><span>Sportswear</span><span>AI Art Direction</span><span>E-commerce</span></div></div></a>
-          <a class="card brandPriorityCard brandPriorityWide" href="hatan/" aria-label="Open HATAN Fine Foods case study"><div class="brandPriorityMedia"><img src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">05 • Food & Packaging</div><h3>HATAN — Fine Foods & Confections</h3><p>Premium food identity extending through packaging, retail, takeaway applications and campaign content.</p><div class="miniChips"><span>Branding</span><span>Packaging</span><span>Retail</span></div></div></a>
-        </div>
-      </div>
-    </section>
-'''
+          featured = "\n".join([
+              '    <section id="featured-branding" class="featuredBranding">',
+              '      <div class="wrap">',
+              '        <div class="sectionHead"><h2>Featured Brand Identity</h2><p>Selected identity systems, campaign direction and visual applications — presented first for a fast recruiter review.</p></div>',
+              '        <div class="brandPriorityGrid">',
+              '          <a class="card brandPriorityCard" href="idh/" aria-label="Open IDH real estate brand identity case study"><div class="brandPriorityMedia"><img src="assets/img/idh/hero.webp" alt="IDH Integrated Development Holdings brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">01 • Real Estate Branding</div><h3>IDH — Integrated Development Holdings</h3><p>Luxury real-estate identity spanning logo, print, environmental branding, campaign and digital applications.</p><div class="miniChips"><span>Brand Identity</span><span>Art Direction</span><span>Digital</span></div></div></a>',
+              '          <a class="card brandPriorityCard" href="avena.html" aria-label="Open AVENA Medical Center case study"><div class="brandPriorityMedia"><img src="assets/img/avena-hero-4k.webp" alt="AVENA Medical Center healthcare brand identity" loading="eager" decoding="async"></div><div class="cardBody"><div class="kicker">02 • Healthcare Branding</div><h3>AVENA Medical Center</h3><p>A complete healthcare identity across stationery, uniforms, environments, digital booking and campaign visuals.</p><div class="miniChips"><span>Brand System</span><span>Environmental</span><span>Digital</span></div></div></a>',
+              '          <a class="card brandPriorityCard" href="vareno/" aria-label="Open VARENO Barber Club case study"><div class="brandPriorityMedia"><img src="assets/img/vareno/vareno-hero.webp" alt="VARENO Barber Club luxury grooming identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">03 • Luxury Grooming</div><h3>VARENO Barber Club</h3><p>Premium grooming identity built from strategy and logo architecture through packaging, environments and digital touchpoints.</p><div class="miniChips"><span>Brand Strategy</span><span>Packaging</span><span>Retail</span></div></div></a>',
+              '          <a class="card brandPriorityCard brandPriorityWide" href="aura/" aria-label="Open AURA Athletics case study"><div class="brandPriorityMedia"><img src="assets/img/aura/performance-overview.webp" alt="AURA Athletics sportswear brand identity" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">04 • Sportswear Branding</div><h3>AURA Athletics</h3><p>Performance-sportswear identity with apparel, campaign art direction, e-commerce and product storytelling.</p><div class="miniChips"><span>Sportswear</span><span>AI Art Direction</span><span>E-commerce</span></div></div></a>',
+              '          <a class="card brandPriorityCard brandPriorityWide" href="hatan/" aria-label="Open HATAN Fine Foods case study"><div class="brandPriorityMedia"><img src="assets/img/hatan/hatan-brand-flatlay-mockup.webp" alt="HATAN premium food brand identity and packaging" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">05 • Food & Packaging</div><h3>HATAN — Fine Foods & Confections</h3><p>Premium food identity extending through packaging, retail, takeaway applications and campaign content.</p><div class="miniChips"><span>Branding</span><span>Packaging</span><span>Retail</span></div></div></a>',
+              '        </div>',
+              '      </div>',
+              '    </section>',
+          ]) + "\n"
 
-          css = '''
-    /* Portfolio positioning refresh — branding first */
-    .featuredBranding{padding-top:38px;background:linear-gradient(180deg,rgba(201,165,90,.05),transparent 70%)}
-    .brandPriorityGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
-    .brandPriorityCard{grid-column:span 2}.brandPriorityWide{grid-column:span 3}
-    .brandPriorityMedia{aspect-ratio:16/10;background:#0a0a0c;overflow:hidden;border-bottom:1px solid var(--line)}
-    .brandPriorityMedia img{width:100%;height:100%;object-fit:cover}
-    .aboutSummary{font-size:16px;color:#e0dfda!important;line-height:1.65}
-    @media(max-width:900px){.brandPriorityGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.brandPriorityCard,.brandPriorityWide{grid-column:auto}}
-    @media(max-width:620px){.brandPriorityGrid{grid-template-columns:1fr}}
-'''
+          css = "\n".join([
+              '    /* Portfolio positioning refresh — branding first */',
+              '    .featuredBranding{padding-top:38px;background:linear-gradient(180deg,rgba(201,165,90,.05),transparent 70%)}',
+              '    .brandPriorityGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}',
+              '    .brandPriorityCard{grid-column:span 2}.brandPriorityWide{grid-column:span 3}',
+              '    .brandPriorityMedia{aspect-ratio:16/10;background:#0a0a0c;overflow:hidden;border-bottom:1px solid var(--line)}',
+              '    .brandPriorityMedia img{width:100%;height:100%;object-fit:cover}',
+              '    .aboutSummary{font-size:16px;color:#e0dfda!important;line-height:1.65}',
+              '    @media(max-width:900px){.brandPriorityGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.brandPriorityCard,.brandPriorityWide{grid-column:auto}}',
+              '    @media(max-width:620px){.brandPriorityGrid{grid-template-columns:1fr}}',
+          ]) + "\n"
 
           for path in files:
               text = path.read_text(encoding='utf-8')
@@ -87,11 +87,11 @@ jobs:
               if n == 0 and 'id="avena-feature"' in text:
                   raise SystemExit(f'{path}: could not simplify video section')
 
-              about_marker = '''          </div>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>'''
+              about_marker = '          </div>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>'
               if 'class="aboutSummary"' not in text:
                   if about_marker not in text:
                       raise SystemExit(f'{path}: about marker not found')
-                  text = text.replace(about_marker, '''          </div>\n          <p class="aboutSummary">Graphic designer and creative producer with professional experience since 2019 across brand identity, print production, social content, product advertising and video editing.</p>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>''', 1)
+                  text = text.replace(about_marker, '          </div>\n          <p class="aboutSummary">Graphic designer and creative producer with professional experience since 2019 across brand identity, print production, social content, product advertising and video editing.</p>\n          <p><span class="highlight">MALEH &amp; HELOW SWEETS — Abu Dhabi, UAE</span>', 1)
 
               if '/* Portfolio positioning refresh' not in text:
                   if '</style>' not in text:
