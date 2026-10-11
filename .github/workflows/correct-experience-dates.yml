@@ -1,0 +1,97 @@
+name: Correct professional experience dates
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  correct-dates:
+    if: github.event.head_commit.message != 'Correct professional experience dates [final-dates]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Correct website dates
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('assets/js/experience-update.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('2024 - Present','2025 - Present')
+          s=s.replace('2021 - 2024','2022 - 2025')
+          p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Install PDF dependency
+        run: pip install reportlab
+
+      - name: Generate corrected CV
+        shell: bash
+        run: |
+          python - <<'PY'
+          from reportlab.lib.pagesizes import A4
+          from reportlab.lib import colors
+          from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+          from reportlab.lib.units import mm
+          from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, KeepTogether
+          from pathlib import Path
+
+          OUT='assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf'
+          Path('assets/docs').mkdir(parents=True, exist_ok=True)
+          PAGE_W, PAGE_H=A4
+          GOLD=colors.HexColor('#B08D45'); DARK=colors.HexColor('#161616'); MID=colors.HexColor('#4D4D4D'); LIGHT=colors.HexColor('#E8E4DB')
+          styles=getSampleStyleSheet()
+          styles.add(ParagraphStyle(name='NameX',fontName='Helvetica-Bold',fontSize=22.5,leading=24,textColor=DARK,spaceAfter=2))
+          styles.add(ParagraphStyle(name='TitleX',fontName='Helvetica-Bold',fontSize=8.6,leading=10.5,textColor=GOLD,spaceAfter=6))
+          styles.add(ParagraphStyle(name='ContactX',fontName='Helvetica',fontSize=8.2,leading=10.5,textColor=MID,spaceAfter=7))
+          styles.add(ParagraphStyle(name='SectionX',fontName='Helvetica-Bold',fontSize=9.5,leading=11.5,textColor=DARK,spaceBefore=4,spaceAfter=5))
+          styles.add(ParagraphStyle(name='SummaryX',fontName='Helvetica',fontSize=8.5,leading=11.3,textColor=MID,spaceAfter=6))
+          styles.add(ParagraphStyle(name='RoleX',fontName='Helvetica-Bold',fontSize=9.3,leading=11.2,textColor=DARK,spaceAfter=1))
+          styles.add(ParagraphStyle(name='MetaX',fontName='Helvetica-Bold',fontSize=7.9,leading=9.6,textColor=GOLD,spaceAfter=3))
+          styles.add(ParagraphStyle(name='BulletX',fontName='Helvetica',fontSize=7.9,leading=10.25,textColor=MID,leftIndent=9,firstLineIndent=-5.5,spaceAfter=1.2))
+          styles.add(ParagraphStyle(name='SmallX',fontName='Helvetica',fontSize=7.8,leading=10.1,textColor=MID))
+          styles.add(ParagraphStyle(name='SkillHeadX',fontName='Helvetica-Bold',fontSize=7.7,leading=9.5,textColor=DARK))
+          styles.add(ParagraphStyle(name='SkillTextX',fontName='Helvetica',fontSize=7.6,leading=9.5,textColor=MID))
+
+          def heading(text):
+              t=Table([[Paragraph(text.upper(),styles['SectionX']),'']],colWidths=[50*mm,125*mm],rowHeights=[6*mm])
+              t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'MIDDLE'),('LINEBELOW',(0,0),(-1,-1),0.65,LIGHT),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),0),('TOPPADDING',(0,0),(-1,-1),0),('BOTTOMPADDING',(0,0),(-1,-1),1)]))
+              return t
+          def bullet(text): return Paragraph('•&nbsp;&nbsp;'+text,styles['BulletX'])
+          def role(company,title,loc,dates,bullets,certificate=False):
+              items=[Paragraph(company,styles['RoleX']),Paragraph(f'{title} &nbsp;&nbsp;|&nbsp;&nbsp; {loc} &nbsp;&nbsp;|&nbsp;&nbsp; {dates}',styles['MetaX'])]
+              items += [bullet(x) for x in bullets]
+              if certificate: items.append(Paragraph('<b>Experience certificate available upon request.</b>',styles['SmallX']))
+              items.append(Spacer(1,3.2)); return KeepTogether(items)
+          def footer(canvas,doc):
+              canvas.saveState(); canvas.setStrokeColor(LIGHT); canvas.setLineWidth(.5); canvas.line(13*mm,10.5*mm,PAGE_W-13*mm,10.5*mm)
+              canvas.setFont('Helvetica',6.8); canvas.setFillColor(colors.HexColor('#777777')); canvas.drawString(13*mm,6.5*mm,'Badr Eldin Mohamed Alamin - Curriculum Vitae'); canvas.drawRightString(PAGE_W-13*mm,6.5*mm,'Portfolio: badr-eldin-portfolio.vercel.app'); canvas.restoreState()
+
+          doc=SimpleDocTemplate(OUT,pagesize=A4,rightMargin=13*mm,leftMargin=13*mm,topMargin=11*mm,bottomMargin=13*mm,title='Badr Eldin Mohamed Alamin - Curriculum Vitae',author='Badr Eldin Mohamed Alamin')
+          story=[Paragraph('BADR ELDIN MOHAMED ALAMIN',styles['NameX']),Paragraph('GRAPHIC DESIGNER  •  MULTIMEDIA CONTENT CREATOR  •  VIDEO EDITOR',styles['TitleX']),Paragraph('United Arab Emirates &nbsp;&nbsp;•&nbsp;&nbsp; <link href="mailto:badrlooka90@gmail.com" color="#4D4D4D">badrlooka90@gmail.com</link> &nbsp;&nbsp;•&nbsp;&nbsp; <link href="https://badr-eldin-portfolio.vercel.app/" color="#4D4D4D">badr-eldin-portfolio.vercel.app</link>',styles['ContactX']),heading('Professional Profile'),Spacer(1,2.5),Paragraph('Graphic designer and multimedia content creator with professional experience since 2019 across print production, social media, advertising design, content creation and video editing. Combines hands-on production knowledge with digital campaign execution, from preparing artwork for physical output to creating branded social content and short-form video. Currently responsible for marketing, graphic design and social media creative work across six branches of MALEH &amp; HELOW SWEETS in Abu Dhabi.',styles['SummaryX']),heading('Professional Experience'),Spacer(1,3)]
+          story.append(role('MALEH & HELOW SWEETS','Marketing, Graphic Design & Social Media','Abu Dhabi, UAE','2025 - Present',['Handle marketing, graphic design and social media creative work across six branches.','Create promotional visuals, social campaigns, product and e-commerce content, and short-form video.','Support campaign execution and reporting while maintaining consistent brand presentation across digital and in-store touchpoints.']))
+          story.append(role('Transformer General Trading','Social Media & Content Designer','Mussafah Industrial Area, Abu Dhabi','2022 - 2025',['Managed day-to-day social media visual content and branded communication.','Designed promotional graphics and advertising materials for digital channels.','Created branded photo/video content and short-form videos for social media.'],True))
+          story.append(role('VIP Stationery','Graphic Designer','Al Ain, UAE','2019 - 2021',['Designed and produced acrylic/plastic products and prepared advertising signage for printing and fabrication.','Prepared artwork and printed customized apparel and clothing.','Designed and produced custom stamps and handled production finishing.','Operated a wide range of printing and production machines used by the stationery shop.'],True))
+          story += [heading('Core Skills & Tools'),Spacer(1,3)]
+          skills=[[Paragraph('DESIGN',styles['SkillHeadX']),Paragraph('Adobe Photoshop • Adobe Illustrator • Brand Identity • Advertising Design • Social Media Design',styles['SkillTextX'])],[Paragraph('VIDEO & CONTENT',styles['SkillHeadX']),Paragraph('Adobe Premiere Pro • Short-form Video • Content Creation • Product & Campaign Storytelling',styles['SkillTextX'])],[Paragraph('PRINT PRODUCTION',styles['SkillHeadX']),Paragraph('Signage • Acrylic/Plastic Products • Apparel Printing • Custom Stamps • Production Artwork • Printing Equipment',styles['SkillTextX'])],[Paragraph('ADDITIONAL',styles['SkillHeadX']),Paragraph('Basic After Effects • Basic DaVinci Resolve • Canon Photography • ChatGPT • HappyHorse AI',styles['SkillTextX'])]]
+          t=Table(skills,colWidths=[33*mm,142*mm],hAlign='LEFT'); t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),4),('TOPPADDING',(0,0),(-1,-1),2.2),('BOTTOMPADDING',(0,0),(-1,-1),2.2),('LINEBELOW',(0,0),(-1,-2),.35,colors.HexColor('#F0EDE6'))])); story.append(t)
+          story += [Spacer(1,4),heading('Portfolio Focus'),Spacer(1,2.5),Paragraph('<b>Brand Identity & Graphic Design</b>  •  <b>Automotive Social Media Design</b>  •  <b>Packaging & Product Advertising</b>  •  <b>Video Editing & AI-Assisted Creative Production</b>',styles['SmallX'])]
+          doc.build(story,onFirstPage=footer,onLaterPages=footer)
+          PY
+
+      - name: Commit corrections and remove one-time workflow
+        shell: bash
+        run: |
+          git config user.name "BADR Portfolio Bot"
+          git config user.email "actions@users.noreply.github.com"
+          rm -f .github/workflows/correct-experience-dates.yml
+          git add assets/js/experience-update.js assets/docs/Badr_Eldin_Mohamed_Alamin_CV.pdf .github/workflows/correct-experience-dates.yml
+          git commit -m "Correct professional experience dates [final-dates]"
+          git pull --rebase origin main
+          git push origin main
