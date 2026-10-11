@@ -30,37 +30,17 @@
     document.addEventListener('visibilitychange', cancel);
   }
 
-  // Recruiter-first homepage presentation.
-  const heroName = document.querySelector('.heroName');
+  // Recruiter-first homepage presentation. The HTML already prioritizes brand identity;
+  // this keeps the strongest case studies first and shortens the secondary video grid.
+  const featuredBranding = document.getElementById('featured-branding');
   const work = document.getElementById('work');
-  const reel = document.getElementById('reel');
-  if (heroName && work && reel) {
+  if (featuredBranding && work) {
     document.body.classList.add('recruiter-polish');
-
-    const heroEyebrow = document.querySelector('.hero .eyebrow');
-    const heroLead = document.querySelector('.hero .lead');
-    const heroMicro = document.querySelector('.hero .micro');
-    if (heroEyebrow) heroEyebrow.textContent = 'Brand & Multimedia Designer • Visual Content • Video';
-    if (heroLead) heroLead.textContent = 'Brand identities, campaign visuals and AI-assisted video crafted for modern marketing teams.';
-    if (heroMicro) heroMicro.textContent = 'Based in the United Arab Emirates • Open to opportunities in Canada, Europe & Australia • Available for remote interviews';
-
-    const navLinks = document.querySelector('.links');
-    if (navLinks) {
-      navLinks.innerHTML = '<a href="#work">Portfolio</a><a href="#design">Brand Design</a><a href="#reel">Video</a><a href="#process">Workflow</a><a href="#about">About</a><a href="#contact">Contact</a>';
-    }
-
-    const main = work.parentElement;
-    if (main && reel.parentElement === main) main.insertBefore(work, reel);
-
-    const workTitle = work.querySelector('.sectionHead h2');
-    const workDescription = work.querySelector('.sectionHead p');
-    if (workTitle) workTitle.textContent = 'Selected Portfolio';
-    if (workDescription) workDescription.textContent = 'A focused selection of brand identity, advertising and video work. Open the case studies for the full systems, process and applications.';
 
     const grid = work.querySelector('.grid');
     if (grid) {
       const cards = [...grid.children].filter(el => el.matches('.card'));
-      const extras = cards.slice(5);
+      const extras = cards.slice(3);
       extras.forEach(el => el.classList.add('portfolio-extra'));
 
       if (extras.length) {
@@ -76,14 +56,15 @@
 
         const setExpanded = expanded => {
           extras.forEach(el => el.classList.toggle('is-visible', expanded));
-          button.textContent = expanded ? 'Show fewer projects' : 'View all video projects';
+          button.textContent = expanded ? 'Show fewer video projects' : 'View all video projects';
           button.setAttribute('aria-expanded', String(expanded));
         };
         button.addEventListener('click', () => setExpanded(button.getAttribute('aria-expanded') !== 'true'));
 
         const revealHashTarget = () => {
           if (!location.hash) return;
-          const target = document.querySelector(location.hash);
+          let target;
+          try { target = document.querySelector(location.hash); } catch (_) { return; }
           if (target && target.closest('.portfolio-extra')) setExpanded(true);
         };
         revealHashTarget();
