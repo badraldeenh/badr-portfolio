@@ -40,7 +40,7 @@
       <div class="kicker">06 • Packaging &amp; Branding</div>
       <h3>KETTLO — Kettle Cooked Potato Chips</h3>
       <p>A controlled four-flavor brand system developed from identity and packaging architecture through retail, social and outdoor applications.</p>
-      <span class="projectContext">Self-initiated portfolio concept • AI-assisted visualization disclosed</span>
+      <span class="projectContext">Self-initiated portfolio concept</span>
       <p class="projectContribution"><strong>My role:</strong> Concept direction, visual system &amp; presentation.</p>
       <div class="miniChips"><span>Brand Identity</span><span>Packaging</span><span>Retail</span></div>
     </div>`;
