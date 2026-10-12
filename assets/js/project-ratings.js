@@ -241,7 +241,7 @@
         }
         observer.unobserve(video);
       });
-    }, { rootMargin: '650px 0px' });
+    }, { rootMargin: '160px 0px' });
     videos.forEach(video => {
       const src = video.getAttribute('src');
       if (!src || video.autoplay) return;
