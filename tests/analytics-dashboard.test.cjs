@@ -30,3 +30,17 @@ test('background refresh reports failures and then clears stale state on recover
   assert.match(el('state').textContent, /آخر تحديث ناجح/);
   assert.ok(!el('state').className.includes('error'));
 });
+test('presence excludes hidden and stale pages but retains another active page in the same session', async () => {
+  const elements = new Map();
+  const make = () => ({hidden:true,value:'',options:[],children:[],addEventListener(){},append(...children){this.children.push(...children);this.options.push(...children);},replaceChildren(...children){this.children=[...children];this.options=[...children];}});
+  const el=id=>{if(!elements.has(id))elements.set(id,make());return elements.get(id);};
+  el('days').value='7';
+  const stamp=Date.now();
+  const page=(visible,age)=>({visible,lastSeen:stamp-age,path:'/',activeMs:5000,elapsedMs:5000,metrics:{}});
+  const sessions=[{pages:{a:page(true,1000)}},{pages:{a:page(false,1000)}},{pages:{a:page(true,46000)}},{pages:{a:page(false,1000),b:page(true,1000)}}].map((s,i)=>({...s,id:String(i),visitor:'visitor-'+i,ref:'direct',startedAt:stamp-60000,lastSeen:stamp,device:'Desktop',browser:'Chrome'}));
+  vm.runInNewContext(source,{document:{getElementById:el,createElement:make,hidden:false},navigator:{},localStorage:{getItem:()=>''},location:{origin:'https://test.local'},AbortSignal,Date,Number,Map,Set,Error,Option:function(text,value){this.text=text;this.value=value;},setInterval(){},fetch:async url=>({ok:true,json:async()=>url.includes('status')?{enabled:true}:{sessions,serverNow:stamp,onlineWindowMs:45000,days:7,limit:500}})});
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(el('online').textContent,Number(2).toLocaleString('ar-AE'));
+  const labels=el('sessions').children.map(row=>row.children[0].textContent);
+  assert.deepEqual(labels,['● أونلاين','○ أوفلاين','○ أوفلاين','● أونلاين']);
+});

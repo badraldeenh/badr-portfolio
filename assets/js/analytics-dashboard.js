@@ -94,7 +94,7 @@
     const blob = new Blob(['\uFEFF' + rows.map(r => r.map(escape).join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'badr-visits.csv'; a.click(); URL.revokeObjectURL(url);
   };
-  setInterval(() => { if (!document.hidden && !$('dashboard').hidden && !refreshing) refresh(true); }, 10000);
+  setInterval(() => { if (!document.hidden && !$('dashboard').hidden && !refreshing) refresh(true); }, 15000);
   try {
     const blocked = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1';
     const preference = localStorage.getItem('badr-analytics-consent');
