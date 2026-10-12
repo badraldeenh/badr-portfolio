@@ -21,7 +21,7 @@
       body.recruiter-polish .links a{flex:0 0 auto;padding:7px 11px;border:1px solid #29292f;border-radius:999px;background:#121215;color:#c9c8c3;font-size:11px;font-weight:800;letter-spacing:.02em}
       body.recruiter-polish .links a:active{background:#c9a55a;color:#111;border-color:#c9a55a}
 
-      #design,#video,#production-experience,#about,#contact{scroll-margin-top:122px!important}
+      #design,#video,#creative-films,#reel,#work,#production-experience,#about,#contact{scroll-margin-top:122px!important}
 
       body.recruiter-polish .hero{padding:42px 0 34px}
       body.recruiter-polish .heroGrid{max-width:none;margin:0}
@@ -76,8 +76,8 @@
       #work .sectionHead{margin-bottom:18px}
       #work .grid{display:grid;grid-template-columns:1fr!important;gap:14px}
       #work .grid>.card,#work .grid>.card:first-child{display:block!important;min-height:0!important;border-radius:18px;background:#151518}
-      #work .grid>.card>.media,#work .grid>.card:first-child>.media{width:100%;height:auto!important;min-height:0!important;aspect-ratio:4/5!important;max-height:none!important;border-right:0!important;border-bottom:1px solid #29292e;background:#070708}
-      #work .grid>.card>.media video,#work .grid>.card:first-child>.media video{width:100%;height:100%;object-fit:cover}
+      #work .grid>.card>.media,#work .grid>.card:first-child>.media{width:100%;height:auto!important;min-height:0!important;aspect-ratio:9/16!important;max-height:none!important;border-right:0!important;border-bottom:1px solid #29292e;background:#070708}
+      #work .grid>.card>.media video,#work .grid>.card:first-child>.media video{width:100%;height:100%;object-fit:contain}
       #work .grid>.card>.cardBody,#work .grid>.card:first-child>.cardBody{padding:17px 17px 18px!important}
       #work .grid>.card>.cardBody .kicker{font-size:9.5px}
       #work .grid>.card>.cardBody h3,#work .grid>.card:first-child>.cardBody h3{font-size:20px!important;line-height:1.18;margin:6px 0 7px}
