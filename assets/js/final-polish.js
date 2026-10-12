@@ -103,6 +103,9 @@
   `;
   document.head.appendChild(style);
 
+  const observedMedia = new WeakSet();
+  let mediaObserver;
+
   const optimizeMedia = () => {
     document.querySelectorAll('img').forEach((img, index) => {
       img.decoding = 'async';
@@ -128,7 +131,7 @@
     }
 
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(entries => {
+      const io = mediaObserver || (mediaObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           const video = entry.target;
           if (entry.isIntersecting) {
@@ -137,8 +140,12 @@
             try { video.pause(); } catch (_) {}
           }
         });
-      }, { rootMargin: '240px 0px', threshold: 0.01 });
-      videos.forEach(video => io.observe(video));
+      }, { rootMargin: '160px 0px', threshold: 0.01 }));
+      videos.forEach(video => {
+        if (observedMedia.has(video)) return;
+        observedMedia.add(video);
+        io.observe(video);
+      });
     }
   };
 
