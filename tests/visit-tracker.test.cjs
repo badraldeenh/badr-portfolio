@@ -63,3 +63,13 @@ test('visible project, video playback and CV clicks are recorded separately', as
   b.event('document','click',{target:{closest:()=>link}});await b.ready();
   assert.equal(b.payloads.at(-1).metrics['click:cv'].count,1);
 });
+test('presence distinguishes visible, hidden and departed pages', async () => {
+  const b=browser({consent:''}); await b.ready();
+  assert.equal(b.payloads.at(-1).visible,true);
+  b.doc.visibilityState='hidden'; b.event('document','visibilitychange'); await b.ready();
+  assert.equal(b.payloads.at(-1).visible,false);
+  b.doc.visibilityState='visible'; b.event('document','visibilitychange'); await b.ready();
+  assert.equal(b.payloads.at(-1).visible,true);
+  b.event('window','pagehide'); await b.ready();
+  assert.equal(b.payloads.at(-1).visible,false);
+});

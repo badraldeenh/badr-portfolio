@@ -14,9 +14,9 @@
   loadScript('badrHatanCampaignLoader', '/assets/js/restore-hatan-campaign.js?v=4');
   loadScript('badrKettloHomeLoader', '/assets/js/kettlo-home.js?v=1');
 
-  // Detailed per-visitor analytics are intentionally disabled.
-  // This avoids consent pop-ups and individual session tracking while
-  // leaving the portfolio experience unchanged for every visitor.
-  window.badrVisitAnalytics?.destroy?.();
-  document.getElementById('badr-analytics-consent-banner')?.remove();
+  const privacyBlocked = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1' || (() => { try { return localStorage.getItem('badr-analytics-consent') === 'no'; } catch (_) { return false; } })();
+  if (!privacyBlocked) {
+    loadScript('badrVisitCoreLoader', '/assets/js/visit-duration-core.js?v=5');
+    loadScript('badrVercelAnalyticsLoader', '/_vercel/insights/script.js');
+  }
 })();

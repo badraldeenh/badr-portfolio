@@ -93,6 +93,8 @@ if not p then
   p={path=incoming.path,title=incoming.title,activeMs=0,elapsedMs=0,metrics={}}
   s.pages[incoming.pageId]=p
 end
+p.lastSeen=tonumber(ARGV[2])
+p.visible=incoming.visible
 p.activeMs=math.max(p.activeMs,incoming.activeMs)
 p.elapsedMs=math.max(p.elapsedMs,incoming.elapsedMs)
 local metricCount=0; for _ in pairs(p.metrics) do metricCount=metricCount+1 end
@@ -136,6 +138,7 @@ function validate(input, req) {
     source: clean(input.source, 100),
     activeMs,
     elapsedMs,
+    visible: input.visible === true,
     metrics,
     country: clean(req.headers['x-vercel-ip-country'], 2),
     device: /iPad|Tablet/i.test(ua) ? 'Tablet' : /Mobile|Android|iPhone/i.test(ua) ? 'Mobile' : 'Desktop',
@@ -183,7 +186,7 @@ module.exports = async function handler(req, res) {
           return s;
         });
       }
-      return res.status(200).json({ sessions, truncated: ids.length > LIMIT, limit: LIMIT, days });
+      return res.status(200).json({ serverNow: Date.now(), onlineWindowMs: 45000, sessions, truncated: ids.length > LIMIT, limit: LIMIT, days });
     }
     if (action !== 'collect' || req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
     const input = validate(body(req), req);

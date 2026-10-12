@@ -3,7 +3,7 @@
   const controller = new AbortController();
   const signal = controller.signal;
   const currentBody = document.body;
-  const HEARTBEAT_MS = 5000;
+  const HEARTBEAT_MS = 15000;
   let interval, started = false, stopped = false;
   let finish = () => {};
   window.badrVisitAnalytics = { destroy() { finish(); stopped = true; controller.abort(); clearInterval(interval); } };
@@ -89,13 +89,13 @@
         if (key) get('video:' + key, video.getAttribute('aria-label') || text(video.closest('.card,.caseVideoFeature,.showreelBox')?.querySelector('h3,h4')) || key).ms += delta;
       });
     }
-    function send(beacon = false) {
+    function send(beacon = false, leaving = false) {
       if (stopped || optedOut()) return;
       tick();
       session.lastSeen = Date.now();
       storage(sessionStorage, 'badr-visit-session-v4', JSON.stringify(session));
       const selectedMetrics = Object.fromEntries(Object.entries(metrics).slice(0, 80).map(([k, v]) => [k, { title: v.title, ms: Math.round(v.ms), count: v.count }]));
-      const payload = JSON.stringify({ id: session.id, visitor, pageId, ref: session.ref, source: session.source, path, title, activeMs: Math.round(activeMs), elapsedMs: Math.round(elapsedMs), metrics: selectedMetrics });
+      const payload = JSON.stringify({ id: session.id, visitor, pageId, ref: session.ref, source: session.source, path, title, visible: !leaving && document.visibilityState === 'visible', activeMs: Math.round(activeMs), elapsedMs: Math.round(elapsedMs), metrics: selectedMetrics });
       lastSend = performance.now();
       const url = '/api/visitor-analytics';
       if (beacon && navigator.sendBeacon?.(url, new Blob([payload], { type: 'application/json' }))) return;
@@ -103,8 +103,8 @@
     }
     finish = () => { if (!stopped) send(true); };
     document.addEventListener('visibilitychange', () => { send(document.visibilityState === 'hidden'); }, { signal });
-    window.addEventListener('pagehide', () => send(true), { signal });
-    window.addEventListener('beforeunload', () => send(true), { signal });
+    window.addEventListener('pagehide', () => send(true, true), { signal });
+    window.addEventListener('beforeunload', () => send(true, true), { signal });
     window.addEventListener('pageshow', () => { lastTick = performance.now(); wasVisible = document.visibilityState === 'visible'; }, { signal });
     document.addEventListener('click', event => {
       const link = event.target.closest?.('a[href]');

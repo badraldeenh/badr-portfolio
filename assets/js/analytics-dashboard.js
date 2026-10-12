@@ -1,102 +1,104 @@
 (() => {
   const $ = id => document.getElementById(id);
+  let data = { sessions: [] };
+  let displayed = [];
   let refreshing = false;
-  const num = n => Number(n || 0).toLocaleString('ar-AE');
-  const time = stamp => stamp ? new Date(stamp).toLocaleString('ar-AE', { timeZone: 'Asia/Dubai' }) : 'لا توجد بيانات بعد';
-
-  function state(text, error = false) {
-    $('state').textContent = text;
-    $('state').className = 'state ' + (error ? 'error' : '');
-  }
-
-  async function api(action, method = 'GET', payload) {
-    const r = await fetch('/api/cv-download?action=' + action, {
-      method,
-      headers: payload ? { 'Content-Type': 'application/json' } : {},
-      body: payload ? JSON.stringify(payload) : undefined,
-      cache: 'no-store',
-      credentials: 'same-origin',
-      signal: AbortSignal.timeout(15000)
-    });
+  const seconds = ms => Math.round(ms / 1000);
+  const num = n => Number(n).toLocaleString('ar-AE');
+  const time = stamp => new Date(stamp).toLocaleString('ar-AE', { timeZone: 'Asia/Dubai' });
+  const pageList = s => Object.values(s.pages || {});
+  const online = s => pageList(s).some(p => p.visible === true && (data.serverNow || Date.now()) - p.lastSeen < (data.onlineWindowMs || 45000));
+  const active = s => pageList(s).reduce((n, p) => n + p.activeMs, 0);
+  const allMetrics = s => pageList(s).flatMap(p => Object.entries(p.metrics || {}));
+  function state(text, error = false) { $('state').textContent = text; $('state').className = 'state ' + (error ? 'error' : ''); }
+  async function api(action, method = 'GET', body) {
+    const r = await fetch('/api/visitor-analytics?action=' + action, { method, headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined, cache: 'no-store', credentials: 'same-origin', signal: AbortSignal.timeout(15000) });
     const json = await r.json();
     if (!r.ok) { const e = new Error(json.error); e.status = r.status; throw e; }
     return json;
   }
-
-  function render(data) {
-    $('total').textContent = num(data.total);
-    $('period').textContent = num(data.period);
-    $('last').textContent = time(data.last);
-    $('daily').replaceChildren();
-    data.daily.slice().reverse().forEach(item => {
-      const tr = document.createElement('tr');
-      const date = document.createElement('td'); date.textContent = item.date;
-      const count = document.createElement('td'); count.textContent = num(item.count);
-      tr.append(date, count); $('daily').append(tr);
+  function node(tag, text) { const el = document.createElement(tag); el.textContent = text; return el; }
+  function render() {
+    displayed = data.sessions.filter(s => !$('ref').value || s.ref === $('ref').value);
+    const visitorCount = new Map();
+    data.sessions.forEach(s => visitorCount.set(s.visitor, (visitorCount.get(s.visitor) || 0) + 1));
+    $('online').textContent = num(displayed.filter(online).length);
+    $('visits').textContent = num(displayed.length);
+    $('people').textContent = num(new Set(displayed.map(s => s.visitor)).size);
+    $('average').textContent = num(displayed.length ? seconds(displayed.reduce((n, s) => n + active(s), 0) / displayed.length) : 0);
+    $('cv').textContent = num(displayed.reduce((n, s) => n + allMetrics(s).filter(([k]) => k === 'click:cv').reduce((a, [, v]) => a + v.count, 0), 0));
+    $('scope').textContent = `النتائج تخص الزيارات المحمّلة ضمن آخر ${data.days} أيام (حتى ${data.limit} زيارة). الأوقات بتوقيت الإمارات. ` + (data.truncated ? 'توجد زيارات إضافية لم تُحمّل؛ الملخص يخص هذه العينة فقط.' : '') + ' المدة تُحدّث تلقائيًا أثناء بقاء الزائر في الموقع، وآخر تحديث ليس بالضرورة وقت خروج مؤكدًا.';
+    $('sessions').replaceChildren();
+    const totals = new Map();
+    displayed.forEach(s => {
+      const row = document.createElement('tr');
+      const presence = node('td', online(s) ? '● أونلاين' : '○ أوفلاين'); presence.className = online(s) ? 'success' : 'muted';
+      const dates = document.createElement('td'); dates.append(node('div', time(s.startedAt)), node('div', time(s.lastSeen)));
+      const source = document.createElement('td'); source.append(node('b', s.ref === 'direct' ? 'رابط عام' : s.ref), node('div', s.source || 'direct'));
+      const area = node('td', s.country || 'غير متاح');
+      const browser = node('td', s.device + ' / ' + s.browser);
+      const duration = node('td', num(seconds(active(s))) + ' ثانية');
+      const person = document.createElement('td'); person.append(node('div', s.visitor.slice(0, 8)), node('div', `${num(visitorCount.get(s.visitor))} زيارة ضمن النتائج المحمّلة`));
+      const detail = document.createElement('td'), list = document.createElement('details'); list.append(node('summary', 'الصفحات والمشاريع والتفاعل'));
+      pageList(s).forEach(p => { const line = node('div', `${p.path} — ${num(seconds(p.activeMs))} ثانية ظهور / ${num(seconds(p.elapsedMs))} ثانية منقضية`); line.className = 'detail'; list.append(line); });
+      const perVisit = new Map();
+      allMetrics(s).forEach(([key, v]) => {
+        const item = perVisit.get(key) || { title: v.title, ms: 0, count: 0 };
+        item.ms += v.ms; item.count += v.count; perVisit.set(key, item);
+      });
+      perVisit.forEach((v, key) => {
+        const label = key.startsWith('click:') ? `${v.title}: ${num(v.count)} ضغطة` : `${v.title}: ${num(seconds(v.ms))} ثانية${key.startsWith('video:') ? ' تشغيل مرئي' : ' ظهور'}`;
+        list.append(node('div', label));
+        if (!/^(project|video):/.test(key)) return;
+        const total = totals.get(key) || { title: v.title, ms: 0, visits: 0, video: key.startsWith('video:') };
+        total.ms += v.ms; total.visits++; totals.set(key, total);
+      });
+      detail.append(list); row.append(presence, dates, source, area, browser, duration, person, detail); $('sessions').append(row);
     });
-    $('empty').hidden = data.period > 0;
-    $('scope').textContent = `يتم تسجيل ضغطات رابط السيرة الذاتية فقط. لا يتم تسجيل زيارات الصفحات أو مدة التصفح أو الدولة أو الجهاز أو المتصفح.`;
+    $('projects').replaceChildren();
+    [...totals.values()].sort((a, b) => b.ms - a.ms).forEach(v => { const tr = document.createElement('tr'); tr.append(node('td', (v.video ? 'فيديو: ' : '') + v.title), node('td', num(seconds(v.ms))), node('td', num(v.visits))); $('projects').append(tr); });
+    $('empty').hidden = displayed.length > 0;
+    $('empty').textContent = $('ref').value ? 'لا توجد زيارات مسجلة لهذا الرابط ضمن الفترة المختارة. اختر جميع المصادر أو وسّع الفترة.' : 'لا توجد زيارات مسجلة ضمن هذه الفترة. جرّب آخر 30 يومًا. الزيارات قبل تفعيل الخدمة أو التي تمنع التتبّع لا تظهر هنا.';
   }
-
   async function refresh(silent = false) {
     if (refreshing) return;
-    refreshing = true;
-    $('refresh').disabled = true;
-    if (!silent) state('جارٍ تحميل عدد ضغطات CV…');
+    refreshing = true; $('refresh').disabled = true;
+    if (!silent) state('جارٍ تحميل النتائج…');
     try {
-      const data = await api('stats&days=' + $('days').value);
-      $('login').hidden = true;
-      $('dashboard').hidden = false;
-      render(data);
-      state('آخر تحديث ناجح: ' + time(Date.now()));
+      data = await api('sessions&days=' + $('days').value);
+      const priorRef = $('ref').value;
+      $('ref').replaceChildren(new Option('جميع المصادر', ''));
+      [...new Set(data.sessions.map(s => s.ref))].sort().forEach(ref => $('ref').append(new Option(ref === 'direct' ? 'الرابط العام' : ref, ref)));
+      if ([...$('ref').options].some(o => o.value === priorRef)) $('ref').value = priorRef;
+      $('login').hidden = true; $('dashboard').hidden = false; render();
+      state('آخر تحديث ناجح: ' + time(Date.now()) + ' — ' + num(data.sessions.length) + ' زيارة مسجلة ضمن الفترة المختارة.');
     } catch (e) {
-      if (e.status === 401) {
-        $('dashboard').hidden = true;
-        $('login').hidden = false;
-        state('أدخل كلمة المرور الخاصة باللوحة.');
-      } else {
-        state(e.message === 'setup_required' ? 'إعداد عداد CV غير مكتمل.' : 'تعذّر تحميل عدد ضغطات CV. أعد المحاولة.', true);
-      }
-    } finally {
-      refreshing = false;
-      $('refresh').disabled = false;
-    }
+      if (e.status === 401) { $('dashboard').hidden = true; $('login').hidden = false; state('أدخل كلمة المرور الخاصة باللوحة.'); }
+      else state((data.sessions.length ? 'النتائج الظاهرة من آخر تحديث ناجح. ' : '') + (e.message === 'setup_required' ? 'إعداد خدمة الإحصائيات غير مكتمل.' : e.message === 'storage_unavailable' ? 'تعذّر الاتصال بقاعدة الزيارات. اضغط تحديث لإعادة المحاولة.' : 'فشل تحديث النتائج. تحقق من الاتصال واضغط تحديث؛ هذا لا يعني أن عدد الزيارات صفر.'), true);
+    } finally { refreshing = false; $('refresh').disabled = false; }
   }
-
   $('login').addEventListener('submit', async e => {
-    e.preventDefault();
-    const button = e.target.querySelector('button');
-    button.disabled = true;
-    try {
-      await api('login', 'POST', { password: $('password').value });
-      $('password').value = '';
-      await refresh();
-    } catch (e) {
-      state(e.status === 401 ? 'كلمة المرور غير صحيحة.' : e.status === 429 ? 'محاولات كثيرة؛ حاول بعد قليل.' : 'تعذّر الاتصال بالخادم.', true);
-    } finally { button.disabled = false; }
+    e.preventDefault(); const button = e.target.querySelector('button'); button.disabled = true;
+    try { await api('login', 'POST', { password: $('password').value }); $('password').value = ''; await refresh(); }
+    catch (e) { state(e.status === 401 ? 'كلمة المرور غير صحيحة.' : e.status === 429 ? 'محاولات كثيرة؛ حاول بعد قليل.' : 'تعذّر الاتصال بالخادم.', true); }
+    finally { button.disabled = false; }
   });
-
-  $('refresh').onclick = () => refresh(false);
-  $('days').onchange = () => refresh(false);
-  $('logout').onclick = async () => {
-    try {
-      await api('logout', 'POST');
-      $('dashboard').hidden = true;
-      $('login').hidden = false;
-      state('تم تسجيل الخروج.');
-    } catch (_) { state('تعذّر تسجيل الخروج؛ أعد المحاولة.', true); }
+  $('refresh').onclick = () => refresh(false); $('days').onchange = () => refresh(false); $('ref').onchange = render;
+  $('logout').onclick = async () => { try { await api('logout', 'POST'); data = { sessions: [] }; $('sessions').replaceChildren(); $('projects').replaceChildren(); $('dashboard').hidden = true; $('login').hidden = false; state('تم تسجيل الخروج.'); } catch (_) { state('تعذّر تسجيل الخروج؛ أعد المحاولة.', true); } };
+  $('generate').onclick = () => { const code = $('company').value.toLowerCase().replace(/[^a-z0-9_-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 64); if (!code) return state('اكتب رمز الشركة بالإنجليزية.', true); const url = new URL('/', location.origin); url.searchParams.set('ref', code); $('link').textContent = url.href; $('copy').hidden = false; };
+  $('copy').onclick = async () => { try { await navigator.clipboard.writeText($('link').textContent); state('تم نسخ رابط الشركة.'); } catch (_) { state('حدد الرابط الظاهر وانسخه يدويًا.'); } };
+  $('export').onclick = () => {
+    const escape = value => { let v = String(value ?? ''); if (/^[=+@-]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; };
+    const rows = [['session', 'anonymous_browser', 'ref', 'source', 'country', 'started_utc', 'last_update_utc', 'visible_seconds', 'pages']];
+    displayed.forEach(s => rows.push([s.id, s.visitor, s.ref, s.source, s.country, new Date(s.startedAt).toISOString(), new Date(s.lastSeen).toISOString(), seconds(active(s)), pageList(s).map(p => p.path).join(' | ')]));
+    const blob = new Blob(['\uFEFF' + rows.map(r => r.map(escape).join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'badr-visits.csv'; a.click(); URL.revokeObjectURL(url);
   };
-
-  setInterval(() => {
-    if (!document.hidden && !$('dashboard').hidden && !refreshing) refresh(true);
-  }, 30000);
-
-  api('status').then(async status => {
-    if (!status.enabled) {
-      $('setup').hidden = false;
-      state('الإعداد المطلوب غير مكتمل.', true);
-      return;
-    }
-    await refresh();
-  }).catch(() => state('تعذّر الوصول إلى عداد CV. أعد تحميل الصفحة.', true));
+  setInterval(() => { if (!document.hidden && !$('dashboard').hidden && !refreshing) refresh(true); }, 10000);
+  try {
+    const blocked = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1';
+    const preference = localStorage.getItem('badr-analytics-consent');
+    $('tracking-preference').textContent = blocked ? 'هذا المتصفح يطلب منع التتبّع؛ زيارتك الحالية لا تُسجّل في هذه اللوحة.' : preference === 'yes' ? 'التسجيل المجهول مفعّل لهذا المتصفح أثناء تصفّح البورتفوليو.' : preference === 'no' ? 'هذا المتصفح رفض تسجيل تفاصيل الزيارة؛ زيارتك الحالية لا تظهر في هذه اللوحة.' : 'التسجيل المجهول محدود ببيانات أولية، ويمكن تعطيله من صفحة الخصوصية.';
+  } catch (_) { $('tracking-preference').textContent = 'تعذّر قراءة تفضيل التتبّع لهذا المتصفح.'; }
+  api('status').then(async status => { if (!status.enabled) { $('setup').hidden = false; state('الإعداد المطلوب غير مكتمل.', true); return; } await refresh(); }).catch(() => state('تعذّر الوصول إلى خدمة التحليلات. أعد تحميل الصفحة للمحاولة مرة أخرى.', true));
 })();

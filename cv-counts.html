@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><title>BADR — ضغطات CV</title>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root{color-scheme:dark;--gold:#c9a55a;--muted:#b4b1ab;--line:#333338}*{box-sizing:border-box}body{margin:0;background:#0d0d0f;color:#f5f4f0;font:16px/1.6 system-ui,sans-serif}.wrap{max-width:960px;margin:auto;padding:28px 20px}header{display:flex;align-items:center;justify-content:space-between;gap:16px}h1{margin:0;font-size:28px}h2{font-size:20px;margin:0 0 16px}p{color:var(--muted)}a{color:var(--gold)}button,input,select{font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:#202023;color:inherit}button{cursor:pointer}button.primary{background:var(--gold);color:#111;font-weight:700}button:disabled{opacity:.5;cursor:wait}input{min-width:0}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.panel{background:#161619;border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:22px}.login{max-width:520px;margin:60px auto}.login input{display:block;width:100%;margin:12px 0}.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.toolbar label{display:flex;align-items:center;gap:8px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.stat{padding:20px;border:1px solid var(--line);border-radius:12px;background:#161619}.stat b{display:block;font-size:30px;color:var(--gold)}.stat span{color:var(--muted)}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:right}th,td{padding:13px;border-bottom:1px solid var(--line)}th{color:var(--gold);font-weight:600}.muted{color:var(--muted);font-size:14px}.error{color:#ffb0a8}[hidden]{display:none!important}.empty{text-align:center;padding:28px}.state{min-height:26px}.privacy-note{max-width:820px}@media(max-width:760px){.stats{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column}.wrap{padding:20px 12px}.panel{padding:16px}h1{font-size:23px}.toolbar label{width:100%}.toolbar select{flex:1}}
+  </style>
+  <script defer src="/assets/js/cv-dashboard.js?v=1"></script>
+</head>
+<body><div class="wrap">
+  <header><div><span style="color:#c9a55a;font-size:13px">BADR MAGIC</span><h1>ضغطات / فتح السيرة الذاتية</h1></div><a href="/">العودة إلى الموقع</a></header>
+  <p class="privacy-note">تم إيقاف إحصائيات الزيارات. هذه اللوحة تسجل فقط الضغط على رابط ملف الـCV. لا يتم تسجيل الصفحات التي تمت زيارتها أو مدة التصفح أو الدولة أو الجهاز أو المتصفح.</p>
+  <p id="state" class="state" role="status" aria-live="polite">جارٍ التحقق من عداد CV…</p>
+  <section id="setup" class="panel" hidden><h2>عداد CV غير مفعّل</h2><p>يلزم وجود إعدادات التخزين وكلمة مرور اللوحة في Vercel.</p></section>
+  <form id="login" class="panel login" hidden><h2>الدخول إلى اللوحة</h2><label for="password">كلمة المرور الخاصة</label><input id="password" type="password" autocomplete="current-password" minlength="16" required><button class="primary" type="submit">دخول</button><p class="muted">كلمة المرور لا تُحفظ في المتصفح.</p></form>
+  <main id="dashboard" hidden>
+    <section class="panel toolbar">
+      <label>الفترة <select id="days"><option value="7">آخر 7 أيام</option><option value="30">آخر 30 يومًا</option></select></label>
+      <button id="refresh">تحديث</button><button id="logout">خروج</button>
+    </section>
+    <p id="scope" class="muted"></p>
+    <section class="stats">
+      <div class="stat"><b id="period">0</b><span>ضغطات CV في الفترة</span></div>
+      <div class="stat"><b id="total">0</b><span>إجمالي الضغطات منذ تفعيل العداد</span></div>
+      <div class="stat"><b id="last">—</b><span>آخر ضغطة مسجلة</span></div>
+    </section>
+    <section class="panel"><h2>الضغطات حسب اليوم</h2><div class="tablewrap"><table><thead><tr><th>التاريخ</th><th>عدد الضغطات</th></tr></thead><tbody id="daily"></tbody></table></div><p id="empty" class="empty" hidden>لا توجد ضغطات CV ضمن الفترة المختارة.</p></section>
+  </main>
+</div><script defer src="/assets/js/cv-download-tracker.js?v=1"></script>
+</body></html>
