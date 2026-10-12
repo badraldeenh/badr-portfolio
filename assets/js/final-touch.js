@@ -75,6 +75,9 @@
     [...design.querySelectorAll('.brandPriorityCard,.brandPriorityWide')].forEach(card => card.classList.add('final-cover-card'));
   }
 
+  const observedVideos = new WeakSet();
+  let videoObserver;
+
   function lazyVideos(){
     const videos = [...document.querySelectorAll('video')];
     if (!videos.length) return;
@@ -87,7 +90,7 @@
     if (HOME) {
       const workVideos = [...document.querySelectorAll('#work video')];
       workVideos.forEach((video, index) => {
-        if (index < 1 || video.dataset.finalDeferred === '1') return;
+        if (index < 1 || video.dataset.finalDeferred === '1' || video.dataset.deferredSrc) return;
         const src = video.getAttribute('src');
         if (!src) return;
         video.dataset.finalDeferred = '1';
@@ -110,7 +113,7 @@
       return;
     }
 
-    const io = new IntersectionObserver(entries => {
+    const io = videoObserver || (videoObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting && video.dataset.finalSrc) {
@@ -123,8 +126,12 @@
           try { video.pause(); } catch (_) {}
         }
       });
-    }, {rootMargin:'360px 0px',threshold:.01});
-    document.querySelectorAll('video[data-final-src]').forEach(v => io.observe(v));
+    }, {rootMargin:'160px 0px',threshold:.01}));
+    document.querySelectorAll('video[data-final-src]').forEach(v => {
+      if (observedVideos.has(v)) return;
+      observedVideos.add(v);
+      io.observe(v);
+    });
   }
 
   function accessibility(){
