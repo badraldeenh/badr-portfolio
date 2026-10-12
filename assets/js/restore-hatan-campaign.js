@@ -126,7 +126,7 @@
       if (item.querySelector('.rank')) {
         const rank = item.querySelector('.rank');
         if (item.id === 'hatan-campaign-video-card') rank.textContent = '01 • Featured';
-        else if (/Featured/i.test(rank.textContent || '')) rank.textContent = String(index + 1).padStart(2, '0');
+        else rank.textContent = String(index + 1).padStart(2, '0');
       }
     });
 
