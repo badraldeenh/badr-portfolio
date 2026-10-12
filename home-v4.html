@@ -119,6 +119,20 @@
   <script defer src="/assets/js/project-ratings.js?v=2"></script>
   <script defer src="/assets/js/owner-analytics.js?v=7"></script>
 <link rel="stylesheet" href="/assets/css/portfolio-refinement.css?v=1">
+<style id="campaign-pair-layout">
+#design .campaignPairGrid,#featured-branding .campaignPairGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px;align-items:stretch}
+#design .campaignPairGrid>.card,#featured-branding .campaignPairGrid>.card{display:flex;flex-direction:column;grid-column:auto!important;min-width:0;height:100%;margin:0!important}
+#design .campaignPairGrid .rating-project-link,#featured-branding .campaignPairGrid .rating-project-link{display:grid;grid-template-columns:44% minmax(0,1fr);flex:1;min-height:350px}
+#design .campaignPairGrid .brandPriorityMedia,#featured-branding .campaignPairGrid .brandPriorityMedia{aspect-ratio:auto!important;height:100%;min-height:350px;display:flex;align-items:center;justify-content:center;padding:12px;background:#101012!important;border-right:1px solid #2b2b30}
+#design .campaignPairGrid .brandPriorityMedia img,#featured-branding .campaignPairGrid .brandPriorityMedia img{width:100%!important;height:auto!important;max-height:430px;object-fit:contain!important;filter:none!important}
+#design .campaignPairGrid .cardBody,#featured-branding .campaignPairGrid .cardBody{display:flex!important;flex-direction:column!important;justify-content:center;height:auto!important;padding:24px!important}
+#design .campaignPairGrid h3,#featured-branding .campaignPairGrid h3{font-size:22px;line-height:1.15}
+#design .campaignPairGrid .campaignOpen,#featured-branding .campaignPairGrid .campaignOpen{margin-top:22px;padding-top:14px;border-top:1px solid #303034;font-size:13px}
+#design .campaignPairGrid .project-rating,#featured-branding .campaignPairGrid .project-rating{padding:12px 18px!important;border-top:1px solid #2b2b30}
+@media(min-width:1101px){#design .brandPriorityGrid>.card.brandPriorityCard{grid-column:span 2!important}}
+@media(max-width:1000px){#design .campaignPairGrid .rating-project-link,#featured-branding .campaignPairGrid .rating-project-link{grid-template-columns:1fr}#design .campaignPairGrid .brandPriorityMedia,#featured-branding .campaignPairGrid .brandPriorityMedia{height:350px;min-height:0;border-right:0;border-bottom:1px solid #2b2b30}#design .campaignPairGrid .brandPriorityMedia img,#featured-branding .campaignPairGrid .brandPriorityMedia img{height:100%!important;max-height:100%;width:auto!important;max-width:100%}}
+@media(max-width:620px){#design .campaignPairGrid,#featured-branding .campaignPairGrid{grid-template-columns:1fr;gap:16px}#design .campaignPairGrid .cardBody,#featured-branding .campaignPairGrid .cardBody{padding:20px!important}}
+</style>
 </head>
 <body>
   <nav class="nav">
@@ -167,8 +181,12 @@
       <span class="projectContext">Self-initiated portfolio concept</span>
       <p class="projectContribution"><strong>My role:</strong> Concept direction, visual system &amp; presentation.</p>
       <div class="miniChips"><span>Brand Identity</span><span>Packaging</span><span>Retail</span></div>
-    </div></a><a id="maleh-helow-design" class="card brandPriorityCard campaignCoverCard" href="/maleh-helow/" aria-label="Open MALEH & HELOW campaign collection"><div class="brandPriorityMedia"><img src="/assets/img/maleh-helow/01-chocolate-assortment.webp" alt="MALEH & HELOW campaign cover" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">07 • Food Advertising</div><h3>MALEH & HELOW</h3><p>Instagram Product Campaign</p><span class="projectContext">Selected commercial work</span><p class="projectContribution"><strong>My role:</strong> Canon product photography, Lightroom &amp; Photoshop editing, and social media design.</p><div class="miniChips"><span>7 Designs</span><span>Social Media</span></div><span class="campaignOpen">View campaign →</span></div></a>
-<a id="transformer-design" class="card brandPriorityCard campaignCoverCard" href="/transformer/" aria-label="Open Transformer General Trading campaign collection"><div class="brandPriorityMedia"><img src="/assets/img/transformer/01-new-arrival.webp" alt="Transformer General Trading campaign cover" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">08 • Automotive Advertising</div><h3>Transformer General Trading</h3><p>Automotive Social Media Design</p><span class="projectContext">Selected commercial work</span><p class="projectContribution"><strong>My role:</strong> Social media & advertising design.</p><div class="miniChips"><span>8 Designs</span><span>Social Media</span></div><span class="campaignOpen">View campaign →</span></div></a>
+    </div></a>
+
+        </div>
+        <div class="campaignPairGrid" aria-label="Commercial social media campaigns">
+<a id="maleh-helow-design" class="card brandPriorityCard campaignCoverCard" href="/maleh-helow/" aria-label="Open MALEH & HELOW campaign collection"><div class="brandPriorityMedia"><img src="/assets/img/maleh-helow/01-chocolate-assortment.webp" alt="MALEH & HELOW campaign cover" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">07 • Food Advertising</div><h3>MALEH & HELOW</h3><p>Instagram Product Campaign</p><span class="projectContext">Selected commercial work</span><div class="miniChips"><span>7 Designs</span><span>Social Media</span></div><span class="campaignOpen">View campaign <span aria-hidden="true">↗</span></span></div></a>
+<a id="transformer-design" class="card brandPriorityCard campaignCoverCard" href="/transformer/" aria-label="Open Transformer General Trading campaign collection"><div class="brandPriorityMedia"><img src="/assets/img/transformer/01-new-arrival.webp" alt="Transformer General Trading campaign cover" loading="lazy" decoding="async"></div><div class="cardBody"><div class="kicker">08 • Automotive Advertising</div><h3>Transformer General Trading</h3><p>Automotive Social Media Design</p><span class="projectContext">Selected commercial work</span><div class="miniChips"><span>8 Designs</span><span>Social Media</span></div><span class="campaignOpen">View campaign <span aria-hidden="true">↗</span></span></div></a>
         </div>
       </div>
     </section>
