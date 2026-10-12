@@ -29,10 +29,8 @@
 #featured-branding .cardBody{display:flex;flex-direction:column;height:100%}
 #featured-branding .campaignOpen{margin-top:auto;padding-top:16px}
 #reel{padding-top:34px}
-#reel .sectionHead h2{font-size:0;line-height:1.15}
-#reel .sectionHead h2::after{content:"04 • Mango Beverage Commercial";font-size:36px;letter-spacing:-.035em}
 #reel .showreelBox{box-shadow:0 28px 80px rgba(0,0,0,.28)}
 
 @media(max-width:900px){#featured-branding .brandPriorityGrid{grid-template-columns:1fr 1fr}}
-@media(max-width:720px){.caseEvidenceGrid{grid-template-columns:1fr}.caseEvidenceItem{padding:18px}.campaignMore>summary{padding:16px;font-size:13px}.campaignMore>.instagramCampaignGrid,.campaignMore>.caseGrid{padding:12px}.projectContribution{font-size:12px!important}#design #transformer-design .caseHero{max-width:100%}#featured-branding .brandPriorityGrid{grid-template-columns:1fr}#featured-branding .sectionHead h2::after,#reel .sectionHead h2::after{font-size:30px}}
+@media(max-width:720px){.caseEvidenceGrid{grid-template-columns:1fr}.caseEvidenceItem{padding:18px}.campaignMore>summary{padding:16px;font-size:13px}.campaignMore>.instagramCampaignGrid,.campaignMore>.caseGrid{padding:12px}.projectContribution{font-size:12px!important}#design #transformer-design .caseHero{max-width:100%}#featured-branding .brandPriorityGrid{grid-template-columns:1fr}#featured-branding .sectionHead h2::after{font-size:30px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{transition:none!important}}
