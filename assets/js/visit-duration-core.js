@@ -112,6 +112,13 @@
       const href = link.getAttribute('href');
       const action = /\.pdf(?:$|\?)/i.test(href) ? 'cv' : /^(mailto:|https:\/\/wa.me\/)/i.test(href) ? 'contact' : '';
       if (action) { get('click:' + action, action === 'cv' ? 'CV opened' : 'Contact clicked').count++; send(true); }
+      // Count WhatsApp separately while preserving the historical contact aggregate.
+      let whatsapp = false;
+      try {
+        const url = new URL(href, location.href);
+        whatsapp = url.protocol === 'whatsapp:' || (url.protocol === 'https:' && ['wa.me', 'api.whatsapp.com', 'web.whatsapp.com'].includes(url.hostname.toLowerCase()));
+      } catch (_) {}
+      if (whatsapp) { get('click:whatsapp', 'WhatsApp clicked').count++; send(true); }
       // Preserve the company label across explicitly opened internal project tabs.
       try { const url = new URL(link.href); if (session.ref !== 'direct' && url.origin === location.origin && /(?:aura|idh|vareno|hatan|avena)/i.test(url.pathname)) { url.searchParams.set('ref', session.ref); link.href = url.href; } } catch (_) {}
     }, { signal });
