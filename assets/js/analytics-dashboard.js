@@ -27,6 +27,7 @@
     $('people').textContent = num(new Set(displayed.map(s => s.visitor)).size);
     $('average').textContent = num(displayed.length ? seconds(displayed.reduce((n, s) => n + active(s), 0) / displayed.length) : 0);
     $('cv').textContent = num(displayed.reduce((n, s) => n + allMetrics(s).filter(([k]) => k === 'click:cv').reduce((a, [, v]) => a + v.count, 0), 0));
+    $('whatsapp').textContent = num(displayed.reduce((n, s) => n + allMetrics(s).filter(([k]) => k === 'click:whatsapp').reduce((a, [, v]) => a + v.count, 0), 0));
     $('scope').textContent = `النتائج تخص الزيارات المحمّلة ضمن آخر ${data.days} أيام (حتى ${data.limit} زيارة). الأوقات بتوقيت الإمارات. ` + (data.truncated ? 'توجد زيارات إضافية لم تُحمّل؛ الملخص يخص هذه العينة فقط.' : '') + ' المدة تُحدّث تلقائيًا أثناء بقاء الزائر في الموقع، وآخر تحديث ليس بالضرورة وقت خروج مؤكدًا.';
     $('sessions').replaceChildren();
     const totals = new Map();
