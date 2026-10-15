@@ -16,7 +16,7 @@
 
   const privacyBlocked = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1' || (() => { try { return localStorage.getItem('badr-analytics-consent') === 'no'; } catch (_) { return false; } })();
   if (!privacyBlocked) {
-    loadScript('badrVisitCoreLoader', '/assets/js/visit-duration-core.js?v=5');
+    loadScript('badrVisitCoreLoader', '/assets/js/visit-duration-core.js?v=6');
     loadScript('badrVercelAnalyticsLoader', '/_vercel/insights/script.js');
   }
 })();
