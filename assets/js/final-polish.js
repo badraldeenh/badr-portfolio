@@ -211,7 +211,7 @@
       const p = contact.querySelector('p');
       if (eyebrow) eyebrow.textContent = 'Open to opportunities';
       if (h2) h2.textContent = 'Available for graphic design and multimedia roles.';
-      if (p) p.textContent = 'Based in the UAE and available for remote interviews. Open to relocation and employer-supported work authorization for suitable roles in Canada and internationally.';
+      if (p) p.textContent = 'Based in the UAE and available for remote interviews.';
     }
 
     optimizeMedia();

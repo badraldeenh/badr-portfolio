@@ -102,7 +102,7 @@
       const p = contact.querySelector('p');
       if (eyebrow) eyebrow.textContent = 'Canada opportunities';
       if (h2) h2.textContent = 'Open to graphic design and multimedia roles in Canada.';
-      if (p) p.textContent = 'Based in the UAE and available for remote interviews. Open to employer-supported relocation and work authorization for suitable Canadian opportunities.';
+      if (p) p.textContent = 'Based in the UAE and available for remote interviews.';
     }
   }
 
