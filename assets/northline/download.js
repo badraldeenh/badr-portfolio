@@ -7,9 +7,13 @@ button.addEventListener('click', async () => {
     const manifestResponse = await fetch('/assets/northline/source-manifest.json');
     if (!manifestResponse.ok) throw new Error('manifest');
     const manifest = await manifestResponse.json();
-    const chunks = [];
+    const chunks = new Array(manifest.parts.length);
+    let nextPart = 0;
     let received = 0;
-    for (const part of manifest.parts) {
+    await Promise.all(Array.from({ length: 8 }, async () => {
+    while (nextPart < manifest.parts.length) {
+      const index = nextPart++;
+      const part = manifest.parts[index];
       const response = await fetch(part.url);
       if (!response.ok) throw new Error('download');
       const reader = response.body.getReader();
@@ -26,8 +30,9 @@ button.addEventListener('click', async () => {
       const digest = await crypto.subtle.digest('SHA-256', bytes);
       const hash = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
       if (hash !== part.sha256) throw new Error('integrity');
-      chunks.push(bytes);
+      chunks[index] = bytes;
     }
+    }));
     const url = URL.createObjectURL(new Blob(chunks, { type: 'application/zip' }));
     const link = document.createElement('a');
     link.href = url; link.download = manifest.filename;
