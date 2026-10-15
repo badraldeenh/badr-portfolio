@@ -20,3 +20,5 @@
     loadScript('badrVercelAnalyticsLoader', '/_vercel/insights/script.js');
   }
 })();
+
+// WhatsApp click totals are displayed in the private owner dashboard.
