@@ -143,6 +143,7 @@
   }
 
   function addHatanWorkCard() {
+    if (document.getElementById("ai-brand-concepts")) return;
     const grid = document.querySelector('#work .grid');
     if (!grid || grid.querySelector('[data-hatan-work-card="1"]')) return;
     const card = document.createElement('a');
