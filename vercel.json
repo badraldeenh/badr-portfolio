@@ -1,27 +1,61 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/home-v4.html" },
-    { "source": "/portfolio-source", "destination": "/index.html" }
+    {
+      "source": "/",
+      "destination": "/home-v4.html"
+    },
+    {
+      "source": "/portfolio-source",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
-        { "key": "Content-Language", "value": "en" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "Content-Language",
+          "value": "en"
+        }
       ]
     },
     {
       "source": "/home-v4.html",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
       ]
     },
     {
       "source": "/vareno/(.*)",
       "headers": [
-        { "key": "Content-Language", "value": "en" },
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        {
+          "key": "Content-Language",
+          "value": "en"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/volt/VOLT_Break_Gravity.psd",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"VOLT_Break_Gravity.psd\""
+        }
       ]
     }
   ]
