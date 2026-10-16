@@ -12,7 +12,13 @@ for (const entry of fs.readdirSync('.')) {
 let html = fs.readFileSync('index.html', 'utf8');
 const start = html.indexOf('<div id="vareno-case"');
 const end = html.indexOf('<div class="caseIntro">', start + 1);
-if (start === -1 || end === -1) throw new Error('VARENO block not found');
+if (start === -1 || end === -1) {
+  if (html.includes('id="ai-brand-concepts"')) {
+    console.log('Built portfolio with dedicated AI Brand Concepts gallery.');
+    process.exit(0);
+  }
+  throw new Error('VARENO block not found');
+}
 
 const previewCss = `
     /* VARENO SAFE PREVIEW — scoped to this project only */
